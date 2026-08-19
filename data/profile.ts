@@ -32,7 +32,7 @@ export const profile = {
 export const socials = [
   { label: "Email", handle: profile.email, href: `mailto:${profile.email}`, icon: "mail" },
   { label: "X.com", handle: "@erne_vizcaino", href: "https://twitter.com/erne_vizcaino", icon: "x" },
-  { label: "GitHub", handle: "@Ernesto385291", href: "https://github.com/Ernesto385291/", icon: "github" },
+  { label: "GitHub", handle: "@ernestovizcaino", href: "https://github.com/ernestovizcaino", icon: "github" },
   { label: "LinkedIn", handle: "/in/erne-vizcaino", href: "https://www.linkedin.com/in/erne-vizcaino/", icon: "linkedin" },
 ];
 
@@ -44,8 +44,10 @@ export const stack = [
   "react",
   "nextdotjs",
   "reactnative",
+  "expo",
   "nodedotjs",
   "postgresql",
+  "mysql",
   "amazonwebservices",
   "vercel",
   "posthog",
