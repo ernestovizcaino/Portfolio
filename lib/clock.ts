@@ -34,7 +34,7 @@ export function getSnapshot() {
   return snapshot;
 }
 
-/** The server has no clock to show — render a placeholder and fill it in after
+/** The server has no clock to show. Render a placeholder and fill it in after
  *  hydration, which also avoids a timezone mismatch between server and client. */
 export function getServerSnapshot() {
   return null;

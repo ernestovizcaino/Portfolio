@@ -6,10 +6,11 @@ import {
   Download04Icon,
   Layers01Icon,
   Mail01Icon,
+  MicroscopeIcon,
   Moon02Icon,
-  PenTool02Icon,
   PdfIcon,
   Sun03Icon,
+  TrophyIcon,
   UserIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -25,9 +26,10 @@ import { cn } from "@/lib/utils";
 const items = [
   { id: "about", labelKey: "about", icon: UserIcon },
   { id: "experience", labelKey: "experience", icon: Briefcase01Icon },
+  { id: "awards", labelKey: "awards", icon: TrophyIcon },
   { id: "projects", labelKey: "projects", icon: CubeIcon },
+  { id: "research", labelKey: "research", icon: MicroscopeIcon },
   { id: "stack", labelKey: "stack", icon: Layers01Icon },
-  { id: "writing", labelKey: "writing", icon: PenTool02Icon },
   { id: "contact", labelKey: "contact", icon: Mail01Icon },
 ] as const;
 

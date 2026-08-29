@@ -1,4 +1,4 @@
-# Ernesto Vizcaíno — Portfolio
+# Ernesto Vizcaíno, Portfolio
 
 A Next.js App Router portfolio managed with [Bun](https://bun.sh/).
 

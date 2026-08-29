@@ -4,7 +4,7 @@ import { ImageResponse } from "next/og";
 import { profile } from "@/data/profile";
 import { siteConfig } from "@/lib/seo";
 
-export const alt = "Ernesto Vizcaíno — Full-Stack AI and Product Engineer";
+export const alt = "Ernesto Vizcaíno, AI / Product Engineer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -161,7 +161,7 @@ export default async function OpenGraphImage() {
               >
                 Building
               </span>
-              {["AI products", "Full-stack", "Fintech · SaaS"].map((item) => (
+              {["AI products", "Full stack", "Fintech · SaaS"].map((item) => (
                 <span
                   key={item}
                   style={{
@@ -193,7 +193,7 @@ export default async function OpenGraphImage() {
                 maxWidth: 700,
               }}
             >
-              From first idea to production—with useful products and measurable
+              From first idea to production, with useful products and measurable
               outcomes.
             </span>
             <span

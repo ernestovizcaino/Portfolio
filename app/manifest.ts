@@ -2,10 +2,10 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Ernesto Vizcaíno — Full-Stack AI & Product Engineer",
+    name: "Ernesto Vizcaíno, AI / Product Engineer",
     short_name: "Ernesto Vizcaíno",
     description:
-      "Portfolio of Ernesto Vizcaíno, a full-stack AI and product engineer.",
+      "Portfolio of Ernesto Vizcaíno, an AI and product engineer.",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",

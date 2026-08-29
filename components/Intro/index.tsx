@@ -95,7 +95,7 @@ export const Intro = ({ profile, ui }: { profile: Profile; ui: DictionaryUi }) =
         style={{ "--rise-delay": 2 } as RiseStyle}
       >
         {profile.bio.map((part, index) =>
-          part.strong ? (
+          "strong" in part && part.strong ? (
             <strong key={index} className="font-medium text-foreground">
               {part.text}
             </strong>

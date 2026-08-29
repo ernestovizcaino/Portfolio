@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   keywords: [
     "Ernesto Vizcaíno",
-    "full-stack engineer",
+    "full stack engineer",
     "AI engineer",
     "product engineer",
     "fintech developer",
@@ -76,7 +76,7 @@ export const metadata: Metadata = {
         url: absoluteUrl("/opengraph-image"),
         width: 1200,
         height: 630,
-        alt: `${siteConfig.name}, Product Engineer — AI, Fintech & SaaS`,
+        alt: `${siteConfig.name}, AI / Product Engineer`,
       },
     ],
   },

@@ -30,15 +30,15 @@ export const Contact = ({ profile, ui }: { profile: Profile; ui: DictionaryUi })
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 
   // No backend: compose the message and hand it to the user's mail client.
-  // Nothing is faked — if their client does not open, nothing was "sent".
+  // Nothing is faked: if their client does not open, nothing was "sent".
   const send = () => {
     const subject = form.name
-      ? `${ui.mailSubject} — ${form.name}`
+      ? `${ui.mailSubject}, ${form.name}`
       : ui.mailSubject;
     const body = [
       form.message,
       "",
-      `— ${form.name || ui.anonymous}${form.email ? ` (${form.email})` : ""}`,
+      `- ${form.name || ui.anonymous}${form.email ? ` (${form.email})` : ""}`,
     ].join("\n");
 
     posthog.capture("contact_message_sent", {

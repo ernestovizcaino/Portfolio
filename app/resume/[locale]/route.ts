@@ -15,7 +15,7 @@ export async function GET(
   { params }: { params: Promise<{ locale: string }> },
 ) {
   const { locale } = await params;
-  // Looked up from our own allowlist — the upstream URL is never taken from
+  // Looked up from our own allowlist. The upstream URL is never taken from
   // the request, so this cannot be turned into an open proxy.
   const resume = findResume(locale);
 

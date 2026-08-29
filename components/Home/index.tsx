@@ -1,16 +1,17 @@
+import { Awards } from "@/components/Awards";
 import { Contact } from "@/components/Contact";
 import { Experience } from "@/components/Experience";
 import { Intro } from "@/components/Intro";
 import { Projects } from "@/components/Projects";
+import { Research } from "@/components/Research";
 import { Stack } from "@/components/Stack";
 import { TopBar } from "@/components/TopBar";
-import { Writing } from "@/components/Writing";
 import { getDictionary, localizeProjects } from "@/data/locales";
 import type { Locale } from "@/data/locales";
 import { getHomeContent } from "@/lib/content";
 
 export async function Home({ locale = "en" }: { locale?: Locale }) {
-  const { posts, projects } = await getHomeContent();
+  const { projects } = await getHomeContent();
   const dictionary = getDictionary(locale);
 
   return (
@@ -24,7 +25,12 @@ export async function Home({ locale = "en" }: { locale?: Locale }) {
           intro={dictionary.ui.experienceIntro}
           label={dictionary.ui.experience}
           at={dictionary.ui.at}
+          dateTo={dictionary.ui.dateTo}
         />
+      </div>
+
+      <div className="mt-20">
+        <Awards data={dictionary.awards} label={dictionary.ui.awards} />
       </div>
 
       <div className="mt-20">
@@ -36,16 +42,11 @@ export async function Home({ locale = "en" }: { locale?: Locale }) {
       </div>
 
       <div className="mt-20">
-        <Stack label={dictionary.ui.stack} />
+        <Research data={dictionary.research} label={dictionary.ui.research} />
       </div>
 
       <div className="mt-20">
-        <Writing
-          data={posts}
-          label={dictionary.ui.writing}
-          locale={locale}
-          emptyLabel={dictionary.ui.newPosts}
-        />
+        <Stack label={dictionary.ui.stack} />
       </div>
 
       <div className="mt-20">

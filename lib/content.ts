@@ -2,6 +2,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { posts as archivedPosts, projects } from "../data/content";
 import type { Post } from "../data/content";
+import { filterProjects } from "../data/visibility";
 import { parseSpanishDate } from "./format";
 
 const NEW_POSTS_PATH = path.join(process.cwd(), "data", "new-posts.md");
@@ -59,7 +60,7 @@ async function getAllPosts() {
 }
 
 export async function getHomeContent() {
-  return { posts: await getAllPosts(), projects };
+  return { posts: await getAllPosts(), projects: filterProjects(projects) };
 }
 
 export async function getPosts() {

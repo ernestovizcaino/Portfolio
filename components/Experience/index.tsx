@@ -12,9 +12,30 @@ interface ExperienceProps {
   label: string;
   intro: string;
   at: string;
+  dateTo: string;
 }
 
-export const Experience = ({ data, label, intro, at }: ExperienceProps) => {
+const ExperienceDates = ({
+  role,
+  dateTo,
+}: {
+  role: ExperienceItem;
+  dateTo: string;
+}) => {
+  const periods = role.periods ?? [{ from: role.from, to: role.to }];
+
+  return (
+    <div className="meta flex shrink-0 flex-col gap-1 sm:w-[9.25rem] sm:pt-1">
+      {periods.map((period) => (
+        <p key={`${period.from}-${period.to}`} className="leading-snug">
+          {period.from} {dateTo} {period.to}
+        </p>
+      ))}
+    </div>
+  );
+};
+
+export const Experience = ({ data, label, intro, at, dateTo }: ExperienceProps) => {
   const reduceMotion = useReducedMotion();
 
   if (!data.length) return null;
@@ -40,9 +61,7 @@ export const Experience = ({ data, label, intro, at }: ExperienceProps) => {
             }}
             className="flex flex-col gap-1 sm:flex-row sm:gap-6"
           >
-            <p className="meta shrink-0 uppercase sm:w-[8.5rem] sm:pt-1">
-              {role.from} — {role.to}
-            </p>
+            <ExperienceDates role={role} dateTo={dateTo} />
 
             <div className="min-w-0">
               <h3 className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-base font-medium text-foreground">

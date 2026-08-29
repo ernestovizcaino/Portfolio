@@ -5,7 +5,7 @@ import Image from "next/image";
 const iconMap = icons as Record<string, SimpleIcon>;
 const toIconKey = (slug: string) => `si${slug.charAt(0).toUpperCase()}${slug.slice(1)}`;
 
-/** Relative luminance of a #rrggbb string, 0 (black) – 1 (white). */
+/** Relative luminance of a #rrggbb string, 0 (black) to 1 (white). */
 function luminance(hex: string) {
   const channel = (value: string) => {
     const c = parseInt(value, 16) / 255;
