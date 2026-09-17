@@ -101,7 +101,7 @@ export default async function FamilyTripPage({ params }: PageProps) {
       </div>
 
       <div className="mt-20">
-        <PhotoAlbum token={token} />
+        <PhotoAlbum token={token} initiallyConfigured={isR2Configured()} />
       </div>
 
       <p className="column mt-16 text-center text-sm text-faint">
