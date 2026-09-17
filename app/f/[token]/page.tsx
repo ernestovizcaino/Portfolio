@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { LiveTracker } from "@/components/FamilyTrip/LiveTracker";
+import { NowPanel } from "@/components/FamilyTrip/NowPanel";
 import { PhotoAlbum } from "@/components/FamilyTrip/PhotoAlbum";
+import { TripDays } from "@/components/FamilyTrip/TripDays";
 import { TripDecor } from "@/components/FamilyTrip/TripDecor";
+import { TripFlights } from "@/components/FamilyTrip/TripFlights";
 import { TripHero } from "@/components/FamilyTrip/TripHero";
-import { TripItinerary } from "@/components/FamilyTrip/TripItinerary";
+import { TripNav } from "@/components/FamilyTrip/TripNav";
+import { TripPlaces } from "@/components/FamilyTrip/TripPlaces";
 import { TripWeather } from "@/components/FamilyTrip/TripWeather";
 import { isR2Configured } from "@/lib/family-trip/photos";
 import { isValidFamilyTripToken } from "@/lib/family-trip/secrets";
@@ -13,8 +16,8 @@ import {
   getActiveFlight,
   getPublicItinerary,
 } from "@/lib/family-trip/status";
+import { fetchLiveAircraft } from "@/lib/family-trip/tracker";
 import { fetchCordobaWeather } from "@/lib/family-trip/weather";
-import { fetchLiveAircraft } from "@/lib/family-trip/opensky";
 
 type PageProps = {
   params: Promise<{ token: string }>;
@@ -65,51 +68,63 @@ export default async function FamilyTripPage({ params }: PageProps) {
   }
 
   return (
-    <div lang="es" className="relative pb-20">
+    <div lang="es" className="relative pb-24">
+      <div className="ft-sky-band" aria-hidden />
       <TripDecor />
 
       <TripHero />
 
-      <div className="mt-10">
-        <LiveTracker token={token} initialStatus={initialStatus} />
+      <NowPanel token={token} initialStatus={initialStatus} />
+
+      <div className="mt-12">
+        <TripNav />
       </div>
 
-      <nav
-        aria-label="Secciones del viaje"
-        className="column mt-10 flex flex-wrap gap-2"
-      >
-        <a className="ft-nav-chip" href="#vuelos">
-          Vuelos
-        </a>
-        <a className="ft-nav-chip" href="#lugares">
-          Lugares
-        </a>
-        <a className="ft-nav-chip" href="#dias">
-          Día a día
-        </a>
-        <a className="ft-nav-chip" href="#clima">
-          Clima
-        </a>
-        <a className="ft-nav-chip" href="#fotos">
-          Fotos
-        </a>
-      </nav>
-
-      <div className="mt-16">
-        <TripItinerary data={itinerary} />
+      <div className="mt-14">
+        <TripFlights flights={itinerary.flights} now={now} />
       </div>
 
-      <div className="mt-16">
+      <div className="mt-20">
+        <TripPlaces places={itinerary.places} transfer={itinerary.transfer} />
+      </div>
+
+      <div className="mt-20">
+        <TripDays days={itinerary.days} now={now} />
+      </div>
+
+      <div className="mt-20">
         <TripWeather token={token} initial={weather} />
       </div>
 
-      <div className="mt-16">
+      <div className="mt-20">
         <PhotoAlbum token={token} initiallyConfigured={isR2Configured()} />
       </div>
 
-      <p className="column mt-16 text-center text-sm text-[var(--ft-faint)]">
-        Hecho con cariño para la familia · buen viaje, Erne
-      </p>
+      <footer className="column mt-20 text-center">
+        <svg
+          className="mx-auto h-8 w-16 text-[var(--ft-faint)]"
+          viewBox="0 0 64 32"
+          fill="none"
+          aria-hidden
+        >
+          <path
+            d="M2 26 C16 22 30 14 44 6"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeDasharray="1 7"
+            opacity="0.6"
+          />
+          <path
+            d="M44 12 L60 4 L56 12 L62 15 L54 16 L51 23 L48 16 L44 17 Z"
+            fill="currentColor"
+            opacity="0.7"
+          />
+        </svg>
+        <p className="mt-2 text-sm text-[var(--ft-muted)]">
+          Hecho con cariño para la familia. Buen viaje, Erne.
+        </p>
+      </footer>
     </div>
   );
 }

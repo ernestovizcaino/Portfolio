@@ -25,15 +25,26 @@ export type TripStageKind =
   | "post_trip";
 
 export interface LiveAircraft {
-  source: "opensky" | "estimate" | "aeroapi";
+  source: "adsb" | "opensky" | "estimate";
   lat: number;
   lon: number;
   altitudeM: number | null;
   groundSpeedMps: number | null;
   heading: number | null;
+  /** Positive = climbing, negative = descending. */
+  verticalRateMps: number | null;
   callsign: string | null;
   icao24: string | null;
+  registration: string | null;
+  aircraftType: string | null;
   onGround: boolean;
+  /** Seconds since the position was last reported. */
+  positionAgeS: number | null;
+}
+
+/** True when the position comes from a real receiver, not the timetable. */
+export function isLivePosition(aircraft: LiveAircraft | null): boolean {
+  return aircraft != null && aircraft.source !== "estimate";
 }
 
 export interface FlightStatusPayload {
@@ -50,8 +61,14 @@ export interface FlightStatusPayload {
     id: string;
     flightNumber: string;
     airline: string;
-    from: string;
-    to: string;
+    /** City names, for headlines the family reads. */
+    fromCity: string;
+    toCity: string;
+    fromCode: string;
+    toCode: string;
+    /** Wall-clock time at each airport — never the viewer's own timezone. */
+    departureTimeLabel: string;
+    arrivalTimeLabel: string;
     departureAt: string;
     arrivalAt: string;
     progress: number;
@@ -63,8 +80,32 @@ export interface FlightStatusPayload {
     from: { lat: number; lon: number; label: string };
     to: { lat: number; lon: number; label: string };
   } | null;
+  /** Every leg of the trip, for the overview map when nobody is airborne. */
+  journey: JourneyLeg[];
   mapCenter: { lat: number; lon: number };
+  /** What happens next, so the family always has one clear thing to expect. */
+  nextStep: NextStep | null;
   playfulStatLine: string;
+}
+
+export interface JourneyLeg {
+  id: string;
+  direction: "outbound" | "return";
+  from: { lat: number; lon: number; label: string; city: string };
+  to: { lat: number; lon: number; label: string; city: string };
+  /** "done" | "active" | "upcoming" relative to now. */
+  state: "done" | "active" | "upcoming";
+}
+
+export interface NextStep {
+  /** Short kicker, e.g. "Siguiente vuelo". */
+  label: string;
+  /** Plain-language description of what happens. */
+  title: string;
+  /** Local time of the event, already formatted with its city. */
+  whenLabel: string;
+  /** ISO instant, so the client can count down without re-fetching. */
+  atISO: string;
 }
 
 export type TravelerClockTone = "sky" | "lime" | "yellow" | "pink" | "lavender" | "mint";
@@ -91,8 +132,8 @@ const PANAMA_TZ = "America/Panama";
 function cordobaSecondaryClock(): TravelerClock {
   return {
     timeZone: CORDOBA_TZ,
-    label: "Hora en Córdoba",
-    hint: "Para la familia en MX · reloj argentino de bolsillo",
+    label: "Allá en Córdoba",
+    hint: "Argentina va adelante de México",
     tone: "lavender",
   };
 }
@@ -140,8 +181,8 @@ export function resolveTravelerClocks(now = new Date()): TravelerClocks {
     const dest = airports[airborne.to];
     const primary: TravelerClock = {
       timeZone: dest.timeZone,
-      label: `En vuelo · hora en ${cityShort(airborne.to)}`,
-      hint: `Hora local del avión hacia ${dest.city} · destino del ${airborne.flightNumber}`,
+      label: `Hora en ${cityShort(airborne.to)}`,
+      hint: `La hora del lugar al que va aterrizando`,
       tone: dest.timeZone === CORDOBA_TZ ? "pink" : toneForZone(dest.timeZone),
     };
     return {
@@ -156,7 +197,7 @@ export function resolveTravelerClocks(now = new Date()): TravelerClocks {
     const primary: TravelerClock = {
       timeZone: airport.timeZone,
       label: clockLabelForAirport(airport.code),
-      hint: `Conexión en ${airport.city} · esperando el ${connection.to.flightNumber}`,
+      hint: `Ahí está esperando su próximo vuelo`,
       tone: toneForZone(airport.timeZone),
     };
     return {
@@ -174,8 +215,8 @@ export function resolveTravelerClocks(now = new Date()): TravelerClocks {
         label: stage.kind === "pre_trip" ? "Hora en SLP" : "Hora en México",
         hint:
           stage.kind === "pre_trip"
-            ? "Todavía en casa · reloj potosino"
-            : "Ya de vuelta · misma hora que la sobremesa",
+            ? "Todavía en casa, la misma hora que ustedes"
+            : "Ya de regreso, la misma hora que ustedes",
         tone: "sky",
       },
       secondary: cordobaSecondaryClock(),
@@ -186,8 +227,8 @@ export function resolveTravelerClocks(now = new Date()): TravelerClocks {
   return {
     primary: {
       timeZone: CORDOBA_TZ,
-      label: "Hora en Córdoba",
-      hint: "Erne está en Argentina · este es el reloj que cuenta",
+      label: "Hora de Erne",
+      hint: "Está en Córdoba, Argentina",
       tone: "lavender",
     },
     secondary: null,
@@ -250,11 +291,11 @@ function stageFor(now: Date): FlightStatusPayload["stage"] {
     const hours = (first.departureAt.getTime() - now.getTime()) / 3_600_000;
     return {
       kind: "pre_trip",
-      title: "Todavía en San Luis",
+      title: "Todavía está en San Luis",
       blurb:
         hours > 48
-          ? "Falta un ratito (bueno, un ratito largo). Empacando emoción y adaptadores."
-          : "¡Ya casi! Revisando pasaporte, snacks y valentía para las conexiones.",
+          ? "Todavía falta para el despegue. Por mientras, aquí está todo el plan del viaje."
+          : "Ya mero: pasaporte, maleta y a la carrera al aeropuerto.",
       placeLabel: airports.SLP.shortName,
     };
   }
@@ -262,8 +303,8 @@ function stageFor(now: Date): FlightStatusPayload["stage"] {
   if (now > last.arrivalAt) {
     return {
       kind: "post_trip",
-      title: "De vuelta en casa",
-      blurb: "Misión cumplida: CARLA, Córdoba y miles de kilómetros después.",
+      title: "Ya está de vuelta en casa",
+      blurb: "Viaje completo: Córdoba, CARLA y miles de kilómetros de regreso.",
       placeLabel: airports.SLP.shortName,
     };
   }
@@ -273,8 +314,8 @@ function stageFor(now: Date): FlightStatusPayload["stage"] {
     const { from, to } = flightWindow(airborne);
     return {
       kind: "airborne",
-      title: `En el aire · ${airborne.flightNumber}`,
-      blurb: `${from.shortName} → ${to.shortName}. La familia puede seguir el avión (cuando el radar coopera).`,
+      title: "Va volando",
+      blurb: `De ${from.city} a ${to.city}, en el vuelo ${airborne.flightNumber}.`,
       placeLabel: airborne.flightNumber,
     };
   }
@@ -284,8 +325,8 @@ function stageFor(now: Date): FlightStatusPayload["stage"] {
     const airport = airports[connection.from.to];
     return {
       kind: "connection",
-      title: `Conexión en ${airport.city}`,
-      blurb: `Llegó el ${connection.from.flightNumber}. Siguiente: ${connection.to.flightNumber} hacia ${airports[connection.to.to].city}.`,
+      title: `Está haciendo escala en ${airport.city}`,
+      blurb: `Ya aterrizó el ${connection.from.flightNumber}. Ahora espera el ${connection.to.flightNumber} hacia ${airports[connection.to.to].city}.`,
       placeLabel: airport.shortName,
     };
   }
@@ -302,15 +343,15 @@ function stageFor(now: Date): FlightStatusPayload["stage"] {
     if (now < transferAt) {
       return {
         kind: "arrived_transfer",
-        title: "¡Llegó a Córdoba!",
-        blurb: "Aterrizó. En un rato el remis lo lleva al Hotel Caseros 248.",
+        title: "¡Ya llegó a Córdoba!",
+        blurb: "Aterrizó bien. En un rato lo pasa a recoger el remis para llevarlo al hotel.",
         placeLabel: airports.COR.shortName,
       };
     }
     return {
       kind: "arrived_transfer",
-      title: "Camino al hotel",
-      blurb: "Traslado aeropuerto → Caseros 248. Check-in oficial desde las 13:00.",
+      title: "Va camino al hotel",
+      blurb: "Del aeropuerto al Hotel Caseros 248. Puede entrar al cuarto a partir de la 1 de la tarde.",
       placeLabel: places.find((p) => p.id === "hotel")?.name,
     };
   }
@@ -318,8 +359,8 @@ function stageFor(now: Date): FlightStatusPayload["stage"] {
   if (now >= hotelCheckIn && now < carlaStart) {
     return {
       kind: "hotel",
-      title: "En el Hotel Caseros 248",
-      blurb: "Descansando en el centro de Córdoba antes de que arranque CARLA.",
+      title: "Está en el hotel",
+      blurb: "Descansando en el Hotel Caseros 248, en el centro de Córdoba.",
       placeLabel: "Caseros 248",
     };
   }
@@ -327,8 +368,8 @@ function stageFor(now: Date): FlightStatusPayload["stage"] {
   if (now >= carlaStart && now <= carlaEnd) {
     return {
       kind: "carla",
-      title: "En CARLA 2026",
-      blurb: "Conferencia de cómputo de alto rendimiento en el Centro Cultural UNC.",
+      title: "Está en la conferencia",
+      blurb: "CARLA 2026, en el Centro Cultural de la Universidad Nacional de Córdoba.",
       placeLabel: "Obispo Trejo 314",
     };
   }
@@ -337,7 +378,7 @@ function stageFor(now: Date): FlightStatusPayload["stage"] {
     return {
       kind: "free_day",
       title: "Día libre en Córdoba",
-      blurb: "Últimas vueltas por la ciudad. El Papagayo sigue con reserva TBD.",
+      blurb: "Sin conferencia: le toca conocer la ciudad antes de volver.",
       placeLabel: cordobaCity.name,
     };
   }
@@ -345,8 +386,8 @@ function stageFor(now: Date): FlightStatusPayload["stage"] {
   if (now >= airportRun && now < returnDep) {
     return {
       kind: "heading_airport",
-      title: "Rumbo al aeropuerto",
-      blurb: "Madrugada de maletas. El CM789 sale a las 03:32.",
+      title: "Va rumbo al aeropuerto",
+      blurb: "Su vuelo de regreso sale de madrugada, a las 03:32.",
       placeLabel: airports.COR.shortName,
     };
   }
@@ -354,8 +395,8 @@ function stageFor(now: Date): FlightStatusPayload["stage"] {
   // Between outbound arrival window edge cases / return connections handled above
   return {
     kind: "hotel",
-    title: "En Córdoba",
-    blurb: "Siguiendo el itinerario — sin GPS personal, solo etapas del viaje.",
+    title: "Está en Córdoba",
+    blurb: "Siguiendo el plan del viaje con toda calma.",
     placeLabel: cordobaCity.name,
   };
 }
@@ -379,9 +420,13 @@ function estimateAircraft(leg: FlightLeg, now: Date): LiveAircraft {
     altitudeM: progress > 0.05 && progress < 0.95 ? 10_000 : 1_500,
     groundSpeedMps,
     heading: point.bearing,
+    verticalRateMps: null,
     callsign: leg.callsigns[0] ?? leg.flightNumber,
     icao24: null,
+    registration: null,
+    aircraftType: null,
     onGround: false,
+    positionAgeS: null,
   };
 }
 
@@ -417,9 +462,13 @@ export function matchOpenSkyState(
       altitudeM: (state[7] as number | null) ?? (state[13] as number | null),
       groundSpeedMps: state[9] as number | null,
       heading: state[10] as number | null,
+      verticalRateMps: (state[11] as number | null) ?? null,
       callsign: (state[1] as string | null)?.trim() || null,
       icao24: (state[0] as string | null) || null,
+      registration: null,
+      aircraftType: null,
       onGround: Boolean(state[8]),
+      positionAgeS: null,
     };
   }
 
@@ -447,7 +496,9 @@ export function buildFlightStatus(
       activeFlight: null,
       aircraft: null,
       route: null,
+      journey: buildJourney(now),
       mapCenter,
+      nextStep: buildNextStep(now),
       playfulStatLine: playfulGroundLine(stage.kind),
     };
   }
@@ -469,19 +520,31 @@ export function buildFlightStatus(
     stage: {
       ...stage,
       kind: "airborne",
-      title: `En el aire · ${active.flightNumber}`,
+      title: `Va volando a ${to.city}`,
       blurb:
         aircraft.source === "estimate"
-          ? "El radar no lo ve ahorita (pasa sobre el mar a veces). Esta es una estimación por horario — honestidad con cariño."
-          : "¡Lo agarramos en el radar! Posición en vivo vía ADS-B (OpenSky).",
+          ? `Va de ${from.city} a ${to.city}. Ahorita ninguna antena lo alcanza (pasa sobre el mar), así que el avioncito del mapa va por horario.`
+          : `Va de ${from.city} a ${to.city} y lo estamos viendo en vivo. El avioncito del mapa es su posición real.`,
     },
     clocks,
     activeFlight: {
       id: active.id,
       flightNumber: active.flightNumber,
       airline: active.airline,
-      from: from.shortName,
-      to: to.shortName,
+      fromCity: from.city,
+      toCity: to.city,
+      fromCode: from.code,
+      toCode: to.code,
+      departureTimeLabel: formatInTimeZone(departureAt, from.timeZone, {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      }),
+      arrivalTimeLabel: formatInTimeZone(arrivalAt, to.timeZone, {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      }),
       departureAt: departureAt.toISOString(),
       arrivalAt: arrivalAt.toISOString(),
       progress,
@@ -493,7 +556,9 @@ export function buildFlightStatus(
       from: { lat: from.lat, lon: from.lon, label: from.code },
       to: { lat: to.lat, lon: to.lon, label: to.code },
     },
+    journey: buildJourney(now),
     mapCenter: { lat: aircraft.lat, lon: aircraft.lon },
+    nextStep: buildNextStep(now),
     playfulStatLine: playfulAirLine(aircraft, remainingKm, eta, active),
   };
 }
@@ -501,45 +566,138 @@ export function buildFlightStatus(
 function playfulGroundLine(kind: TripStageKind): string {
   switch (kind) {
     case "pre_trip":
-      return "Aún no despega. El mapa espera con paciencia mexicana.";
+      return "Todavía no despega: el avioncito del mapa está esperando su turno.";
     case "connection":
-      return "Modo conexión: café, pasarela y fe en el siguiente boarding.";
+      return "En modo escala: café, sala de espera y a esperar el abordaje.";
     case "arrived_transfer":
-      return "Pies en Argentina. Maleta: 1. Emoción: demasiada.";
+      return "Ya pisó Argentina. Maleta: 1. Emoción: bastante.";
     case "hotel":
-      return "Base de operaciones: Caseros 248. Wi‑Fi y siestas estratégicas.";
+      return "Su base en Córdoba es el Hotel Caseros 248, en pleno centro.";
     case "carla":
-      return "Modo científico/ingeniero activado. HPC, posters y networking.";
+      return "Está en la conferencia. Si no contesta rápido, es por eso.";
     case "free_day":
-      return "Día libre: Córdoba sin agenda estricta (casi).";
+      return "Día libre para caminar Córdoba antes de volver.";
     case "heading_airport":
-      return "Alarma de madrugada vs. sueño. Gana el avión.";
+      return "Madrugada de maletas: se va al aeropuerto para el vuelo de regreso.";
     case "post_trip":
-      return "Viaje cerrado. Ahora toca contar anécdotas en la sobremesa.";
+      return "Viaje terminado. Ahora toca contar todo en la sobremesa.";
     default:
-      return "Siguiendo el itinerario, sin espiar el celular de Erne.";
+      return "Siguiendo el itinerario del viaje.";
   }
 }
 
+/** All legs with their state, so the map can show the whole trip at a glance. */
+function buildJourney(now: Date): JourneyLeg[] {
+  return flights.map((leg) => {
+    const { from, to, departureAt, arrivalAt } = flightWindow(leg);
+    const state: JourneyLeg["state"] =
+      now > arrivalAt ? "done" : now >= departureAt ? "active" : "upcoming";
+    return {
+      id: leg.id,
+      direction: leg.direction,
+      from: { lat: from.lat, lon: from.lon, label: from.code, city: from.city },
+      to: { lat: to.lat, lon: to.lon, label: to.code, city: to.city },
+      state,
+    };
+  });
+}
+
+function whenLabel(at: Date, timeZone: string, city: string): string {
+  const stamp = formatInTimeZone(at, timeZone, {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+  return `${stamp} · hora de ${city}`;
+}
+
+/**
+ * The single next thing that will happen. The family gets one clear
+ * expectation plus a countdown instead of having to read the whole itinerary.
+ */
+function buildNextStep(now: Date): NextStep | null {
+  const active = getActiveFlight(now);
+  if (active) {
+    const { to, arrivalAt } = flightWindow(active);
+    return {
+      label: "Siguiente",
+      title: `Aterriza en ${to.city}`,
+      whenLabel: whenLabel(arrivalAt, to.timeZone, to.city),
+      atISO: arrivalAt.toISOString(),
+    };
+  }
+
+  const connection = connectionBetween(now);
+  if (connection) {
+    const next = flightWindow(connection.to);
+    return {
+      label: "Siguiente",
+      title: `Despega el ${connection.to.flightNumber} hacia ${next.to.city}`,
+      whenLabel: whenLabel(next.departureAt, next.from.timeZone, next.from.city),
+      atISO: next.departureAt.toISOString(),
+    };
+  }
+
+  const upcoming = flights
+    .map((leg) => ({ leg, window: flightWindow(leg) }))
+    .find(({ window }) => window.departureAt > now);
+
+  const hotelCheckIn = localToUtc("2026-09-20T13:00:00", cordobaCity.timeZone);
+  const carlaStart = localToUtc("2026-09-21T09:00:00", cordobaCity.timeZone);
+  const stage = stageFor(now);
+
+  if (stage.kind === "arrived_transfer" && now < hotelCheckIn) {
+    return {
+      label: "Siguiente",
+      title: "Check-in en el Hotel Caseros 248",
+      whenLabel: whenLabel(hotelCheckIn, cordobaCity.timeZone, "Córdoba"),
+      atISO: hotelCheckIn.toISOString(),
+    };
+  }
+
+  if (stage.kind === "hotel" && now < carlaStart) {
+    return {
+      label: "Siguiente",
+      title: "Arranca CARLA 2026 en el Centro Cultural UNC",
+      whenLabel: whenLabel(carlaStart, cordobaCity.timeZone, "Córdoba"),
+      atISO: carlaStart.toISOString(),
+    };
+  }
+
+  if (!upcoming) return null;
+
+  const { leg, window } = upcoming;
+  return {
+    label: leg.direction === "outbound" ? "Siguiente vuelo" : "Vuelo de regreso",
+    title: `${leg.flightNumber} · ${window.from.city} → ${window.to.city}`,
+    whenLabel: whenLabel(window.departureAt, window.from.timeZone, window.from.city),
+    atISO: window.departureAt.toISOString(),
+  };
+}
+
+/** One warm sentence a tía can read out loud without decoding anything. */
 function playfulAirLine(
   aircraft: LiveAircraft,
   remainingKm: number,
   eta: number | null,
   leg: FlightLeg,
 ): string {
-  const alt =
-    aircraft.altitudeM != null
-      ? `${Math.round(aircraft.altitudeM)} m`
-      : "altura misteriosa";
-  const speed =
-    aircraft.groundSpeedMps != null
-      ? `${Math.round(aircraft.groundSpeedMps * 3.6)} km/h`
-      : "velocidad en modo estima";
-  const etaText =
-    eta != null ? `ETA ~${Math.max(1, Math.round(eta))} min` : "ETA… ya casi";
-  const prefix =
-    aircraft.source === "estimate" ? "Estimación" : "En vivo";
-  return `${prefix}: ${alt} · ${speed} · faltan ~${Math.round(remainingKm)} km · ${etaText} · ${leg.flightNumber}`;
+  const { to } = flightWindow(leg);
+  const km = Math.round(remainingKm).toLocaleString("es-MX");
+
+  if (aircraft.altitudeM != null && aircraft.altitudeM > 6_000) {
+    const pisos = Math.round(aircraft.altitudeM / 3);
+    return `Va a unos ${Math.round(aircraft.altitudeM).toLocaleString("es-MX")} metros de altura — como un edificio de ${pisos.toLocaleString("es-MX")} pisos — y le faltan ${km} km para ${to.city}.`;
+  }
+
+  if (eta != null && eta < 45) {
+    return `Ya viene bajando hacia ${to.city}: le faltan ${km} km, cosa de ${Math.max(1, Math.round(eta))} minutos.`;
+  }
+
+  return `Rumbo a ${to.city}, con ${km} km por delante.`;
 }
 
 export function getPublicItinerary() {
@@ -554,19 +712,28 @@ export function getPublicItinerary() {
         toAirport: to,
         departureAt: departureAt.toISOString(),
         arrivalAt: arrivalAt.toISOString(),
-        departureLabel: formatInTimeZone(departureAt, from.timeZone, {
-          weekday: "short",
-          day: "numeric",
-          month: "short",
+        // 24-hour, the way a boarding pass reads. Without hour12: false,
+        // es-MX renders "03:30 p.m." and any attempt to slice the clock out
+        // of it silently loses the meridiem.
+        departureTimeLabel: formatInTimeZone(departureAt, from.timeZone, {
           hour: "2-digit",
           minute: "2-digit",
+          hour12: false,
         }),
-        arrivalLabel: formatInTimeZone(arrivalAt, to.timeZone, {
+        arrivalTimeLabel: formatInTimeZone(arrivalAt, to.timeZone, {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+        }),
+        departureDayLabel: formatInTimeZone(departureAt, from.timeZone, {
           weekday: "short",
           day: "numeric",
           month: "short",
-          hour: "2-digit",
-          minute: "2-digit",
+        }),
+        arrivalDayLabel: formatInTimeZone(arrivalAt, to.timeZone, {
+          weekday: "short",
+          day: "numeric",
+          month: "short",
         }),
       };
     }),

@@ -1,41 +1,13 @@
-import {
-  flightWindow,
-  matchOpenSkyState,
-  type LiveAircraft,
-} from "@/lib/family-trip/status";
 import type { FlightLeg } from "@/data/family-trip";
-import { airports } from "@/data/family-trip";
 import { interpolateGreatCircle } from "@/lib/family-trip/geo";
-
-export type FlightProvider = "opensky" | "aeroapi";
-
-export function getFlightProvider(): FlightProvider {
-  const raw = process.env.FLIGHT_TRACKER_PROVIDER?.trim().toLowerCase();
-  if (raw === "aeroapi") return "aeroapi";
-  return "opensky";
-}
+import { flightWindow, matchOpenSkyState, type LiveAircraft } from "@/lib/family-trip/status";
 
 /**
- * Fetch live ADS-B around the estimated position and match callsign.
- * OpenSky is the default; AeroAPI can be wired later via FLIGHT_TRACKER_PROVIDER.
+ * OpenSky bounding-box lookup. Kept as the last-resort fallback behind the
+ * callsign feeds in `tracker.ts` — anonymous access is heavily rate limited,
+ * so it only gets asked when the community feeds see nothing.
  */
-export async function fetchLiveAircraft(
-  leg: FlightLeg,
-  now = new Date(),
-): Promise<LiveAircraft | null> {
-  const provider = getFlightProvider();
-  if (provider === "aeroapi") {
-    // Placeholder for a future FlightAware AeroAPI integration.
-    // Keep OpenSky as the working path until credentials + mapping exist.
-    if (!process.env.AEROAPI_KEY) {
-      return fetchOpenSkyAircraft(leg, now);
-    }
-    return fetchOpenSkyAircraft(leg, now);
-  }
-  return fetchOpenSkyAircraft(leg, now);
-}
-
-async function fetchOpenSkyAircraft(
+export async function fetchOpenSkyAircraft(
   leg: FlightLeg,
   now: Date,
 ): Promise<LiveAircraft | null> {
@@ -53,9 +25,7 @@ async function fetchOpenSkyAircraft(
     progress,
   );
 
-  // ~5° box keeps credit cost low while covering oceanic gaps poorly —
-  // that's when we fall back to the schedule estimate.
-  const pad = 2.5;
+  const pad = 3;
   const lamin = Math.max(-90, estimate.lat - pad);
   const lamax = Math.min(90, estimate.lat + pad);
   const lomin = Math.max(-180, estimate.lon - pad);
@@ -67,9 +37,7 @@ async function fetchOpenSkyAircraft(
   url.searchParams.set("lomin", lomin.toFixed(4));
   url.searchParams.set("lomax", lomax.toFixed(4));
 
-  const headers: HeadersInit = {
-    Accept: "application/json",
-  };
+  const headers: HeadersInit = { Accept: "application/json" };
   const user = process.env.OPENSKY_USERNAME?.trim();
   const pass = process.env.OPENSKY_PASSWORD?.trim();
   if (user && pass) {
@@ -88,11 +56,4 @@ async function fetchOpenSkyAircraft(
   } catch {
     return null;
   }
-}
-
-export function restMapPinForStage(kind: string): { lat: number; lon: number } {
-  if (kind === "pre_trip" || kind === "post_trip") {
-    return { lat: airports.SLP.lat, lon: airports.SLP.lon };
-  }
-  return { lat: airports.COR.lat, lon: airports.COR.lon };
 }

@@ -28,14 +28,16 @@ export function TripClocks({ clocks }: { clocks: TravelerClocks }) {
 
   return (
     <div
-      className="reveal flex flex-wrap gap-3"
+      className="grid gap-3 sm:grid-cols-2"
       aria-live="polite"
       aria-label="Relojes del viaje"
     >
       <ClockCard clock={clocks.primary} now={now} featured />
       {clocks.secondary ? (
         <ClockCard clock={clocks.secondary} now={now} />
-      ) : null}
+      ) : (
+        <HereClock now={now} />
+      )}
     </div>
   );
 }
@@ -49,53 +51,85 @@ function ClockCard({
   now: Date;
   featured?: boolean;
 }) {
-  const time = formatClockTime(now, clock.timeZone);
-  const date = formatClockDate(now, clock.timeZone);
-
   return (
-    <article
-      className={cn(
-        "ft-card min-w-[11.5rem] flex-1 px-4 py-3 sm:min-w-[13rem]",
-        featured && "ring-2 ring-[var(--ft-pink)]/35",
-      )}
-    >
-      <span
-        className={cn(
-          "ft-pill !px-2.5 !py-0.5 !text-[0.65rem]",
-          toneClass(clock.tone),
-        )}
-      >
-        {clock.label}
-      </span>
-      <p
-        className={cn(
-          "ft-display mt-2 tabular-nums tracking-tight text-[var(--ft-ink)]",
-          featured ? "text-3xl sm:text-4xl" : "text-2xl sm:text-3xl",
-        )}
-      >
-        {time}
-      </p>
-      <p className="mt-0.5 text-xs font-medium text-[var(--ft-faint)]">{date}</p>
-      <p className="mt-2 text-xs leading-snug text-[var(--ft-muted)]">{clock.hint}</p>
-    </article>
+    <Card
+      chip={clock.label}
+      chipTone={featured ? "is-grape" : ""}
+      time={formatClockTime(now, clock.timeZone)}
+      date={formatClockDate(now, clock.timeZone)}
+      hint={clock.hint}
+      featured={featured}
+    />
   );
 }
 
-function toneClass(tone: TravelerClock["tone"]): string {
-  switch (tone) {
-    case "sky":
-      return "ft-pill-sky";
-    case "lime":
-      return "ft-pill-lime";
-    case "yellow":
-      return "ft-pill-yellow";
-    case "pink":
-      return "ft-pill-pink";
-    case "lavender":
-      return "ft-pill-lavender";
-    case "mint":
-      return "ft-pill-mint";
-  }
+/** The viewer's own clock, so comparing the two takes no mental arithmetic. */
+function HereClock({ now }: { now: Date }) {
+  const [zone, setZone] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Deferred: the viewer's zone is unknown on the server, so reading it
+    // during the effect body would desync the first client render.
+    const id = window.setTimeout(
+      () => setZone(Intl.DateTimeFormat().resolvedOptions().timeZone),
+      0,
+    );
+    return () => window.clearTimeout(id);
+  }, []);
+
+  if (!zone) return null;
+
+  return (
+    <Card
+      chip="Su hora"
+      chipTone=""
+      time={formatClockTime(now, zone)}
+      date={formatClockDate(now, zone)}
+      hint="La hora donde usted está ahorita"
+      featured={false}
+    />
+  );
+}
+
+function Card({
+  chip,
+  chipTone,
+  time,
+  date,
+  hint,
+  featured,
+}: {
+  chip: string;
+  chipTone: string;
+  time: string;
+  date: string;
+  hint: string;
+  featured: boolean;
+}) {
+  return (
+    <article
+      className={cn(
+        "ft-card flex items-center gap-4 px-4 py-3.5",
+        featured && "border-[color-mix(in_srgb,var(--ft-grape-deep)_35%,transparent)]",
+      )}
+    >
+      <div className="min-w-0 flex-1">
+        <span className={cn("ft-chip", chipTone)}>{chip}</span>
+        <p className="mt-2 text-xs leading-snug text-[var(--ft-muted)]">{hint}</p>
+      </div>
+      <div className="shrink-0 text-right">
+        <p
+          className={cn(
+            "ft-display ft-stat-value leading-none text-[var(--ft-ink)]",
+            featured ? "text-3xl sm:text-4xl" : "text-2xl sm:text-3xl",
+          )}
+        >
+          {time}
+        </p>
+        <p className="mt-1 text-xs font-medium text-[var(--ft-faint)]">{date}</p>
+      </div>
+    </article>
+  );
 }
 
 function formatClockTime(date: Date, timeZone: string): string {

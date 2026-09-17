@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getActiveFlight, buildFlightStatus } from "@/lib/family-trip/status";
-import { fetchLiveAircraft } from "@/lib/family-trip/opensky";
+import { fetchLiveAircraft } from "@/lib/family-trip/tracker";
 import { isValidFamilyTripToken } from "@/lib/family-trip/secrets";
 
 export const runtime = "nodejs";

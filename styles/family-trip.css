@@ -1,314 +1,604 @@
-/* Scoped playful theme for the private family trip page only. */
+/* ------------------------------------------------------------------ *
+ * Private family trip page — scoped theme.
+ *
+ * Direction: "cuaderno de viaje". Warm paper, ink-navy text, and a small
+ * fixed palette (cielo / sol / coral / uva / hoja) used with intent instead
+ * of a different colour on every card. Playful comes from shape, doodles and
+ * motion — not from turning the saturation up on everything.
+ * ------------------------------------------------------------------ */
 
 .family-trip {
-  --ft-ink: #1f2a44;
-  --ft-muted: #5a6478;
-  --ft-faint: #7a8499;
-  --ft-paper: #fffdf8;
-  --ft-glass: color-mix(in srgb, #ffffff 72%, transparent);
-  --ft-sky: #6ec8ff;
-  --ft-sky-deep: #3aa0ef;
-  --ft-lime: #b8f06e;
-  --ft-lime-deep: #7ed321;
-  --ft-yellow: #ffe566;
-  --ft-yellow-deep: #f5c518;
-  --ft-pink: #ffb3d0;
-  --ft-pink-deep: #ff6b9d;
-  --ft-lavender: #d4c4ff;
-  --ft-lavender-deep: #9b7cf0;
-  --ft-coral: #ff8f6b;
-  --ft-mint: #7ee0c3;
-  --ft-shadow: 0 10px 28px -12px rgb(31 42 68 / 0.22),
-    0 4px 10px -4px rgb(31 42 68 / 0.12);
-  --ft-shadow-soft: 0 8px 20px -10px rgb(31 42 68 / 0.16);
+  /* Ink */
+  --ft-ink: #1e2d47;
+  --ft-muted: #56647d;
+  --ft-faint: #8592a8;
+
+  /* Paper */
+  --ft-paper: #fffaf3;
+  --ft-paper-deep: #f6efe4;
+  --ft-surface: #ffffff;
+  --ft-line: rgb(30 45 71 / 0.1);
+
+  /* Palette */
+  --ft-sky: #e3f2fe;
+  --ft-sky-ink: #12608f;
+  --ft-sky-deep: #2e9bdc;
+
+  --ft-sun: #fff0c9;
+  --ft-sun-ink: #855700;
+  --ft-sun-deep: #f5b83d;
+
+  --ft-coral: #ffe4dd;
+  --ft-coral-ink: #9e3820;
+  --ft-coral-deep: #f4714f;
+
+  --ft-grape: #ece4ff;
+  --ft-grape-ink: #553aa3;
+  --ft-grape-deep: #7d5be0;
+
+  --ft-leaf: #ddf6e6;
+  --ft-leaf-ink: #1c6b41;
+  --ft-leaf-deep: #2fa76a;
+
+  --ft-shadow-sm: 0 1px 2px rgb(30 45 71 / 0.05),
+    0 4px 12px -6px rgb(30 45 71 / 0.12);
+  --ft-shadow: 0 1px 2px rgb(30 45 71 / 0.05),
+    0 10px 24px -14px rgb(30 45 71 / 0.28);
+  --ft-shadow-lg: 0 2px 4px rgb(30 45 71 / 0.05),
+    0 24px 48px -24px rgb(30 45 71 / 0.32);
+
+  --ft-cloud: #ffffff;
+  --ft-radius: 1.25rem;
 
   position: relative;
   isolation: isolate;
   min-height: 100vh;
   color: var(--ft-ink);
-  background:
-    radial-gradient(ellipse 80% 50% at 10% -10%, #c8ecff 0%, transparent 55%),
-    radial-gradient(ellipse 70% 45% at 95% 5%, #ffe9a8 0%, transparent 50%),
-    radial-gradient(ellipse 60% 40% at 80% 90%, #ffd0e4 0%, transparent 55%),
-    radial-gradient(ellipse 50% 35% at 5% 85%, #e4d8ff 0%, transparent 50%),
-    linear-gradient(180deg, #f3fbff 0%, #fff8ef 42%, #fff5f9 100%);
+  background-color: var(--ft-paper);
+  /* Faint dotted notebook grid, so the paper reads as paper. */
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgb(30 45 71 / 0.055) 1px,
+    transparent 0
+  );
+  background-size: 22px 22px;
 }
 
 .family-trip .column {
-  max-width: 42rem;
+  width: 100%;
+  max-width: 40rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+/* Slightly wider container for the "ahorita" panel and the map. */
+.family-trip .column-wide {
+  width: 100%;
+  max-width: 46rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
 }
 
 .family-trip .ft-display {
-  font-family: var(--font-family-display), var(--font-sans), ui-sans-serif, system-ui,
-    sans-serif;
-  letter-spacing: -0.02em;
+  font-family: var(--font-family-display), var(--font-sans), ui-sans-serif,
+    system-ui, sans-serif;
+  letter-spacing: -0.022em;
   font-weight: 800;
 }
 
-.family-trip .ft-pill {
+/* ------------------------------------------------------------------ *
+ * Hero sky band
+ * ------------------------------------------------------------------ */
+
+.family-trip .ft-sky-band {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 26rem;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, #cfeaff 0%, #e6f4ff 45%, rgb(255 250 243 / 0) 100%);
+  -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
+}
+
+/* ------------------------------------------------------------------ *
+ * Chips
+ * ------------------------------------------------------------------ */
+
+.family-trip .ft-chip {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
   border-radius: 999px;
-  padding: 0.35rem 0.85rem;
+  padding: 0.3rem 0.7rem;
   font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.01em;
-  line-height: 1.2;
-  box-shadow: var(--ft-shadow-soft);
-  border: 1.5px solid rgb(255 255 255 / 0.65);
+  line-height: 1.25;
+  white-space: nowrap;
+  background: var(--ft-surface);
+  color: var(--ft-muted);
+  border: 1px solid var(--ft-line);
 }
 
-.family-trip .ft-pill-sky {
+.family-trip .ft-chip.is-sky {
   background: var(--ft-sky);
-  color: #0f3a5c;
+  color: var(--ft-sky-ink);
+  border-color: transparent;
+}
+.family-trip .ft-chip.is-sun {
+  background: var(--ft-sun);
+  color: var(--ft-sun-ink);
+  border-color: transparent;
+}
+.family-trip .ft-chip.is-coral {
+  background: var(--ft-coral);
+  color: var(--ft-coral-ink);
+  border-color: transparent;
+}
+.family-trip .ft-chip.is-grape {
+  background: var(--ft-grape);
+  color: var(--ft-grape-ink);
+  border-color: transparent;
+}
+.family-trip .ft-chip.is-leaf {
+  background: var(--ft-leaf);
+  color: var(--ft-leaf-ink);
+  border-color: transparent;
+}
+.family-trip .ft-chip.is-ink {
+  background: var(--ft-ink);
+  color: #fff;
+  border-color: transparent;
 }
 
-.family-trip .ft-pill-lime {
-  background: var(--ft-lime);
-  color: #2a4a0a;
+/* Live indicator dot */
+.family-trip .ft-dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  background: currentColor;
+  flex-shrink: 0;
 }
 
-.family-trip .ft-pill-yellow {
-  background: var(--ft-yellow);
-  color: #5c4300;
+@media (prefers-reduced-motion: no-preference) {
+  .family-trip .ft-dot.is-pulsing {
+    animation: ft-pulse 1.8s ease-in-out infinite;
+  }
 }
 
-.family-trip .ft-pill-pink {
-  background: var(--ft-pink);
-  color: #6b2040;
+@keyframes ft-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.75);
+  }
 }
 
-.family-trip .ft-pill-lavender {
-  background: var(--ft-lavender);
-  color: #3d2a6e;
-}
-
-.family-trip .ft-pill-mint {
-  background: var(--ft-mint);
-  color: #0f4a3a;
-}
-
-.family-trip .ft-glass {
-  background: var(--ft-glass);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1.5px solid rgb(255 255 255 / 0.7);
-  box-shadow: var(--ft-shadow);
-}
+/* ------------------------------------------------------------------ *
+ * Surfaces
+ * ------------------------------------------------------------------ */
 
 .family-trip .ft-card {
-  border-radius: 1.35rem;
-  background: var(--ft-glass);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1.5px solid rgb(255 255 255 / 0.72);
-  box-shadow: var(--ft-shadow);
+  border-radius: var(--ft-radius);
+  background: var(--ft-surface);
+  border: 1px solid var(--ft-line);
+  box-shadow: var(--ft-shadow-sm);
 }
+
+.family-trip .ft-panel {
+  border-radius: 1.75rem;
+  background: var(--ft-surface);
+  border: 1px solid var(--ft-line);
+  box-shadow: var(--ft-shadow-lg);
+  overflow: hidden;
+}
+
+.family-trip .ft-note {
+  border-radius: 1rem;
+  background: var(--ft-sun);
+  color: var(--ft-sun-ink);
+  padding: 0.75rem 0.95rem;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  font-weight: 600;
+}
+
+/* ------------------------------------------------------------------ *
+ * Section headings — replaces the global mono label
+ * ------------------------------------------------------------------ */
 
 .family-trip .label {
   font-family: var(--font-family-display), var(--font-sans), sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 800;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--ft-lavender-deep);
+  color: var(--ft-faint);
 }
 
 .family-trip .meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
   color: var(--ft-faint);
+  font-variant-numeric: tabular-nums;
 }
 
 .family-trip .text-muted-foreground {
   color: var(--ft-muted);
 }
 
-.family-trip .text-foreground {
-  color: var(--ft-ink);
+/* ------------------------------------------------------------------ *
+ * Sticky section nav
+ * ------------------------------------------------------------------ */
+
+.family-trip .ft-nav {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: color-mix(in srgb, var(--ft-paper) 88%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--ft-line);
 }
 
-.family-trip .text-faint {
-  color: var(--ft-faint);
+.family-trip .ft-nav-scroll {
+  display: flex;
+  gap: 0.4rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-block: 0.6rem;
 }
 
-/* Soften Section intros without editing the shared component API. */
-.family-trip section > p.reveal:first-of-type,
-.family-trip section > .reveal.mt-5 {
-  color: var(--ft-muted);
+.family-trip .ft-nav-scroll::-webkit-scrollbar {
+  display: none;
 }
 
-.family-trip .ft-nav-chip {
+.family-trip .ft-nav-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
+  gap: 0.35rem;
+  flex-shrink: 0;
   border-radius: 999px;
-  padding: 0.45rem 0.95rem;
+  padding: 0.4rem 0.85rem;
   font-size: 0.8125rem;
   font-weight: 700;
   text-decoration: none;
+  color: var(--ft-muted);
+  background: var(--ft-surface);
+  border: 1px solid var(--ft-line);
+  transition: color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+.family-trip .ft-nav-link:hover {
   color: var(--ft-ink);
-  transition: transform 160ms ease, box-shadow 160ms ease;
-  box-shadow: var(--ft-shadow-soft);
-  border: 1.5px solid rgb(255 255 255 / 0.7);
-}
-
-.family-trip .ft-nav-chip:hover {
-  transform: translateY(-2px) rotate(-1deg);
-}
-
-.family-trip .ft-nav-chip:nth-child(1) {
   background: var(--ft-sky);
-}
-.family-trip .ft-nav-chip:nth-child(2) {
-  background: var(--ft-lime);
-}
-.family-trip .ft-nav-chip:nth-child(3) {
-  background: var(--ft-yellow);
-}
-.family-trip .ft-nav-chip:nth-child(4) {
-  background: var(--ft-pink);
-}
-.family-trip .ft-nav-chip:nth-child(5) {
-  background: var(--ft-lavender);
+  transform: translateY(-1px);
 }
 
-.family-trip .ft-flight-card {
+/* ------------------------------------------------------------------ *
+ * Boarding pass
+ * ------------------------------------------------------------------ */
+
+.family-trip .ft-boarding {
   position: relative;
+  border-radius: var(--ft-radius);
+  background: var(--ft-surface);
+  border: 1px solid var(--ft-line);
+  box-shadow: var(--ft-shadow-sm);
   overflow: hidden;
-  border-radius: 1.4rem;
-  background: linear-gradient(
-    145deg,
-    rgb(255 255 255 / 0.92) 0%,
-    rgb(232 246 255 / 0.88) 55%,
-    rgb(255 244 250 / 0.9) 100%
-  );
-  border: 1.5px solid rgb(255 255 255 / 0.8);
-  box-shadow: var(--ft-shadow);
 }
 
-.family-trip .ft-flight-card::before {
+.family-trip .ft-boarding::before {
   content: "";
   position: absolute;
   inset: 0 auto 0 0;
-  width: 0.45rem;
-  background: linear-gradient(
+  width: 5px;
+  background: var(--ft-sky-deep);
+}
+
+.family-trip .ft-boarding.is-return::before {
+  background: var(--ft-coral-deep);
+}
+
+.family-trip .ft-boarding.is-done {
+  opacity: 0.62;
+}
+
+.family-trip .ft-boarding.is-now {
+  border-color: color-mix(in srgb, var(--ft-sky-deep) 45%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ft-sky-deep) 14%, transparent),
+    var(--ft-shadow);
+}
+
+/* Perforation between the ticket body and its footer. */
+.family-trip .ft-perforation {
+  position: relative;
+  border-top: 1.5px dashed var(--ft-line);
+}
+
+.family-trip .ft-perforation::before,
+.family-trip .ft-perforation::after {
+  content: "";
+  position: absolute;
+  top: -0.5rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 999px;
+  background: var(--ft-paper);
+  border: 1px solid var(--ft-line);
+}
+
+.family-trip .ft-perforation::before {
+  left: -0.5rem;
+}
+
+.family-trip .ft-perforation::after {
+  right: -0.5rem;
+}
+
+/* Layover connector between two tickets */
+.family-trip .ft-layover {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.35rem 0 0.35rem 1.35rem;
+  color: var(--ft-faint);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.family-trip .ft-layover::before {
+  content: "";
+  width: 2px;
+  height: 1.6rem;
+  border-radius: 2px;
+  background: repeating-linear-gradient(
     180deg,
-    var(--ft-sky-deep),
-    var(--ft-lavender-deep),
-    var(--ft-pink-deep)
+    var(--ft-line) 0 4px,
+    transparent 4px 8px
   );
 }
 
-.family-trip .ft-weather-day {
-  border-radius: 1.25rem;
-  background: rgb(255 255 255 / 0.78);
-  border: 1.5px solid rgb(255 255 255 / 0.85);
-  box-shadow: var(--ft-shadow-soft);
-  backdrop-filter: blur(10px);
+/* ------------------------------------------------------------------ *
+ * Flight progress
+ * ------------------------------------------------------------------ */
+
+.family-trip .ft-progress {
+  position: relative;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--ft-paper-deep);
+  overflow: visible;
 }
+
+.family-trip .ft-progress-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--ft-sky-deep), var(--ft-grape-deep));
+}
+
+.family-trip .ft-progress-plane {
+  position: absolute;
+  top: 50%;
+  translate: -50% -50%;
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  background: var(--ft-surface);
+  border: 2px solid var(--ft-grape-deep);
+  box-shadow: var(--ft-shadow-sm);
+}
+
+/* ------------------------------------------------------------------ *
+ * Map
+ * ------------------------------------------------------------------ */
 
 .family-trip .ft-map-shell {
-  border-radius: 1.5rem;
+  position: relative;
   overflow: hidden;
-  border: 2px solid rgb(255 255 255 / 0.85);
-  box-shadow: var(--ft-shadow);
-  background: #dff3ff;
+  background: #dceefb;
 }
 
-.family-trip .ft-stat {
-  border-radius: 1.1rem;
-  background: rgb(255 255 255 / 0.8);
-  border: 1.5px solid rgb(255 255 255 / 0.75);
-  box-shadow: var(--ft-shadow-soft);
+.family-trip .ft-map-shell .leaflet-container {
+  font: inherit;
+  background: #dceefb;
 }
 
-.family-trip .family-plane-icon {
+.family-trip .ft-map-shell .leaflet-control-attribution {
+  font-size: 10px;
+  background: rgb(255 255 255 / 0.75);
+}
+
+.family-trip .ft-map-shell .leaflet-tooltip {
+  font-weight: 700;
+  font-size: 0.7rem;
+  border: 1px solid var(--ft-line);
+  border-radius: 0.5rem;
+  box-shadow: var(--ft-shadow-sm);
+  color: #1e2d47;
+}
+
+.family-trip .family-plane-icon,
+.family-trip .family-pin-icon {
   background: transparent !important;
   border: none !important;
 }
 
-/* Decor motion */
+/* ------------------------------------------------------------------ *
+ * Stats
+ * ------------------------------------------------------------------ */
+
+.family-trip .ft-stat {
+  border-radius: 1rem;
+  background: var(--ft-paper);
+  border: 1px solid var(--ft-line);
+  padding: 0.7rem 0.8rem;
+}
+
+.family-trip .ft-stat-value {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ------------------------------------------------------------------ *
+ * Day timeline
+ * ------------------------------------------------------------------ */
+
+.family-trip .ft-day {
+  position: relative;
+  padding-left: 2.25rem;
+}
+
+.family-trip .ft-day::before {
+  content: "";
+  position: absolute;
+  left: 0.6875rem;
+  top: 1.75rem;
+  bottom: -1rem;
+  width: 2px;
+  background: var(--ft-line);
+}
+
+.family-trip .ft-day:last-child::before {
+  display: none;
+}
+
+.family-trip .ft-day-marker {
+  position: absolute;
+  left: 0;
+  top: 0.35rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  background: var(--ft-surface);
+  border: 2px solid var(--ft-line);
+  color: var(--ft-faint);
+}
+
+.family-trip .ft-day.is-today .ft-day-marker {
+  background: var(--ft-sun-deep);
+  border-color: var(--ft-sun-deep);
+  color: #3d2a00;
+}
+
+.family-trip .ft-day.is-past {
+  opacity: 0.55;
+}
+
+/* ------------------------------------------------------------------ *
+ * Decor
+ * ------------------------------------------------------------------ */
+
+.family-trip .ft-decor {
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+
+.family-trip > *:not(.ft-decor-layer):not(.ft-sky-band) {
+  position: relative;
+  z-index: 1;
+}
+
 @keyframes ft-float {
   0%,
   100% {
     transform: translateY(0) rotate(var(--ft-rot, 0deg));
   }
   50% {
-    transform: translateY(-10px) rotate(calc(var(--ft-rot, 0deg) + 3deg));
-  }
-}
-
-@keyframes ft-wiggle {
-  0%,
-  100% {
-    transform: rotate(-4deg);
-  }
-  50% {
-    transform: rotate(4deg);
+    transform: translateY(-9px) rotate(calc(var(--ft-rot, 0deg) + 2deg));
   }
 }
 
 @keyframes ft-drift {
-  0%,
-  100% {
-    transform: translateX(0);
+  from {
+    transform: translateX(-4%);
   }
-  50% {
-    transform: translateX(12px);
+  to {
+    transform: translateX(4%);
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .family-trip .ft-float {
-    animation: ft-float 5.5s ease-in-out infinite;
+    animation: ft-float 6s ease-in-out infinite;
   }
   .family-trip .ft-float-slow {
-    animation: ft-float 8s ease-in-out infinite;
-  }
-  .family-trip .ft-wiggle {
-    animation: ft-wiggle 3.8s ease-in-out infinite;
+    animation: ft-float 9s ease-in-out infinite;
   }
   .family-trip .ft-drift {
-    animation: ft-drift 7s ease-in-out infinite;
+    animation: ft-drift 14s ease-in-out infinite alternate;
   }
 }
 
-.family-trip .ft-decor {
-  pointer-events: none;
-  position: absolute;
-  z-index: 0;
-  opacity: 0.9;
-}
-
-.family-trip > *:not(.ft-decor-layer) {
-  position: relative;
-  z-index: 1;
-}
+/* ------------------------------------------------------------------ *
+ * Dark mode
+ * ------------------------------------------------------------------ */
 
 .dark .family-trip {
-  --ft-ink: #f4f7ff;
-  --ft-muted: #c5cde0;
-  --ft-faint: #9aa6bf;
-  --ft-paper: #1a2236;
-  --ft-glass: color-mix(in srgb, #243049 78%, transparent);
-  background:
-    radial-gradient(ellipse 80% 50% at 10% -10%, #1a3a55 0%, transparent 55%),
-    radial-gradient(ellipse 70% 45% at 95% 5%, #4a3a18 0%, transparent 50%),
-    radial-gradient(ellipse 60% 40% at 80% 90%, #4a2438 0%, transparent 55%),
-    radial-gradient(ellipse 50% 35% at 5% 85%, #2e2450 0%, transparent 50%),
-    linear-gradient(180deg, #12182a 0%, #1a2034 50%, #221828 100%);
-}
+  --ft-ink: #eef3fb;
+  --ft-muted: #b3c0d6;
+  --ft-faint: #8592a8;
 
-.dark .family-trip .ft-flight-card {
-  background: linear-gradient(
-    145deg,
-    rgb(36 48 72 / 0.92) 0%,
-    rgb(28 52 78 / 0.9) 55%,
-    rgb(52 32 56 / 0.9) 100%
+  --ft-paper: #131a29;
+  --ft-paper-deep: #1b2435;
+  --ft-surface: #1b2435;
+  --ft-line: rgb(255 255 255 / 0.1);
+
+  --ft-sky: #123249;
+  --ft-sky-ink: #9ed6fb;
+  --ft-sun: #3d2f0d;
+  --ft-sun-ink: #ffd781;
+  --ft-coral: #43201a;
+  --ft-coral-ink: #ffb3a0;
+  --ft-grape: #2c2350;
+  --ft-grape-ink: #c8b4ff;
+  --ft-leaf: #123528;
+  --ft-leaf-ink: #8fe3b6;
+
+  --ft-cloud: #22334d;
+  --ft-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.3);
+  --ft-shadow: 0 10px 24px -14px rgb(0 0 0 / 0.7);
+  --ft-shadow-lg: 0 24px 48px -24px rgb(0 0 0 / 0.8);
+
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgb(255 255 255 / 0.045) 1px,
+    transparent 0
   );
 }
 
-.dark .family-trip .ft-weather-day,
-.dark .family-trip .ft-stat {
-  background: rgb(36 48 72 / 0.85);
+.dark .family-trip .ft-sky-band {
+  background: linear-gradient(
+    180deg,
+    #1a3a58 0%,
+    #17293e 45%,
+    rgb(19 26 41 / 0) 100%
+  );
+}
+
+.dark .family-trip .ft-chip.is-ink {
+  background: #eef3fb;
+  color: #131a29;
+}
+
+.dark .family-trip .ft-map-shell,
+.dark .family-trip .ft-map-shell .leaflet-container {
+  background: #17293e;
+}
+
+.dark .family-trip .ft-map-shell .leaflet-control-attribution {
+  background: rgb(19 26 41 / 0.8);
+  color: #b3c0d6;
 }

@@ -123,7 +123,7 @@ export function PhotoAlbum({
     <Section
       id="fotos"
       label="Álbum"
-      intro="Postales del viaje apiladas como en la mesa de la cocina. Ver no pide contraseña extra; subir sí."
+      intro="Las fotos que Erne vaya subiendo, apiladas como postales en la mesa de la cocina. Toquen la de arriba para verla grande."
     >
       <div className="reveal mt-6 flex flex-wrap items-center gap-3">
         <Button
@@ -131,18 +131,14 @@ export function PhotoAlbum({
           variant="outline"
           size="sm"
           onClick={() => setShowUpload((v) => !v)}
-          className="rounded-full border-0 bg-[var(--ft-pink)] font-bold text-[var(--ft-ink)] shadow-[var(--ft-shadow-soft)] hover:bg-[var(--ft-pink-deep)] hover:text-white"
+          className="rounded-full border-0 bg-[var(--ft-grape)] font-bold text-[var(--ft-grape-ink)] shadow-[var(--ft-shadow-sm)] hover:bg-[var(--ft-grape-deep)] hover:text-white"
         >
           {showUpload ? "Ocultar subida" : "Subir foto"}
         </Button>
         {!configured ? (
-          <span className="ft-pill ft-pill-yellow !text-[0.7rem]">
-            Álbum aún sin R2 — pronto habrá postales
-          </span>
+          <span className="ft-chip is-sun">Todavía no hay álbum conectado</span>
         ) : (
-          <span className="ft-pill ft-pill-lime !text-[0.7rem]">
-            Listo para postales
-          </span>
+          <span className="ft-chip is-leaf">Listo para recibir fotos</span>
         )}
       </div>
 
@@ -158,7 +154,7 @@ export function PhotoAlbum({
               autoComplete="off"
               value={uploadSecret}
               onChange={(e) => setUploadSecret(e.target.value)}
-              className="mt-1.5 w-full rounded-xl border border-[var(--ft-ink)]/10 bg-white/80 px-3 py-2 text-sm outline-none focus-visible:ring-[3px] focus-visible:ring-[var(--ft-lavender-deep)]/40"
+              className="mt-1.5 w-full rounded-xl border border-[var(--ft-line)] bg-[var(--ft-paper)] px-3 py-2 text-sm outline-none focus-visible:ring-[3px] focus-visible:ring-[var(--ft-grape-deep)]/40"
               placeholder="Solo quien sube fotos"
             />
           </label>
@@ -169,7 +165,7 @@ export function PhotoAlbum({
               accept="image/*"
               capture="environment"
               onChange={(e) => setFile(e.target.files?.[0] ?? null)}
-              className="mt-1.5 block w-full text-sm text-[var(--ft-muted)] file:mr-3 file:rounded-full file:border-0 file:bg-[var(--ft-sky)] file:px-3 file:py-1.5 file:text-sm file:font-bold file:text-[var(--ft-ink)]"
+              className="mt-1.5 block w-full text-sm text-[var(--ft-muted)] file:mr-3 file:rounded-full file:border-0 file:bg-[var(--ft-sky)] file:px-3 file:py-1.5 file:text-sm file:font-bold file:text-[var(--ft-sky-ink)]"
             />
           </label>
           <label className="block text-sm font-medium text-[var(--ft-ink)]">
@@ -179,7 +175,7 @@ export function PhotoAlbum({
               value={caption}
               onChange={(e) => setCaption(e.target.value)}
               maxLength={200}
-              className="mt-1.5 w-full rounded-xl border border-[var(--ft-ink)]/10 bg-white/80 px-3 py-2 text-sm outline-none focus-visible:ring-[3px] focus-visible:ring-[var(--ft-lavender-deep)]/40"
+              className="mt-1.5 w-full rounded-xl border border-[var(--ft-line)] bg-[var(--ft-paper)] px-3 py-2 text-sm outline-none focus-visible:ring-[3px] focus-visible:ring-[var(--ft-grape-deep)]/40"
               placeholder="Ej. Primer mate en Córdoba"
             />
           </label>
@@ -187,7 +183,7 @@ export function PhotoAlbum({
             type="submit"
             size="sm"
             disabled={busy || !configured}
-            className="rounded-full bg-[var(--ft-lavender-deep)] font-bold hover:bg-[var(--ft-ink)]"
+            className="rounded-full bg-[var(--ft-grape-deep)] font-bold text-white hover:bg-[var(--ft-ink)]"
           >
             {busy ? "Subiendo…" : "Publicar en el álbum"}
           </Button>
@@ -200,10 +196,15 @@ export function PhotoAlbum({
       ) : null}
 
       {photos.length === 0 ? (
-        <p className="reveal mt-8 rounded-2xl bg-[var(--ft-sky)]/40 px-4 py-3 text-sm text-[var(--ft-ink)]">
-          Todavía no hay postales. Cuando Erne (o alguien con la clave) suba una,
-          cae arriba del montón — las más nuevas primero.
-        </p>
+        <div className="ft-card reveal mt-8 px-5 py-8 text-center">
+          <p className="ft-display text-lg text-[var(--ft-ink)]">
+            Todavía no hay fotos
+          </p>
+          <p className="mx-auto mt-1.5 max-w-[34ch] text-sm leading-relaxed text-[var(--ft-muted)]">
+            En cuanto Erne suba la primera, va a aparecer aquí arriba del montón.
+            Las más nuevas quedan siempre hasta arriba.
+          </p>
+        </div>
       ) : (
         <PostcardStack
           photos={photos}
@@ -237,8 +238,8 @@ function PostcardStack({
     <div className="reveal mt-10">
       <p className="mb-5 text-sm text-[var(--ft-muted)]">
         {photos.length === 1
-          ? "1 postal en el montón — tócala para verla grande."
-          : `${photos.length} postales · la de arriba es la más nueva. Toca para ampliar.`}
+          ? "1 foto por ahora — tóquenla para verla grande."
+          : `${photos.length} fotos. La de hasta arriba es la más nueva; toquen cualquiera para ampliarla.`}
       </p>
 
       <div
@@ -298,13 +299,12 @@ function PostcardFace({
   return (
     <article
       className={cn(
-        "overflow-hidden rounded-[0.45rem] border-2 border-[var(--ft-ink)]/10 bg-[#fff8ef] shadow-tilt",
-        featured &&
-          "shadow-[0_12px_32px_-10px_oklch(0.45_0.12_250/0.28),0_2px_6px_-2px_oklch(0_0_0/0.12)] ring-2 ring-[var(--ft-pink)]/40",
+        "overflow-hidden rounded-[0.5rem] border border-[var(--ft-line)] bg-[var(--ft-paper)] shadow-[var(--ft-shadow-sm)]",
+        featured && "shadow-[var(--ft-shadow-lg)]",
         large && "mx-auto max-w-lg",
       )}
     >
-      <div className={cn("bg-white", large ? "p-3 sm:p-4" : "p-2.5")}>
+      <div className={cn("bg-[var(--ft-surface)]", large ? "p-3 sm:p-4" : "p-2.5")}>
         <div
           className={cn(
             "relative w-full overflow-hidden bg-muted",
@@ -328,13 +328,13 @@ function PostcardFace({
       </div>
       <div
         className={cn(
-          "flex items-end justify-between gap-3 border-t border-dashed border-black/10",
+          "flex items-end justify-between gap-3 border-t border-dashed border-[var(--ft-line)]",
           large ? "px-4 py-3" : "px-3 py-2.5",
         )}
       >
         <p
           className={cn(
-            "min-w-0 flex-1 font-mono text-[0.7rem] leading-snug text-foreground/80",
+            "min-w-0 flex-1 font-mono text-[0.7rem] leading-snug text-[var(--ft-muted)]",
             large && "text-sm",
           )}
         >
@@ -342,7 +342,7 @@ function PostcardFace({
         </p>
         {stamp ? (
           <span
-            className="shrink-0 rounded-full border border-[var(--ft-ink)]/20 bg-[var(--ft-yellow)] px-2 py-0.5 font-mono text-[0.6rem] uppercase tracking-wide text-[var(--ft-ink)]"
+            className="shrink-0 rounded-full bg-[var(--ft-sun)] px-2 py-0.5 font-mono text-[0.6rem] uppercase tracking-wide text-[var(--ft-sun-ink)]"
             aria-hidden
           >
             {stamp}
