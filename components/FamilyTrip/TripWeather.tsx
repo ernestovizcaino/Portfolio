@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Section } from "@/components/Section";
 import type { WeatherPayload } from "@/lib/family-trip/weather";
+import { WeatherIcon } from "./WeatherIcon";
 
 export function TripWeather({
   token,
@@ -37,33 +38,41 @@ export function TripWeather({
     <Section
       id="clima"
       label="Clima en Córdoba"
-      intro="Pronóstico Open-Meteo (sin API key). Puede cambiar — revisen cada mañana."
+      intro="Pronóstico con solcitos, nubes y gotitas — Open-Meteo. Puede cambiar, revisen cada mañana."
     >
       {!weather ? (
-        <p className="reveal mt-6 text-sm text-muted-foreground">
+        <p className="reveal mt-6 text-sm text-[var(--ft-muted)]">
           Cargando el clima argentino…
         </p>
       ) : (
         <>
-          <p className="reveal mt-6 text-sm text-muted-foreground">{weather.tip}</p>
-          <ul className="reveal mt-6 divide-y divide-border">
+          <p className="reveal mt-6 rounded-2xl bg-[var(--ft-yellow)]/70 px-4 py-3 text-sm font-medium text-[var(--ft-ink)] shadow-[var(--ft-shadow-soft)]">
+            {weather.tip}
+          </p>
+          <ul className="reveal mt-6 grid gap-3 sm:grid-cols-2">
             {weather.days.map((day) => (
-              <li
-                key={day.date}
-                className="flex flex-wrap items-baseline justify-between gap-2 py-3"
-              >
-                <div>
-                  <p className="text-sm font-medium text-foreground">
+              <li key={day.date} className="ft-weather-day flex items-center gap-3 px-3 py-3">
+                <WeatherIcon code={day.weatherCode} className="h-14 w-14 shrink-0" />
+                <div className="min-w-0 flex-1">
+                  <p className="ft-display text-sm text-[var(--ft-ink)]">
                     {formatDay(day.date)}
                   </p>
-                  <p className="text-sm text-muted-foreground">{day.label}</p>
+                  <p className="text-sm text-[var(--ft-muted)]">{day.label}</p>
+                  <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+                    <span className="ft-pill ft-pill-sky !px-2 !py-0.5 !text-[0.65rem] !shadow-none">
+                      {Math.round(day.tempMinC)}° / {Math.round(day.tempMaxC)}°
+                    </span>
+                    {day.precipMm > 0 ? (
+                      <span className="ft-pill ft-pill-lavender !px-2 !py-0.5 !text-[0.65rem] !shadow-none">
+                        {day.precipMm.toFixed(1)} mm
+                      </span>
+                    ) : (
+                      <span className="ft-pill ft-pill-lime !px-2 !py-0.5 !text-[0.65rem] !shadow-none">
+                        seco
+                      </span>
+                    )}
+                  </div>
                 </div>
-                <p className="meta">
-                  {Math.round(day.tempMinC)}° / {Math.round(day.tempMaxC)}°
-                  {day.precipMm > 0
-                    ? ` · ${day.precipMm.toFixed(1)} mm`
-                    : ""}
-                </p>
               </li>
             ))}
           </ul>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { LiveTracker } from "@/components/FamilyTrip/LiveTracker";
 import { PhotoAlbum } from "@/components/FamilyTrip/PhotoAlbum";
+import { TripDecor } from "@/components/FamilyTrip/TripDecor";
 import { TripHero } from "@/components/FamilyTrip/TripHero";
 import { TripItinerary } from "@/components/FamilyTrip/TripItinerary";
 import { TripWeather } from "@/components/FamilyTrip/TripWeather";
@@ -64,48 +65,50 @@ export default async function FamilyTripPage({ params }: PageProps) {
   }
 
   return (
-    <div lang="es" className="pb-16">
+    <div lang="es" className="relative pb-20">
+      <TripDecor />
+
       <TripHero />
 
-      <div className="mt-12">
+      <div className="mt-10">
         <LiveTracker token={token} initialStatus={initialStatus} />
       </div>
 
       <nav
         aria-label="Secciones del viaje"
-        className="column mt-10 flex flex-wrap gap-x-4 gap-y-2 text-sm text-muted-foreground"
+        className="column mt-10 flex flex-wrap gap-2"
       >
-        <a className="hover:text-foreground" href="#vuelos">
+        <a className="ft-nav-chip" href="#vuelos">
           Vuelos
         </a>
-        <a className="hover:text-foreground" href="#lugares">
+        <a className="ft-nav-chip" href="#lugares">
           Lugares
         </a>
-        <a className="hover:text-foreground" href="#dias">
+        <a className="ft-nav-chip" href="#dias">
           Día a día
         </a>
-        <a className="hover:text-foreground" href="#clima">
+        <a className="ft-nav-chip" href="#clima">
           Clima
         </a>
-        <a className="hover:text-foreground" href="#fotos">
+        <a className="ft-nav-chip" href="#fotos">
           Fotos
         </a>
       </nav>
 
-      <div className="mt-20">
+      <div className="mt-16">
         <TripItinerary data={itinerary} />
       </div>
 
-      <div className="mt-20">
+      <div className="mt-16">
         <TripWeather token={token} initial={weather} />
       </div>
 
-      <div className="mt-20">
+      <div className="mt-16">
         <PhotoAlbum token={token} initiallyConfigured={isR2Configured()} />
       </div>
 
-      <p className="column mt-16 text-center text-sm text-faint">
-        Página secreta para la familia · no está en el portafolio público · noindex
+      <p className="column mt-16 text-center text-sm text-[var(--ft-faint)]">
+        Hecho con cariño para la familia · buen viaje, Erne
       </p>
     </div>
   );

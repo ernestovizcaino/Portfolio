@@ -70,19 +70,19 @@ export function FlightMap({ status }: Props) {
             [status.route.to.lat, status.route.to.lon],
           ],
           {
-            color: "#1a1a1a",
-            weight: 1.5,
-            opacity: 0.35,
-            dashArray: "4 6",
+            color: "#9B7CF0",
+            weight: 3,
+            opacity: 0.65,
+            dashArray: "6 8",
           },
         ).addTo(layer);
 
-        for (const end of [status.route.from, status.route.to]) {
+        for (const [i, end] of [status.route.from, status.route.to].entries()) {
           L.circleMarker([end.lat, end.lon], {
-            radius: 4,
-            color: "#1a1a1a",
-            weight: 1,
-            fillColor: "#fff",
+            radius: 6,
+            color: "#1F2A44",
+            weight: 2,
+            fillColor: i === 0 ? "#6EC8FF" : "#FFB3D0",
             fillOpacity: 1,
           })
             .bindTooltip(end.label, { direction: "top", offset: [0, -6] })
@@ -94,9 +94,9 @@ export function FlightMap({ status }: Props) {
         const heading = status.aircraft.heading ?? 0;
         const plane = L.divIcon({
           className: "family-plane-icon",
-          html: `<div style="transform:rotate(${heading}deg);font-size:22px;line-height:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.25))">✈</div>`,
-          iconSize: [24, 24],
-          iconAnchor: [12, 12],
+          html: `<div style="transform:rotate(${heading}deg);line-height:1;filter:drop-shadow(0 2px 4px rgba(31,42,68,.3))"><svg width="28" height="28" viewBox="0 0 48 48" fill="none"><path d="M6 26 L38 14 L32 26 L42 30 L30 32 L26 40 L22 32 L10 34 Z" fill="#FFE566" stroke="#1F2A44" stroke-width="2" stroke-linejoin="round"/></svg></div>`,
+          iconSize: [28, 28],
+          iconAnchor: [14, 14],
         });
         L.marker([status.aircraft.lat, status.aircraft.lon], { icon: plane })
           .bindTooltip(
@@ -108,11 +108,11 @@ export function FlightMap({ status }: Props) {
           .addTo(layer);
       } else {
         L.circleMarker([center.lat, center.lon], {
-          radius: 7,
-          color: "#1a1a1a",
+          radius: 9,
+          color: "#1F2A44",
           weight: 2,
-          fillColor: "#22c55e",
-          fillOpacity: 0.9,
+          fillColor: "#B8F06E",
+          fillOpacity: 1,
         })
           .bindTooltip(status.stage.placeLabel ?? status.stage.title, {
             direction: "top",
@@ -125,7 +125,7 @@ export function FlightMap({ status }: Props) {
   }, [status]);
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-border bg-surface shadow-card">
+    <div className="ft-map-shell">
       <div
         ref={containerRef}
         className="h-[280px] w-full sm:h-[340px]"

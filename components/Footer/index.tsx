@@ -1,8 +1,18 @@
+"use client";
+
 import { Location01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { usePathname } from "next/navigation";
 import { profile } from "@/data/profile";
 
 export const Footer = () => {
+  const pathname = usePathname();
+
+  // Keep portfolio chrome off the private family trip page.
+  if (pathname?.startsWith("/f/")) {
+    return null;
+  }
+
   return (
     <footer className="column pt-24 pb-32">
       <p className="text-center text-sm text-muted-foreground">

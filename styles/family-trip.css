@@ -1,0 +1,314 @@
+/* Scoped playful theme for the private family trip page only. */
+
+.family-trip {
+  --ft-ink: #1f2a44;
+  --ft-muted: #5a6478;
+  --ft-faint: #7a8499;
+  --ft-paper: #fffdf8;
+  --ft-glass: color-mix(in srgb, #ffffff 72%, transparent);
+  --ft-sky: #6ec8ff;
+  --ft-sky-deep: #3aa0ef;
+  --ft-lime: #b8f06e;
+  --ft-lime-deep: #7ed321;
+  --ft-yellow: #ffe566;
+  --ft-yellow-deep: #f5c518;
+  --ft-pink: #ffb3d0;
+  --ft-pink-deep: #ff6b9d;
+  --ft-lavender: #d4c4ff;
+  --ft-lavender-deep: #9b7cf0;
+  --ft-coral: #ff8f6b;
+  --ft-mint: #7ee0c3;
+  --ft-shadow: 0 10px 28px -12px rgb(31 42 68 / 0.22),
+    0 4px 10px -4px rgb(31 42 68 / 0.12);
+  --ft-shadow-soft: 0 8px 20px -10px rgb(31 42 68 / 0.16);
+
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  color: var(--ft-ink);
+  background:
+    radial-gradient(ellipse 80% 50% at 10% -10%, #c8ecff 0%, transparent 55%),
+    radial-gradient(ellipse 70% 45% at 95% 5%, #ffe9a8 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 80% 90%, #ffd0e4 0%, transparent 55%),
+    radial-gradient(ellipse 50% 35% at 5% 85%, #e4d8ff 0%, transparent 50%),
+    linear-gradient(180deg, #f3fbff 0%, #fff8ef 42%, #fff5f9 100%);
+}
+
+.family-trip .column {
+  max-width: 42rem;
+}
+
+.family-trip .ft-display {
+  font-family: var(--font-family-display), var(--font-sans), ui-sans-serif, system-ui,
+    sans-serif;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+}
+
+.family-trip .ft-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  box-shadow: var(--ft-shadow-soft);
+  border: 1.5px solid rgb(255 255 255 / 0.65);
+}
+
+.family-trip .ft-pill-sky {
+  background: var(--ft-sky);
+  color: #0f3a5c;
+}
+
+.family-trip .ft-pill-lime {
+  background: var(--ft-lime);
+  color: #2a4a0a;
+}
+
+.family-trip .ft-pill-yellow {
+  background: var(--ft-yellow);
+  color: #5c4300;
+}
+
+.family-trip .ft-pill-pink {
+  background: var(--ft-pink);
+  color: #6b2040;
+}
+
+.family-trip .ft-pill-lavender {
+  background: var(--ft-lavender);
+  color: #3d2a6e;
+}
+
+.family-trip .ft-pill-mint {
+  background: var(--ft-mint);
+  color: #0f4a3a;
+}
+
+.family-trip .ft-glass {
+  background: var(--ft-glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1.5px solid rgb(255 255 255 / 0.7);
+  box-shadow: var(--ft-shadow);
+}
+
+.family-trip .ft-card {
+  border-radius: 1.35rem;
+  background: var(--ft-glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1.5px solid rgb(255 255 255 / 0.72);
+  box-shadow: var(--ft-shadow);
+}
+
+.family-trip .label {
+  font-family: var(--font-family-display), var(--font-sans), sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ft-lavender-deep);
+}
+
+.family-trip .meta {
+  color: var(--ft-faint);
+}
+
+.family-trip .text-muted-foreground {
+  color: var(--ft-muted);
+}
+
+.family-trip .text-foreground {
+  color: var(--ft-ink);
+}
+
+.family-trip .text-faint {
+  color: var(--ft-faint);
+}
+
+/* Soften Section intros without editing the shared component API. */
+.family-trip section > p.reveal:first-of-type,
+.family-trip section > .reveal.mt-5 {
+  color: var(--ft-muted);
+}
+
+.family-trip .ft-nav-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: 999px;
+  padding: 0.45rem 0.95rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--ft-ink);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+  box-shadow: var(--ft-shadow-soft);
+  border: 1.5px solid rgb(255 255 255 / 0.7);
+}
+
+.family-trip .ft-nav-chip:hover {
+  transform: translateY(-2px) rotate(-1deg);
+}
+
+.family-trip .ft-nav-chip:nth-child(1) {
+  background: var(--ft-sky);
+}
+.family-trip .ft-nav-chip:nth-child(2) {
+  background: var(--ft-lime);
+}
+.family-trip .ft-nav-chip:nth-child(3) {
+  background: var(--ft-yellow);
+}
+.family-trip .ft-nav-chip:nth-child(4) {
+  background: var(--ft-pink);
+}
+.family-trip .ft-nav-chip:nth-child(5) {
+  background: var(--ft-lavender);
+}
+
+.family-trip .ft-flight-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.4rem;
+  background: linear-gradient(
+    145deg,
+    rgb(255 255 255 / 0.92) 0%,
+    rgb(232 246 255 / 0.88) 55%,
+    rgb(255 244 250 / 0.9) 100%
+  );
+  border: 1.5px solid rgb(255 255 255 / 0.8);
+  box-shadow: var(--ft-shadow);
+}
+
+.family-trip .ft-flight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0.45rem;
+  background: linear-gradient(
+    180deg,
+    var(--ft-sky-deep),
+    var(--ft-lavender-deep),
+    var(--ft-pink-deep)
+  );
+}
+
+.family-trip .ft-weather-day {
+  border-radius: 1.25rem;
+  background: rgb(255 255 255 / 0.78);
+  border: 1.5px solid rgb(255 255 255 / 0.85);
+  box-shadow: var(--ft-shadow-soft);
+  backdrop-filter: blur(10px);
+}
+
+.family-trip .ft-map-shell {
+  border-radius: 1.5rem;
+  overflow: hidden;
+  border: 2px solid rgb(255 255 255 / 0.85);
+  box-shadow: var(--ft-shadow);
+  background: #dff3ff;
+}
+
+.family-trip .ft-stat {
+  border-radius: 1.1rem;
+  background: rgb(255 255 255 / 0.8);
+  border: 1.5px solid rgb(255 255 255 / 0.75);
+  box-shadow: var(--ft-shadow-soft);
+}
+
+.family-trip .family-plane-icon {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Decor motion */
+@keyframes ft-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--ft-rot, 0deg));
+  }
+  50% {
+    transform: translateY(-10px) rotate(calc(var(--ft-rot, 0deg) + 3deg));
+  }
+}
+
+@keyframes ft-wiggle {
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
+}
+
+@keyframes ft-drift {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(12px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .family-trip .ft-float {
+    animation: ft-float 5.5s ease-in-out infinite;
+  }
+  .family-trip .ft-float-slow {
+    animation: ft-float 8s ease-in-out infinite;
+  }
+  .family-trip .ft-wiggle {
+    animation: ft-wiggle 3.8s ease-in-out infinite;
+  }
+  .family-trip .ft-drift {
+    animation: ft-drift 7s ease-in-out infinite;
+  }
+}
+
+.family-trip .ft-decor {
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+  opacity: 0.9;
+}
+
+.family-trip > *:not(.ft-decor-layer) {
+  position: relative;
+  z-index: 1;
+}
+
+.dark .family-trip {
+  --ft-ink: #f4f7ff;
+  --ft-muted: #c5cde0;
+  --ft-faint: #9aa6bf;
+  --ft-paper: #1a2236;
+  --ft-glass: color-mix(in srgb, #243049 78%, transparent);
+  background:
+    radial-gradient(ellipse 80% 50% at 10% -10%, #1a3a55 0%, transparent 55%),
+    radial-gradient(ellipse 70% 45% at 95% 5%, #4a3a18 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 80% 90%, #4a2438 0%, transparent 55%),
+    radial-gradient(ellipse 50% 35% at 5% 85%, #2e2450 0%, transparent 50%),
+    linear-gradient(180deg, #12182a 0%, #1a2034 50%, #221828 100%);
+}
+
+.dark .family-trip .ft-flight-card {
+  background: linear-gradient(
+    145deg,
+    rgb(36 48 72 / 0.92) 0%,
+    rgb(28 52 78 / 0.9) 55%,
+    rgb(52 32 56 / 0.9) 100%
+  );
+}
+
+.dark .family-trip .ft-weather-day,
+.dark .family-trip .ft-stat {
+  background: rgb(36 48 72 / 0.85);
+}
