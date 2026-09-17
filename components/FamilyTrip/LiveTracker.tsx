@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import type { FlightStatusPayload } from "@/lib/family-trip/status";
 import { FlightMap } from "./FlightMap";
+import { TripClocks } from "./TripClocks";
 
 type Props = {
   token: string;
@@ -71,7 +72,9 @@ export function LiveTracker({ token, initialStatus }: Props) {
 
   return (
     <section id="radar" className="column scroll-mt-12">
-      <div className="flex flex-wrap items-center gap-2">
+      <TripClocks clocks={status.clocks} />
+
+      <div className="mt-8 flex flex-wrap items-center gap-2">
         <p className="label reveal">Radar familiar</p>
         <span className="ft-pill ft-pill-lime reveal !text-[0.65rem]">
           {status.aircraft?.source === "opensky" || status.aircraft?.source === "aeroapi"
