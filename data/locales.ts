@@ -69,10 +69,10 @@ const spanishExperience = [
   {
     ...experience[1],
     from: "Oct 2025",
-    to: "Actualidad",
+    to: "Sep 2026",
     periods: [
       { from: "Oct 2025", to: "Ene 2026" },
-      { from: "Ago 2026", to: "Actualidad" },
+      { from: "Ago 2026", to: "Sep 2026" },
     ],
     role: "Ingeniero de IA / Equipo Fundador",
     summary:

@@ -64,10 +64,10 @@ export const experience = [
   },
   {
     from: "Oct 2025",
-    to: "Present",
+    to: "Sep 2026",
     periods: [
       { from: "Oct 2025", to: "Jan 2026" },
-      { from: "Aug 2026", to: "Present" },
+      { from: "Aug 2026", to: "Sep 2026" },
     ],
     role: "AI Engineer / Founding Team",
     company: "Financiamiento Inteligente / Xignus",
