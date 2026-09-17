@@ -7,6 +7,7 @@ import {
   places,
   transfer,
   tripMeta,
+  type AirportCode,
   type FlightLeg,
 } from "@/data/family-trip";
 import { haversineKm, interpolateGreatCircle, etaMinutes } from "./geo";
@@ -43,6 +44,8 @@ export interface FlightStatusPayload {
     blurb: string;
     placeLabel?: string;
   };
+  /** Where Ernesto “is” for family clocks — derived from stage / flight windows. */
+  clocks: TravelerClocks;
   activeFlight: null | {
     id: string;
     flightNumber: string;
@@ -62,6 +65,133 @@ export interface FlightStatusPayload {
   } | null;
   mapCenter: { lat: number; lon: number };
   playfulStatLine: string;
+}
+
+export type TravelerClockTone = "sky" | "lime" | "yellow" | "pink" | "lavender" | "mint";
+
+export interface TravelerClock {
+  timeZone: string;
+  /** Short heading, e.g. "Hora en Córdoba" */
+  label: string;
+  /** Playful one-liner under the time */
+  hint: string;
+  tone: TravelerClockTone;
+}
+
+export interface TravelerClocks {
+  primary: TravelerClock;
+  /** Córdoba glance clock when primary is not already Córdoba. */
+  secondary: TravelerClock | null;
+}
+
+const CORDOBA_TZ = "America/Argentina/Cordoba";
+const MEXICO_TZ = "America/Mexico_City";
+const PANAMA_TZ = "America/Panama";
+
+function cordobaSecondaryClock(): TravelerClock {
+  return {
+    timeZone: CORDOBA_TZ,
+    label: "Hora en Córdoba",
+    hint: "Para la familia en MX · reloj argentino de bolsillo",
+    tone: "lavender",
+  };
+}
+
+function clockLabelForAirport(code: AirportCode): string {
+  switch (code) {
+    case "SLP":
+      return "Hora en SLP";
+    case "MEX":
+      return "Hora en CDMX";
+    case "PTY":
+      return "Hora en Panamá";
+    case "COR":
+      return "Hora en Córdoba";
+  }
+}
+
+function cityShort(code: AirportCode): string {
+  switch (code) {
+    case "SLP":
+      return "SLP";
+    case "MEX":
+      return "CDMX";
+    case "PTY":
+      return "Panamá";
+    case "COR":
+      return "Córdoba";
+  }
+}
+
+function toneForZone(timeZone: string): TravelerClockTone {
+  if (timeZone === CORDOBA_TZ) return "lavender";
+  if (timeZone === PANAMA_TZ) return "mint";
+  if (timeZone === MEXICO_TZ) return "sky";
+  return "yellow";
+}
+
+/**
+ * Local-time context for the family clocks, aligned with itinerary stage /
+ * flight windows (same helpers as the live tracker).
+ */
+export function resolveTravelerClocks(now = new Date()): TravelerClocks {
+  const airborne = getActiveFlight(now);
+  if (airborne) {
+    const dest = airports[airborne.to];
+    const primary: TravelerClock = {
+      timeZone: dest.timeZone,
+      label: `En vuelo · hora en ${cityShort(airborne.to)}`,
+      hint: `Hora local del avión hacia ${dest.city} · destino del ${airborne.flightNumber}`,
+      tone: dest.timeZone === CORDOBA_TZ ? "pink" : toneForZone(dest.timeZone),
+    };
+    return {
+      primary,
+      secondary: dest.timeZone === CORDOBA_TZ ? null : cordobaSecondaryClock(),
+    };
+  }
+
+  const connection = connectionBetween(now);
+  if (connection) {
+    const airport = airports[connection.from.to];
+    const primary: TravelerClock = {
+      timeZone: airport.timeZone,
+      label: clockLabelForAirport(airport.code),
+      hint: `Conexión en ${airport.city} · esperando el ${connection.to.flightNumber}`,
+      tone: toneForZone(airport.timeZone),
+    };
+    return {
+      primary,
+      secondary: airport.timeZone === CORDOBA_TZ ? null : cordobaSecondaryClock(),
+    };
+  }
+
+  const stage = stageFor(now);
+
+  if (stage.kind === "pre_trip" || stage.kind === "post_trip") {
+    return {
+      primary: {
+        timeZone: MEXICO_TZ,
+        label: stage.kind === "pre_trip" ? "Hora en SLP" : "Hora en México",
+        hint:
+          stage.kind === "pre_trip"
+            ? "Todavía en casa · reloj potosino"
+            : "Ya de vuelta · misma hora que la sobremesa",
+        tone: "sky",
+      },
+      secondary: cordobaSecondaryClock(),
+    };
+  }
+
+  // Grounded in Córdoba (arrival, hotel, CARLA, free day, airport run).
+  return {
+    primary: {
+      timeZone: CORDOBA_TZ,
+      label: "Hora en Córdoba",
+      hint: "Erne está en Argentina · este es el reloj que cuenta",
+      tone: "lavender",
+    },
+    secondary: null,
+  };
 }
 
 function flightWindow(leg: FlightLeg) {
@@ -301,6 +431,7 @@ export function buildFlightStatus(
   liveAircraft: LiveAircraft | null = null,
 ): FlightStatusPayload {
   const stage = stageFor(now);
+  const clocks = resolveTravelerClocks(now);
   const active = getActiveFlight(now);
 
   if (!active) {
@@ -312,6 +443,7 @@ export function buildFlightStatus(
     return {
       now: now.toISOString(),
       stage,
+      clocks,
       activeFlight: null,
       aircraft: null,
       route: null,
@@ -343,6 +475,7 @@ export function buildFlightStatus(
           ? "El radar no lo ve ahorita (pasa sobre el mar a veces). Esta es una estimación por horario — honestidad con cariño."
           : "¡Lo agarramos en el radar! Posición en vivo vía ADS-B (OpenSky).",
     },
+    clocks,
     activeFlight: {
       id: active.id,
       flightNumber: active.flightNumber,

@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import type { FlightStatusPayload } from "@/lib/family-trip/status";
 import { FlightMap } from "./FlightMap";
+import { TripClocks } from "./TripClocks";
 
 type Props = {
   token: string;
@@ -43,6 +44,7 @@ export function LiveTracker({ token, initialStatus }: Props) {
             status.aircraft?.altitudeM != null
               ? `${Math.round(status.aircraft.altitudeM).toLocaleString("es-MX")} m`
               : "—",
+          tone: "sky" as const,
         },
         {
           label: "Velocidad",
@@ -50,6 +52,7 @@ export function LiveTracker({ token, initialStatus }: Props) {
             status.aircraft?.groundSpeedMps != null
               ? `${Math.round(status.aircraft.groundSpeedMps * 3.6)} km/h`
               : "—",
+          tone: "lime" as const,
         },
         {
           label: "Rumbo",
@@ -57,21 +60,35 @@ export function LiveTracker({ token, initialStatus }: Props) {
             status.aircraft?.heading != null
               ? `${Math.round(status.aircraft.heading)}°`
               : "—",
+          tone: "lavender" as const,
         },
         {
           label: "Faltan",
           value: `~${Math.round(status.activeFlight.remainingKm)} km`,
+          tone: "pink" as const,
         },
       ]
     : null;
 
   return (
     <section id="radar" className="column scroll-mt-12">
-      <p className="label reveal">Radar familiar</p>
-      <h2 className="reveal mt-4 text-base font-medium text-foreground">
+      <TripClocks clocks={status.clocks} />
+
+      <div className="mt-8 flex flex-wrap items-center gap-2">
+        <p className="label reveal">Radar familiar</p>
+        <span className="ft-pill ft-pill-lime reveal !text-[0.65rem]">
+          {status.aircraft?.source === "opensky" || status.aircraft?.source === "aeroapi"
+            ? "En vivo"
+            : airborne
+              ? "Estimación"
+              : "En tierra"}
+        </span>
+      </div>
+
+      <h2 className="ft-display reveal mt-4 text-2xl text-[var(--ft-ink)] sm:text-3xl">
         {status.stage.title}
       </h2>
-      <p className="reveal mt-2 text-base leading-[1.7] text-muted-foreground">
+      <p className="reveal mt-2 text-base leading-[1.7] text-[var(--ft-muted)]">
         {status.stage.blurb}
       </p>
 
@@ -79,19 +96,30 @@ export function LiveTracker({ token, initialStatus }: Props) {
         <FlightMap status={status} />
       </div>
 
-      <p className="reveal mt-4 text-sm leading-relaxed text-muted-foreground">
+      <p className="reveal mt-4 rounded-2xl bg-[var(--ft-lavender)]/50 px-4 py-3 text-sm leading-relaxed text-[var(--ft-ink)]">
         {status.playfulStatLine}
       </p>
 
       {airborne && stats ? (
         <dl className="reveal mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
           {stats.map((item) => (
-            <div
-              key={item.label}
-              className="rounded-xl bg-surface px-3 py-3"
-            >
-              <dt className="meta">{item.label}</dt>
-              <dd className="mt-1 text-sm font-medium text-foreground">
+            <div key={item.label} className="ft-stat px-3 py-3">
+              <dt>
+                <span
+                  className={
+                    item.tone === "sky"
+                      ? "ft-pill ft-pill-sky !px-2 !py-0.5 !text-[0.6rem] !shadow-none"
+                      : item.tone === "lime"
+                        ? "ft-pill ft-pill-lime !px-2 !py-0.5 !text-[0.6rem] !shadow-none"
+                        : item.tone === "lavender"
+                          ? "ft-pill ft-pill-lavender !px-2 !py-0.5 !text-[0.6rem] !shadow-none"
+                          : "ft-pill ft-pill-pink !px-2 !py-0.5 !text-[0.6rem] !shadow-none"
+                  }
+                >
+                  {item.label}
+                </span>
+              </dt>
+              <dd className="ft-display mt-2 text-base text-[var(--ft-ink)]">
                 {item.value}
               </dd>
             </div>
@@ -110,7 +138,7 @@ export function LiveTracker({ token, initialStatus }: Props) {
       ) : null}
 
       {error ? (
-        <p className="mt-3 text-sm text-muted-foreground" role="status">
+        <p className="mt-3 text-sm text-[var(--ft-muted)]" role="status">
           {error}
         </p>
       ) : null}

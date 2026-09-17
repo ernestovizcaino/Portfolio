@@ -131,58 +131,68 @@ export function PhotoAlbum({
           variant="outline"
           size="sm"
           onClick={() => setShowUpload((v) => !v)}
+          className="rounded-full border-0 bg-[var(--ft-pink)] font-bold text-[var(--ft-ink)] shadow-[var(--ft-shadow-soft)] hover:bg-[var(--ft-pink-deep)] hover:text-white"
         >
           {showUpload ? "Ocultar subida" : "Subir foto"}
         </Button>
         {!configured ? (
-          <p className="text-sm text-muted-foreground">
-            Álbum aún no configurado (falta Cloudflare R2).
-          </p>
-        ) : null}
+          <span className="ft-pill ft-pill-yellow !text-[0.7rem]">
+            Álbum aún sin R2 — pronto habrá postales
+          </span>
+        ) : (
+          <span className="ft-pill ft-pill-lime !text-[0.7rem]">
+            Listo para postales
+          </span>
+        )}
       </div>
 
       {showUpload ? (
         <form
           onSubmit={onUpload}
-          className="reveal mt-6 space-y-3 rounded-2xl bg-surface p-4"
+          className="reveal mt-6 space-y-3 ft-card p-4"
         >
-          <label className="block text-sm text-foreground">
+          <label className="block text-sm font-medium text-[var(--ft-ink)]">
             Clave de subida
             <input
               type="password"
               autoComplete="off"
               value={uploadSecret}
               onChange={(e) => setUploadSecret(e.target.value)}
-              className="mt-1.5 w-full rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none focus-visible:ring-[3px] focus-visible:ring-ring/30"
+              className="mt-1.5 w-full rounded-xl border border-[var(--ft-ink)]/10 bg-white/80 px-3 py-2 text-sm outline-none focus-visible:ring-[3px] focus-visible:ring-[var(--ft-lavender-deep)]/40"
               placeholder="Solo quien sube fotos"
             />
           </label>
-          <label className="block text-sm text-foreground">
+          <label className="block text-sm font-medium text-[var(--ft-ink)]">
             Foto
             <input
               type="file"
               accept="image/*"
               capture="environment"
               onChange={(e) => setFile(e.target.files?.[0] ?? null)}
-              className="mt-1.5 block w-full text-sm text-muted-foreground file:mr-3 file:rounded-lg file:border-0 file:bg-primary file:px-3 file:py-1.5 file:text-sm file:text-primary-foreground"
+              className="mt-1.5 block w-full text-sm text-[var(--ft-muted)] file:mr-3 file:rounded-full file:border-0 file:bg-[var(--ft-sky)] file:px-3 file:py-1.5 file:text-sm file:font-bold file:text-[var(--ft-ink)]"
             />
           </label>
-          <label className="block text-sm text-foreground">
+          <label className="block text-sm font-medium text-[var(--ft-ink)]">
             Pie de foto (opcional)
             <input
               type="text"
               value={caption}
               onChange={(e) => setCaption(e.target.value)}
               maxLength={200}
-              className="mt-1.5 w-full rounded-xl border border-border bg-background px-3 py-2 text-sm outline-none focus-visible:ring-[3px] focus-visible:ring-ring/30"
+              className="mt-1.5 w-full rounded-xl border border-[var(--ft-ink)]/10 bg-white/80 px-3 py-2 text-sm outline-none focus-visible:ring-[3px] focus-visible:ring-[var(--ft-lavender-deep)]/40"
               placeholder="Ej. Primer mate en Córdoba"
             />
           </label>
-          <Button type="submit" size="sm" disabled={busy || !configured}>
+          <Button
+            type="submit"
+            size="sm"
+            disabled={busy || !configured}
+            className="rounded-full bg-[var(--ft-lavender-deep)] font-bold hover:bg-[var(--ft-ink)]"
+          >
             {busy ? "Subiendo…" : "Publicar en el álbum"}
           </Button>
           {message ? (
-            <p className="text-sm text-muted-foreground" role="status">
+            <p className="text-sm text-[var(--ft-muted)]" role="status">
               {message}
             </p>
           ) : null}
@@ -190,7 +200,7 @@ export function PhotoAlbum({
       ) : null}
 
       {photos.length === 0 ? (
-        <p className="reveal mt-8 text-sm text-muted-foreground">
+        <p className="reveal mt-8 rounded-2xl bg-[var(--ft-sky)]/40 px-4 py-3 text-sm text-[var(--ft-ink)]">
           Todavía no hay postales. Cuando Erne (o alguien con la clave) suba una,
           cae arriba del montón — las más nuevas primero.
         </p>
@@ -225,7 +235,7 @@ function PostcardStack({
 
   return (
     <div className="reveal mt-10">
-      <p className="mb-5 text-sm text-muted-foreground">
+      <p className="mb-5 text-sm text-[var(--ft-muted)]">
         {photos.length === 1
           ? "1 postal en el montón — tócala para verla grande."
           : `${photos.length} postales · la de arriba es la más nueva. Toca para ampliar.`}
@@ -288,8 +298,9 @@ function PostcardFace({
   return (
     <article
       className={cn(
-        "overflow-hidden rounded-[0.35rem] border border-black/8 bg-[#f7f4ef] shadow-tilt",
-        featured && "shadow-[0_10px_28px_-10px_oklch(0_0_0/0.28),0_2px_6px_-2px_oklch(0_0_0/0.12)]",
+        "overflow-hidden rounded-[0.45rem] border-2 border-[var(--ft-ink)]/10 bg-[#fff8ef] shadow-tilt",
+        featured &&
+          "shadow-[0_12px_32px_-10px_oklch(0.45_0.12_250/0.28),0_2px_6px_-2px_oklch(0_0_0/0.12)] ring-2 ring-[var(--ft-pink)]/40",
         large && "mx-auto max-w-lg",
       )}
     >
@@ -331,7 +342,7 @@ function PostcardFace({
         </p>
         {stamp ? (
           <span
-            className="shrink-0 rounded-sm border border-foreground/25 px-1.5 py-0.5 font-mono text-[0.6rem] uppercase tracking-wide text-faint"
+            className="shrink-0 rounded-full border border-[var(--ft-ink)]/20 bg-[var(--ft-yellow)] px-2 py-0.5 font-mono text-[0.6rem] uppercase tracking-wide text-[var(--ft-ink)]"
             aria-hidden
           >
             {stamp}
