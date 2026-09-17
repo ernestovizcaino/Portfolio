@@ -7,6 +7,11 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "i.imgur.com",
       },
+      // Family-trip album on Cloudflare R2 public hosts.
+      {
+        protocol: "https",
+        hostname: "**.r2.dev",
+      },
     ],
   },
   async rewrites() {

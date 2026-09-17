@@ -10,7 +10,7 @@ import {
   Moon02Icon,
   PdfIcon,
   Sun03Icon,
-  TrophyIcon,
+  Award01Icon,
   UserIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -26,7 +26,7 @@ import { cn } from "@/lib/utils";
 const items = [
   { id: "about", labelKey: "about", icon: UserIcon },
   { id: "experience", labelKey: "experience", icon: Briefcase01Icon },
-  { id: "awards", labelKey: "awards", icon: TrophyIcon },
+  { id: "awards", labelKey: "awards", icon: Award01Icon },
   { id: "projects", labelKey: "projects", icon: CubeIcon },
   { id: "research", labelKey: "research", icon: MicroscopeIcon },
   { id: "stack", labelKey: "stack", icon: Layers01Icon },
@@ -111,6 +111,11 @@ export const Dock = () => {
       document.removeEventListener("keydown", closeOnEscape);
     };
   }, [resumeOpen]);
+
+  // Keep the portfolio dock off private family routes.
+  if (pathname?.startsWith("/f/")) {
+    return null;
+  }
 
   return (
     <nav
