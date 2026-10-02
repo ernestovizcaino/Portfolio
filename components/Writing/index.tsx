@@ -15,6 +15,7 @@ interface WritingProps {
   label?: string;
   locale?: string;
   emptyLabel?: string;
+  labelAs?: "h1" | "h2";
 }
 
 export const Writing = ({
@@ -23,6 +24,7 @@ export const Writing = ({
   label = "Writing",
   locale = "en",
   emptyLabel = "New posts are coming soon.",
+  labelAs = "h2",
 }: WritingProps) => {
   const reduceMotion = useReducedMotion();
   const posts = data.toSorted(
@@ -30,7 +32,7 @@ export const Writing = ({
   );
 
   return (
-    <Section id={id} label={label}>
+    <Section id={id} label={label} labelAs={labelAs}>
       {posts.length ? (
         <ul className="mt-8 -mx-3">
           {posts.map((post, index) => (
@@ -62,7 +64,7 @@ export const Writing = ({
                 }
                 className="group/row flex items-center gap-4 rounded-xl px-3 py-2.5 transition-colors duration-200 hover:bg-surface focus-visible:bg-surface focus-visible:outline-none"
               >
-                <time className="meta w-[4.75rem] shrink-0">
+                <time dateTime={post.publishedAt} className="meta w-[4.75rem] shrink-0">
                   {shortDate(post.Creation)}
                 </time>
                 <span className="min-w-0 flex-1 text-pretty text-base text-foreground">

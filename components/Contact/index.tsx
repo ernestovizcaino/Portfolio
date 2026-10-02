@@ -65,8 +65,8 @@ export const Contact = ({ profile, ui }: { profile: Profile; ui: DictionaryUi })
     setForm((prev) => ({ ...prev, [key]: event.target.value }));
 
   return (
-    <section id="contact" className="column scroll-mt-12">
-      <p className="label reveal">{ui.contact}</p>
+    <section id="contact" aria-labelledby="contact-heading" className="column scroll-mt-12">
+      <h2 id="contact-heading" className="label reveal">{ui.contact}</h2>
       <p className="reveal mt-5 text-base leading-[1.7] text-muted-foreground">
         {ui.contactIntro}
       </p>

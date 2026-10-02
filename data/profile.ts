@@ -6,6 +6,8 @@
 
 export const profile = {
   name: "Ernesto Vizcaíno",
+  fullName: "Ernesto Vizcaíno Alvarado",
+  alternateNames: ["Ernesto Vizcaíno", "Ernesto Vizcaino", "Ernesto Vizcaino Alvarado"],
   role: "AI / Product Engineer",
   avatar: "/profile.jpg",
   email: "vizcaino.erne@gmail.com",

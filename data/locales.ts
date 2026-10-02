@@ -1,6 +1,7 @@
 import { awards, experience, profile, research } from "@/data/profile";
 import type { Project } from "@/data/content";
 import { filterExperience } from "@/data/visibility";
+import { siteConfig } from "@/lib/seo";
 
 export const locales = ["en", "es"] as const;
 export type Locale = (typeof locales)[number];
@@ -12,9 +13,21 @@ const english = {
   experience,
   awards,
   research,
+  pressRecognition: {
+    label: "Press & Recognition",
+    title: "Xólotl Hackathon — Advanced Track Winner",
+    metadata: "Machine Learning · Astronomical Time-Series · 2026",
+    summary:
+      "First place in Phase 3 for machine-learning classification of astronomical time series, followed by participation in CARLA 2026 in Córdoba, Argentina, and continued work in astroinformatics.",
+    institutional: "Recognition",
+    research: "Scientific work",
+    press: "Featured in",
+    more: "More coverage",
+    less: "Less coverage",
+    newTab: "opens in a new tab",
+  },
   metadata: {
-    description:
-      "AI and product engineer building and launching products from zero to production, with fintech, SaaS and machine learning experience.",
+    description: siteConfig.description,
   },
   ui: {
     skip: "Skip to content",
@@ -146,9 +159,22 @@ const spanish = {
   experience: spanishExperience,
   awards: spanishAwards,
   research: spanishResearch,
+  pressRecognition: {
+    label: "Prensa y reconocimientos",
+    title: "Hackathon Xólotl — Ganador del track avanzado",
+    metadata: "Aprendizaje automático · Series temporales astronómicas · 2026",
+    summary:
+      "Primer lugar en la fase 3 por la clasificación de series temporales astronómicas con aprendizaje automático, seguido de la participación en CARLA 2026 en Córdoba, Argentina, y trabajo continuo en astroinformática.",
+    institutional: "Reconocimientos",
+    research: "Trabajo científico",
+    press: "En medios",
+    more: "Más cobertura",
+    less: "Menos cobertura",
+    newTab: "se abre en una pestaña nueva",
+  },
   metadata: {
     description:
-      "Ingeniero de producto e IA que construye y lanza productos desde cero hasta producción, con experiencia en fintech, SaaS y aprendizaje automático.",
+      "Ernesto Vizcaíno Alvarado es ingeniero de producto e IA en San Luis Potosí, México. Desarrolla software y aplica aprendizaje automático a datos astronómicos.",
   },
   ui: {
     ...english.ui,

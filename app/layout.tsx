@@ -6,7 +6,8 @@ import { MotionProvider } from "../components/MotionProvider";
 import { SkipLink } from "../components/SkipLink";
 import { SoundProvider } from "../components/SoundProvider";
 import { ThemeProvider } from "../components/ThemeProvider";
-import { absoluteUrl, siteConfig } from "../lib/seo";
+import { siteConfig, socialImage } from "../lib/seo";
+import { profile } from "@/data/profile";
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import "../styles/globals.css";
@@ -48,9 +49,9 @@ export const metadata: Metadata = {
       "x-default": "/",
     },
   },
-  authors: [{ name: siteConfig.name, url: siteConfig.url }],
-  creator: siteConfig.name,
-  publisher: siteConfig.name,
+  authors: [{ name: profile.fullName, url: siteConfig.url }],
+  creator: profile.fullName,
+  publisher: profile.fullName,
   category: "technology",
   referrer: "origin-when-cross-origin",
   robots: {
@@ -71,21 +72,14 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     siteName: siteConfig.name,
     locale: siteConfig.locale,
-    images: [
-      {
-        url: absoluteUrl("/opengraph-image"),
-        width: 1200,
-        height: 630,
-        alt: `${siteConfig.name}, AI / Product Engineer`,
-      },
-    ],
+    images: [socialImage],
   },
   twitter: {
     card: "summary_large_image",
     creator: siteConfig.twitter,
     title: siteConfig.title,
     description: siteConfig.description,
-    images: [absoluteUrl("/opengraph-image")],
+    images: [socialImage],
   },
   icons: { icon: "/favicon.ico" },
   manifest: "/manifest.webmanifest",

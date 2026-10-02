@@ -34,13 +34,14 @@ const items = [
 ] as const;
 
 const buttonClass =
-  "relative grid size-10 place-items-center rounded-xl transition-[color,background-color,scale] duration-200 ease-[cubic-bezier(0.2,0,0,1)] hover:bg-muted active:scale-[0.96] focus-visible:ring-[3px] focus-visible:ring-ring/25 focus-visible:outline-none";
+  "relative grid size-8 min-[420px]:size-10 place-items-center rounded-xl transition-[color,background-color,scale] duration-200 ease-[cubic-bezier(0.2,0,0,1)] hover:bg-muted active:scale-[0.96] focus-visible:ring-[3px] focus-visible:ring-ring/25 focus-visible:outline-none";
 
 const iconClass =
   "absolute inset-0 m-auto transition-[opacity,transform,filter] duration-300 ease-[cubic-bezier(0.2,0,0,1)]";
 
 export const Dock = () => {
   const pathname = usePathname();
+  const isHome = pathname === "/" || pathname === "/es";
   const locale =
     pathname === "/es" || pathname?.startsWith("/es/") ? "es" : "en";
   const { ui } = getDictionary(locale);
@@ -51,6 +52,7 @@ export const Dock = () => {
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
+    if (!isHome) return;
     let frame = 0;
 
     // Pick the last section whose top edge has crossed a line 35% down the
@@ -90,7 +92,7 @@ export const Dock = () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, []);
+  }, [isHome]);
 
   useEffect(() => {
     if (!resumeOpen) return;
@@ -123,17 +125,17 @@ export const Dock = () => {
       className="fixed bottom-5 left-1/2 z-50 -translate-x-1/2"
     >
       {/* Outer radius 18px = inner radius 14px + 4px padding. */}
-      <ul className="flex items-center gap-0.5 rounded-2xl border border-border bg-background/80 p-1 shadow-card backdrop-blur-xl">
+      <ul className="flex items-center gap-0 min-[420px]:gap-0.5 rounded-2xl border border-border bg-background/80 p-1 shadow-card backdrop-blur-xl">
         {items.map((item) => (
           <li key={item.id}>
             <a
-              href={`#${item.id}`}
+              href={`${isHome ? "" : "/"}#${item.id}`}
               data-cuelume-hover="tick"
               aria-label={ui[item.labelKey]}
-              aria-current={active === item.id ? "true" : undefined}
+              aria-current={isHome && active === item.id ? "true" : undefined}
               className={cn(
                 buttonClass,
-                active === item.id
+                isHome && active === item.id
                   ? "bg-muted text-foreground"
                   : "text-faint hover:text-foreground",
               )}
@@ -221,7 +223,7 @@ export const Dock = () => {
               resumeOpen
                 ? "bg-muted text-foreground"
                 : "text-faint hover:text-foreground",
-              "w-auto min-w-10 px-2.5",
+              "w-auto min-w-8 px-2 min-[420px]:min-w-10 min-[420px]:px-2.5",
             )}
           >
             <span className="font-mono text-[11px] font-medium tracking-[0.06em]">

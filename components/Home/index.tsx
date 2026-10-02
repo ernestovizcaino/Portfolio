@@ -3,6 +3,7 @@ import { Contact } from "@/components/Contact";
 import { Experience } from "@/components/Experience";
 import { Intro } from "@/components/Intro";
 import { Projects } from "@/components/Projects";
+import { PressRecognition } from "@/components/PressRecognition";
 import { Research } from "@/components/Research";
 import { Stack } from "@/components/Stack";
 import { TopBar } from "@/components/TopBar";
@@ -15,7 +16,7 @@ export async function Home({ locale = "en" }: { locale?: Locale }) {
   const dictionary = getDictionary(locale);
 
   return (
-    <>
+    <div lang={locale}>
       <TopBar locale={locale} />
       <Intro profile={dictionary.profile} ui={dictionary.ui} />
 
@@ -46,12 +47,16 @@ export async function Home({ locale = "en" }: { locale?: Locale }) {
       </div>
 
       <div className="mt-20">
+        <PressRecognition copy={dictionary.pressRecognition} />
+      </div>
+
+      <div className="mt-20">
         <Stack label={dictionary.ui.stack} />
       </div>
 
       <div className="mt-20">
         <Contact profile={dictionary.profile} ui={dictionary.ui} />
       </div>
-    </>
+    </div>
   );
 }

@@ -64,7 +64,7 @@ export const Intro = ({ profile, ui }: { profile: Profile; ui: DictionaryUi }) =
       <div className="rise relative w-fit" style={{ "--rise-delay": 0 } as RiseStyle}>
         <Image
           src={profile.avatar}
-          alt={profile.name}
+          alt={profile.fullName}
           width={56}
           height={56}
           priority
@@ -80,7 +80,7 @@ export const Intro = ({ profile, ui }: { profile: Profile; ui: DictionaryUi }) =
         className="rise mt-5 flex items-center gap-1.5 text-base font-medium text-foreground"
         style={{ "--rise-delay": 1 } as RiseStyle}
       >
-        {profile.name}
+        {profile.fullName}
         {profile.verified ? <VerifiedBadge /> : null}
       </h1>
       <p

@@ -10,7 +10,8 @@ import Markdown from "markdown-to-jsx";
 import { Writing } from "../../../components/Writing";
 import { longDate, readingTime, wordCount } from "../../../lib/format";
 import { getArticle, getPosts } from "../../../lib/content";
-import { jsonLd, siteConfig } from "../../../lib/seo";
+import { jsonLd, personId, siteConfig, socialImage, websiteId } from "../../../lib/seo";
+import { profile } from "@/data/profile";
 import type { Metadata } from "next";
 
 type ArticlePageProps = {
@@ -46,15 +47,19 @@ export async function generateMetadata({
       url: path,
       title: article.Title,
       description: article.Description,
-      authors: [siteConfig.name],
+      siteName: siteConfig.name,
+      locale: article.language === "es" ? "es_MX" : "en_US",
+      authors: [siteConfig.url],
       publishedTime: article.publishedAt,
-      images: article.Cover ? [{ url: article.Cover, alt: article.Title }] : undefined,
+      modifiedTime: article.updatedAt,
+      images: article.Cover ? [{ url: article.Cover, alt: article.Title }] : [socialImage],
     },
     twitter: {
       card: "summary_large_image",
+      creator: siteConfig.twitter,
       title: article.Title,
       description: article.Description,
-      images: article.Cover ? [article.Cover] : undefined,
+      images: article.Cover ? [article.Cover] : [socialImage],
     },
   };
 }
@@ -72,42 +77,44 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   const articleUrl = `${siteConfig.url}/article/${id}`;
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
+    "@id": `${articleUrl}#article`,
     headline: article.Title,
     description: article.Description,
     url: articleUrl,
     mainEntityOfPage: articleUrl,
+    isPartOf: { "@id": websiteId },
     image: article.Cover,
     datePublished: article.publishedAt,
-    dateModified: article.updatedAt ?? article.publishedAt,
-    inLanguage: "es-MX",
+    dateModified: article.updatedAt,
+    inLanguage: article.language,
     author: {
       "@type": "Person",
-      "@id": `${siteConfig.url}/#person`,
-      name: siteConfig.name,
+      "@id": personId,
+      name: profile.fullName,
       url: siteConfig.url,
     },
   };
 
   return (
-    <article className="pb-32">
+    <article lang={article.language} className="pb-32">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLd(structuredData) }}
       />
       <div className="column pt-8 pb-12 md:pt-10">
         <Link
-          href="/#writing"
+          href="/writing"
           className="meta -mx-2 flex items-center gap-1.5 rounded-lg px-2 py-1 transition-colors duration-200 hover:text-foreground"
         >
           <HugeiconsIcon icon={ArrowLeft01Icon} size={13} strokeWidth={2} />
-          BACK
+          {article.language === "es" ? "ARTÍCULOS" : "WRITING"}
         </Link>
       </div>
 
       <header className="column">
         <div className="flex items-center justify-between gap-4">
-          <time className="meta">{longDate(article.Creation)}</time>
+          <time dateTime={article.publishedAt} className="meta">{longDate(article.Creation)}</time>
           <div className="meta flex items-center gap-5">
             <span className="flex items-center gap-1.5">
               <HugeiconsIcon icon={Clock01Icon} size={14} strokeWidth={2} />
@@ -123,6 +130,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         <h1 className="mt-8 text-2xl leading-[1.25] font-medium tracking-[-0.02em] text-foreground md:text-[28px]">
           {article.Title}
         </h1>
+        <p className="mt-3 text-sm text-muted-foreground">
+          {article.language === "es" ? "Por" : "By"}{" "}
+          <Link href="/" rel="author" className="rounded-sm text-foreground underline decoration-border underline-offset-4 hover:decoration-foreground">
+            {profile.fullName}
+          </Link>
+        </p>
         {article.Description ? (
           <p className="mt-4 text-base leading-[1.7] text-muted-foreground">
             {article.Description}

@@ -14,6 +14,19 @@ const PUBLISHED_DATES = [
   "Lunes, 29 de junio del 2026",
 ];
 
+const DESCRIPTIONS: Record<string, string> = {
+  "i-built-a-complete-saas-and-learned-that-nobody-was-waiting-for-it":
+    "Lessons from launching Kashi: why building a complete SaaS product did not create demand, and what I would change about validation and distribution.",
+  "more-features-do-not-create-more-value":
+    "What building Kashi taught me about feature creep, the hidden cost of complexity, and finding the core action that makes a product valuable.",
+  "what-spending-money-on-ads-taught-me-about-saas":
+    "Lessons from paid acquisition for a SaaS product: why clicks, registrations and trials are different from adoption, retention and willingness to pay.",
+  "small-businesses-is-not-a-market":
+    "Why targeting small businesses was too broad for my software, and how specific workflows and customer needs change product design and distribution.",
+  "the-difference-between-a-portfolio-project-and-a-real-product":
+    "What changes when real users depend on your software: production reliability, support, unexpected behavior and the work of distribution.",
+};
+
 const slugify = (value: string) =>
   value
     .toLowerCase()
@@ -26,7 +39,10 @@ const withPublishedDate = (post: Post): Post => {
 
   return {
     ...post,
-    publishedAt: parsedDate?.toISOString(),
+    // The source records calendar dates, not a publication time or timezone.
+    publishedAt: post.publishedAt ?? (parsedDate
+      ? `${parsedDate.getFullYear()}-${String(parsedDate.getMonth() + 1).padStart(2, "0")}-${String(parsedDate.getDate()).padStart(2, "0")}`
+      : undefined),
   };
 };
 
@@ -48,15 +64,19 @@ async function getNewPosts(): Promise<Post[]> {
         id: slugify(title),
         Title: title,
         Creation: PUBLISHED_DATES[index],
-        Description: description.replace(/[*_`]/g, "").trim(),
+        Description: DESCRIPTIONS[slugify(title)] ?? description.replace(/[*_`]/g, "").trim(),
         Content: content,
+        language: "en",
       });
     });
 }
 
 async function getAllPosts() {
   const newPosts = await getNewPosts();
-  return [...newPosts, ...archivedPosts.map(withPublishedDate)];
+  return [...newPosts, ...archivedPosts.map((post) => withPublishedDate({
+    ...post,
+    language: post.language ?? "es",
+  }))];
 }
 
 export async function getHomeContent() {

@@ -7,6 +7,7 @@ export interface Post {
   Cover?: string;
   publishedAt?: string;
   updatedAt?: string;
+  language?: "en" | "es";
 }
 
 export interface Project {

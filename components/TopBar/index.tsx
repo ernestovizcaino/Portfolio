@@ -38,7 +38,6 @@ export const TopBar = ({ locale = "en" }: { locale?: Locale }) => {
 
   const selectLanguage = () => {
     const nextLocale = locale === "es" ? "en" : "es";
-    document.cookie = `portfolio-locale=${nextLocale}; Path=/; Max-Age=31536000; SameSite=Lax`;
     posthog.capture("language_changed", {
       from_locale: locale,
       to_locale: nextLocale,
