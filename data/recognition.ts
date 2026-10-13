@@ -7,8 +7,9 @@ export interface RecognitionSource {
   publishedAt?: string;
 }
 
-// Selected original coverage. Dates are included only when verified.
-// Article titles stay in their original language.
+// Selected institutional, research and press coverage.
+// Preserve publication titles in their original language and verified dates.
+// Do not imply that syndicated reports are independent original reporting.
 export const recognitionSources: RecognitionSource[] = [
   {
     publication: "Universidad Autónoma de San Luis Potosí",

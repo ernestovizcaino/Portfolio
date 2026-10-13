@@ -9,6 +9,7 @@ import {
   PdfIcon,
   Sun03Icon,
   Award01Icon,
+  BookOpen01Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { AnimatePresence, m, useReducedMotion } from "framer-motion";
@@ -24,7 +25,7 @@ const items = [
   { id: "projects", labelKey: "selectedWork", icon: CubeIcon },
   { id: "experience", labelKey: "experience", icon: Briefcase01Icon },
   { id: "awards", labelKey: "researchAwards", icon: Award01Icon },
-  { id: "writing", labelKey: "writing", icon: PdfIcon },
+  { id: "writing", labelKey: "writing", icon: BookOpen01Icon },
   { id: "contact", labelKey: "contact", icon: Mail01Icon },
 ] as const;
 

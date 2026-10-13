@@ -8,7 +8,7 @@ export const profile = {
   name: "Ernesto Vizcaíno",
   fullName: "Ernesto Vizcaíno Alvarado",
   alternateNames: ["Ernesto Vizcaíno", "Ernesto Vizcaino", "Ernesto Vizcaino Alvarado"],
-  role: "AI / Product Engineer",
+  role: "Software Engineer & Founder",
   avatar: "/profile.jpg",
   email: "vizcaino.erne@gmail.com",
   verified: true,
@@ -22,10 +22,10 @@ export const profile = {
   timeZone: "America/Mexico_City",
   timeZoneLabel: "CST",
 
-  headline: "I build AI-powered products that solve real-world problems.",
+  headline: "I build software from scratch and get it into people's hands.",
   bio: [
     {
-      text: "I've led engineering for fintech startups, shipped software used by thousands, and developed machine learning systems for astronomical research. My work spans full-stack engineering, applied AI, and product development, from early prototypes to production systems.",
+      text: "I've built and launched software for small businesses, led engineering on fintech and AI products, and worked on machine learning for astronomical data. I care about the whole process: writing the code, shipping it, talking to users, and figuring out what to build next.",
     },
   ],
 };
@@ -61,7 +61,7 @@ export const experience = [
     role: "Independent Product Engineer / Founder",
     company: "Independent",
     summary:
-      "Building and shipping independent software products, from architecture and LLM workflows to backend infrastructure and production deployment. I own API integrations, authentication, payments, SEO, analytics, conversion optimization, and ongoing product iteration and maintenance.",
+      "Building and operating independent software products. I handle the engineering, deployment, integrations, payments, and the less glamorous work of finding users, measuring what happens, and improving the product after launch.",
   },
   {
     from: "Oct 2025",
@@ -75,7 +75,7 @@ export const experience = [
     url: "https://financiamientointeligente.com/",
     logo: "/brands/financiamiento-inteligente.svg",
     summary:
-      "Built credit preapproval systems that helped SMBs access MXN $4M+ in financing in the first month, plus AI agents and knowledge bases integrating financial, banking, and tax data. Rejoined in August 2026 to build CONTPAQi integrations, accounting ETL pipelines, automated reconciliation, and Excel reporting.",
+      "Built a credit preapproval model that helped SMBs access over MXN $4M in financing in its first month. Also built AI workflows using financial, banking, and tax data. Returned in 2026 to integrate CONTPAQi and automate accounting data pipelines and Excel reporting.",
   },
   {
     from: "Jan 2024",
@@ -84,7 +84,7 @@ export const experience = [
     company: "Oliver AI",
     logo: "/brands/oliver.ico",
     summary:
-      "Led end-to-end engineering of a production fintech application in Next.js. Built AI agents with the Vercel AI SDK for loan origination, risk assessment, compliance, and financial document processing, with AWS services and BigQuery data pipelines serving customers including Abaco Capital.",
+      "Co-founded Oliver AI and led engineering of its fintech platform, from onboarding to lending workflows. Built AI agents with the Vercel AI SDK and AWS/BigQuery data pipelines for financial analysis, serving customers including Abaco Capital.",
   },
   {
     from: "Aug 2021",
@@ -93,7 +93,7 @@ export const experience = [
     company: "Oliver POS / ERP",
     logo: "/brands/oliver.ico",
     summary:
-      "Built and launched a mobile POS that reached 10,000+ downloads and 3,000 active users within three months, then expanded it into a web-based ERP.",
+      "Built and launched a mobile point-of-sale app that reached 10,000+ downloads and 3,000 active users in three months. Later expanded it into a web-based ERP.",
   },
 ];
 
@@ -105,7 +105,7 @@ export const awards = [
     date: "Aug 2026",
     project: "Rubin/LSST Astronomical Time Series Classification",
     summary:
-      "Won Phase 3 (Advanced Track) with a classification, anomaly-detection, and scientific-prioritization pipeline for Rubin/LSST-like light curves. Evaluated morphology classification on 6,000 light curves from 600 unseen observing cadences; these scores measure morphology classification, not physical ground-truth labels.",
+      "Won first place in the advanced track by building a pipeline to classify Rubin/LSST-like light curves and flag anomalies. Tested on 6,000 simulated curves from 600 observing cadences not seen during training. These results describe morphology classes, not physical star types.",
     metrics: [
       "5.1M+ astronomical objects",
       "10 morphologies",
@@ -128,7 +128,7 @@ export const research = [
     year: "2026",
     institution: "Universidad Autónoma de San Luis Potosí",
     summary:
-      "Built a machine learning pipeline for periodic variable star classification, processing 491,073 Gaia sources and engineering 91 time series, Fourier, color and catalog features. A class weighted XGBoost model reached 0.9495 macro F1 on held out data and 0.9847 weighted F1 against mapped OGLE labels.",
+      "Built a classifier for periodic variable stars using 491,073 Gaia sources and 91 engineered time-series, Fourier, color, and catalog features. Class-weighted XGBoost reached 0.9495 macro F1 on a held-out split; a separate comparison against mapped OGLE labels reached 0.9847 weighted F1.",
   },
 ];
 

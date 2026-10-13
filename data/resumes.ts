@@ -6,7 +6,11 @@
 // PDF viewer instead of downloading it. `app/resume/[locale]/route.js` streams
 // them from the same origin with an `attachment` disposition instead.
 //
-// To swap in a new resume: re-upload, then paste the new `url` and `size` here.
+// PUBLIC-SITE PRIVACY CHECK REQUIRED BEFORE DEPLOYMENT:
+// Existing PDFs could not be inspected here. Verify that both downloaded PDFs
+// omit the name, domain, screenshots and identifying details of private ventures.
+// Never substitute a private application résumé into these public URLs.
+// To swap in a sanitized PUBLIC resume: re-upload, then paste its URL and size.
 // (UploadThing mints a new key per upload, so the URL always changes.)
 
 export const resumes = [

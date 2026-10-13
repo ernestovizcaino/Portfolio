@@ -17,7 +17,7 @@ const english = {
     title: "External coverage",
     metadata: "University recognition · Scientific computing · 2026",
     summary:
-      "University recognition and selected coverage of my work in astronomical machine learning.",
+      "Independent coverage of my astronomical machine learning work and hackathon award.",
     institutional: "Recognition",
     research: "Scientific work",
     press: "Featured in",
@@ -34,7 +34,7 @@ const english = {
     about: "About",
     experience: "Professional experience",
     experienceIntro:
-      "I work across engineering and product, taking ideas from prototype to real users and production.",
+      "I build products, ship them, and work on what happens after launch.",
     at: "at",
     dateTo: "to",
     awards: "Awards",
@@ -42,13 +42,13 @@ const english = {
     allWriting: "All writing",
     projects: "Projects",
     selectedWork: "Selected work",
-    projectsIntro: "Selected products, systems and research I've built.",
+    projectsIntro: "A few things I've built and put to the test.",
     research: "Research",
     stack: "Stack",
     writing: "Writing",
     contact: "Contact",
     contactIntro:
-      "I'm open to founding, product, and applied AI engineering roles with ambitious teams. Get in touch to discuss what you're building.",
+      "Building something challenging? I'm interested in software engineering, applied AI, and early-stage teams. Tell me what you're working on.",
     name: "Name",
     email: "Email",
     message: "Message",
@@ -79,7 +79,7 @@ const spanishExperience = [
     to: "Actualidad",
     role: "Ingeniero de Producto Independiente / Fundador",
     summary:
-      "Desarrollo y lanzo productos de software independientes: arquitectura, flujos con LLM, infraestructura backend y despliegue en producción. Me encargo de integraciones de API, autenticación, pagos, SEO, analítica, optimización de conversiones, iteración y mantenimiento.",
+      "Construyo y opero productos de software independientes. Me encargo de ingeniería, despliegue, integraciones y pagos, además de conseguir usuarios, medir lo que ocurre y mejorar el producto después del lanzamiento.",
   },
   {
     ...experience[1],
@@ -91,7 +91,7 @@ const spanishExperience = [
     ],
     role: "Ingeniero de IA",
     summary:
-      "Construí un sistema de preaprobación crediticia que respaldó más de $4 M MXN en financiamiento para PyMEs durante su primer mes, además de agentes de IA y bases de conocimiento que integran información financiera, bancaria y fiscal. Regresé en 2026 para construir integraciones con CONTPAQi y pipelines ETL que transforman datos contables en reportes Excel automatizados y flujos de conciliación.",
+      "Construí un modelo de preaprobación que ayudó a PyMEs a acceder a más de 4 M MXN en financiamiento durante su primer mes. También desarrollé flujos de IA con datos bancarios, financieros y fiscales. Regresé en 2026 para integrar CONTPAQi y automatizar reportes contables con pipelines ETL.",
   },
   {
     ...experience[2],
@@ -99,7 +99,7 @@ const spanishExperience = [
     to: "Jul 2025",
     role: "Cofundador Técnico",
     summary:
-      "Lideré de principio a fin la ingeniería de una aplicación fintech en producción con Next.js. Construí agentes con Vercel AI SDK para originación de crédito, evaluación de riesgo, cumplimiento y procesamiento de documentos financieros, con servicios en AWS y pipelines de BigQuery para clientes como Abaco Capital.",
+      "Cofundé Oliver AI y lideré la ingeniería de su plataforma fintech, desde el registro de clientes hasta los flujos de crédito. Construí agentes con Vercel AI SDK y pipelines en AWS y BigQuery para análisis financiero, con clientes como Abaco Capital.",
   },
   {
     ...experience[3],
@@ -107,7 +107,7 @@ const spanishExperience = [
     to: "Dic 2023",
     role: "Fundador / Ingeniero",
     summary:
-      "Construí y lancé un punto de venta móvil que alcanzó más de 10,000 descargas y 3,000 usuarios activos en tres meses, y posteriormente lo expandí hasta convertirlo en un ERP web completo.",
+      "Construí y lancé una app móvil de punto de venta que alcanzó más de 10,000 descargas y 3,000 usuarios activos en tres meses. Después la amplié a un ERP web.",
   },
 ];
 
@@ -119,7 +119,7 @@ const spanishAwards = [
     date: "Ago 2026",
     project: "Clasificación de Series Temporales Astronómicas Rubin/LSST",
     summary:
-      "Gané la fase 3 (nivel avanzado) con un pipeline de clasificación, detección de anomalías y priorización científica para curvas de luz tipo Rubin/LSST. Evalué la clasificación morfológica en 6,000 curvas de luz de 600 cadencias no vistas; estas métricas corresponden a morfologías, no a etiquetas físicas de referencia.",
+      "Gané el primer lugar del track avanzado con un pipeline para clasificar curvas de luz tipo Rubin/LSST y detectar anomalías. Lo evalué en 6,000 curvas simuladas de 600 cadencias no vistas durante el entrenamiento. Los resultados corresponden a clases morfológicas, no a tipos físicos de estrellas.",
     metrics: [
       "5.1M+ objetos astronómicos",
       "10 morfologías",
@@ -141,7 +141,7 @@ const spanishResearch = [
     ...research[0],
     title: "Clasificación de Estrellas Variables Gaia / OGLE",
     summary:
-      "Construí un pipeline de aprendizaje automático para clasificación de estrellas variables periódicas, procesando 491,073 fuentes Gaia e ingeniería de 91 características de series temporales, Fourier, color y catálogo. Un modelo XGBoost con pesos por clase alcanzó 0.9495 macro F1 en datos reservados y 0.9847 weighted F1 frente a etiquetas OGLE mapeadas.",
+      "Construí un clasificador de estrellas variables periódicas con 491,073 fuentes Gaia y 91 características de series temporales, Fourier, color y catálogo. XGBoost con pesos por clase logró 0.9495 macro F1 en un conjunto reservado; una evaluación distinta contra etiquetas OGLE mapeadas obtuvo 0.9847 weighted F1.",
   },
 ];
 
@@ -151,11 +151,11 @@ const spanish = {
   htmlLang: "es",
   profile: {
     ...profile,
-    role: "Ingeniero de IA / Producto",
-    headline: "Construyo productos con IA que resuelven problemas reales.",
+    role: "Ingeniero de Software y Fundador",
+    headline: "Construyo software desde cero y lo pongo en manos de usuarios.",
     bio: [
       {
-        text: "He liderado la ingeniería de startups fintech, lanzado software usado por miles de personas y desarrollado sistemas de aprendizaje automático para investigación astronómica. Mi trabajo abarca ingeniería full-stack, IA aplicada y desarrollo de producto, desde los primeros prototipos hasta sistemas en producción.",
+        text: "He construido y lanzado software para pequeños negocios, liderado ingeniería en productos fintech y de IA, y trabajado en aprendizaje automático con datos astronómicos. Me interesa todo el proceso: programar, lanzar, escuchar a los usuarios y decidir qué construir después.",
       },
     ],
   },
@@ -167,7 +167,7 @@ const spanish = {
     title: "Cobertura externa",
     metadata: "Reconocimiento universitario · Cómputo científico · 2026",
     summary:
-      "Reconocimiento universitario y cobertura seleccionada de mi trabajo en aprendizaje automático aplicado a la astronomía.",
+      "Cobertura externa de mi trabajo en aprendizaje automático astronómico y del premio del hackathon.",
     institutional: "Reconocimientos",
     research: "Trabajo científico",
     press: "En medios",
@@ -177,7 +177,7 @@ const spanish = {
   },
   metadata: {
     description:
-      "Ernesto Vizcaíno, ingeniero de IA y producto. Desarrollo full-stack, agentes de IA, fintech en producción y aprendizaje automático para investigación astronómica.",
+      "Ernesto Vizcaíno es ingeniero de software y fundador. Ha construido productos fintech, sistemas de IA y herramientas de aprendizaje automático para investigación astronómica.",
   },
   ui: {
     ...english.ui,
@@ -186,7 +186,7 @@ const spanish = {
     about: "Acerca de mí",
     experience: "Experiencia profesional",
     experienceIntro:
-      "Trabajo entre ingeniería y producto, llevando ideas desde prototipo hasta usuarios reales y producción.",
+      "Construyo productos, los lanzo y trabajo en lo que sucede después.",
     at: "en",
     dateTo: "a",
     awards: "Premios",
@@ -194,13 +194,13 @@ const spanish = {
     allWriting: "Todos los artículos",
     projects: "Proyectos",
     selectedWork: "Trabajo destacado",
-    projectsIntro: "Productos, sistemas e investigación que he construido.",
+    projectsIntro: "Algunos proyectos que he construido y puesto a prueba.",
     research: "Investigación",
     stack: "Tecnologías",
     writing: "Artículos",
     contact: "Contacto",
     contactIntro:
-      "Busco oportunidades como ingeniero fundador, de producto o de IA aplicada en equipos ambiciosos. Escríbeme para conversar sobre lo que estás construyendo.",
+      "¿Estás construyendo algo difícil? Me interesan la ingeniería de software, la IA aplicada y los equipos en etapas tempranas. Cuéntame en qué trabajas.",
     name: "Nombre",
     email: "Correo",
     message: "Mensaje",
@@ -241,25 +241,25 @@ export function localizeProjects(projects: Project[], locale: Locale = "en") {
     "oliver-ai": {
       Project_Title: "Oliver AI — Agentes financieros de IA",
       Category: "IA aplicada · Fintech",
-      Description: "Lideré el desarrollo de una aplicación fintech en producción para originación de crédito, evaluación de riesgo, cumplimiento y procesamiento de documentos financieros. Construí agentes con Vercel AI SDK, integré datos financieros y desarrollé servicios en AWS y pipelines de BigQuery para clientes como Abaco Capital.",
-      Metrics: "Next.js · Vercel AI SDK · AWS · BigQuery",
+      Description: "Cofundé Oliver AI y lideré la ingeniería de su plataforma fintech. Construí agentes para flujos de crédito, evaluación de riesgo y procesamiento de documentos, además de pipelines en AWS y BigQuery para análisis financiero de clientes como Abaco Capital.",
+      Metrics: "Plataforma fintech lanzada · Agentes de IA · AWS/BigQuery",
     },
     "xignus-ai": {
       Project_Title: "Xignus AI — Automatización financiera",
       Category: "IA aplicada · Ingeniería de datos",
-      Description: "Construí sistemas de preaprobación crediticia, agentes de IA y bases de conocimiento con datos financieros, bancarios y fiscales. Desarrollé integraciones con CONTPAQi y pipelines ETL contables para conciliación automatizada y reportes en Excel.",
-      Metrics: "MXN $4M+ en financiamiento para PyMEs en el primer mes",
+      Description: "Construí un modelo de preaprobación y flujos de IA con datos bancarios, fiscales y financieros. Regresé para integrar CONTPAQi y automatizar reportes contables mediante pipelines ETL.",
+      Metrics: "Ayudó a PyMEs a acceder a más de 4 M MXN en el primer mes",
     },
     "rubin-lsst": {
       Project_Title: "Aprendizaje automático astronómico — Rubin/LSST",
       Category: "Aprendizaje automático · Astronomía",
-      Description: "Construí un pipeline con incertidumbre para clasificación de series temporales, detección de anomalías y priorización científica sobre 5.1M+ objetos astronómicos. Utilicé ingeniería de características y evaluación en cadencias no vistas para medir la clasificación morfológica sin etiquetas físicas de referencia.",
-      Metrics: "5.1M+ objetos · Características temporales · Evaluación de modelos",
+      Description: "Construí un pipeline con estimaciones de incertidumbre para clasificar curvas de luz, detectar anomalías y priorizar observaciones. Trabajé con datos de más de 5.1 millones de objetos y probé clasificación morfológica en 6,000 curvas simuladas de 600 cadencias no vistas.",
+      Metrics: "Primer lugar, Hackathon Xólotl · 5.1M+ objetos",
     },
     "oliver-pos": {
       Project_Title: "Oliver POS / ERP",
       Category: "Ingeniería de producto · SaaS",
-      Description: "Construí y lancé una aplicación móvil de punto de venta para pequeños negocios y después la expandí a un ERP web. Me encargué del desarrollo del producto desde la primera versión móvil hasta la plataforma de gestión empresarial.",
+      Description: "Construí y lancé una app móvil de punto de venta para pequeños negocios. Después de conseguir miles de usuarios, la amplié a un ERP web para ventas y gestión comercial.",
       Metrics: "10,000+ descargas · 3,000 usuarios activos en 3 meses",
     },
   };

@@ -30,6 +30,35 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: "/article/i-built-a-complete-saas-and-learned-that-nobody-was-waiting-for-it",
+        destination: "/article/i-shipped-kashi-getting-people-to-use-it-was-harder",
+        permanent: true,
+      },
+      {
+        source: "/article/more-features-do-not-create-more-value",
+        destination: "/article/i-kept-adding-features-users-still-didnt-stay",
+        permanent: true,
+      },
+      {
+        source: "/article/what-spending-money-on-ads-taught-me-about-saas",
+        destination: "/article/a-week-of-meta-ads-five-trials-and-no-retained-customers",
+        permanent: true,
+      },
+      {
+        source: "/article/small-businesses-is-not-a-market",
+        destination: "/article/i-tried-to-build-for-every-small-business",
+        permanent: true,
+      },
+      {
+        source: "/article/the-difference-between-a-portfolio-project-and-a-real-product",
+        destination: "/article/shipping-software-is-different-when-someone-depends-on-it",
+        permanent: true,
+      },
+    ];
+  },
   skipTrailingSlashRedirect: true,
 };
 

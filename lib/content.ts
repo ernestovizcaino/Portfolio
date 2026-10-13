@@ -14,16 +14,16 @@ const PUBLISHED_DATES = [
 ];
 
 const DESCRIPTIONS: Record<string, string> = {
-  "i-built-a-complete-saas-and-learned-that-nobody-was-waiting-for-it":
-    "Lessons from launching Kashi: why building a complete SaaS product did not create demand, and what I would change about validation and distribution.",
-  "more-features-do-not-create-more-value":
-    "What building Kashi taught me about feature creep, the hidden cost of complexity, and finding the core action that makes a product valuable.",
-  "what-spending-money-on-ads-taught-me-about-saas":
-    "Lessons from paid acquisition for a SaaS product: why clicks, registrations and trials are different from adoption, retention and willingness to pay.",
-  "small-businesses-is-not-a-market":
-    "Why targeting small businesses was too broad for my software, and how specific workflows and customer needs change product design and distribution.",
-  "the-difference-between-a-portfolio-project-and-a-real-product":
-    "What changes when real users depend on your software: production reliability, support, unexpected behavior and the work of distribution.",
+  "i-shipped-kashi-getting-people-to-use-it-was-harder":
+    "What launching Kashi taught me about product adoption, switching costs, onboarding, and choosing a focused customer problem.",
+  "i-kept-adding-features-users-still-didnt-stay":
+    "How building Kashi changed the way I think about feature scope, product complexity, and the user outcomes that matter.",
+  "a-week-of-meta-ads-five-trials-and-no-retained-customers":
+    "A small paid acquisition experiment for Kashi, what the funnel showed, and why clicks and trials did not become retained customers.",
+  "i-tried-to-build-for-every-small-business":
+    "Why building Kashi for every kind of small business made product focus harder, and what I would do differently.",
+  "shipping-software-is-different-when-someone-depends-on-it":
+    "What operating Kashi taught me about production reliability, support, user behavior, and the work that continues after launch.",
 };
 
 const slugify = (value: string) =>
