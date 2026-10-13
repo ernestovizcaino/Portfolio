@@ -217,42 +217,37 @@ export const posts = archivedPosts.filter(
 
 export const projects: Project[] = [
   {
-    id: "pasaegel",
-    Project_Title: "PasaEGEL",
-    Category: "SaaS · Education",
-    Description:
-      "Exam prep platform for Mexico's EGEL exams, built end to end with interactive simulations, study modules, payments, analytics and organic acquisition.",
-    Metrics: "500+ users · 200+ paid orders · Top 5 Google rankings",
-    Project_URL: "https://www.pasaegel.com/",
-    Image: "/brands/pasaegel.png",
+    id: "oliver-ai",
+    Project_Title: "Oliver AI — Financial AI Agents",
+    Category: "Applied AI · Fintech",
+    Description: "Led development of a production fintech application for loan origination, risk assessment, compliance, and financial document processing. Built agents with the Vercel AI SDK, integrated financial data, and developed AWS services and BigQuery pipelines for customers including Abaco Capital.",
+    Metrics: "Next.js · Vercel AI SDK · AWS · BigQuery",
+    Image: "/brands/oliver.ico",
+  },
+  {
+    id: "xignus-ai",
+    Project_Title: "Xignus AI — Financial Automation",
+    Category: "Applied AI · Data Engineering",
+    Description: "Built credit preapproval, AI agents, and knowledge bases using financial, banking, and tax data. Developed CONTPAQi integrations and accounting ETL pipelines for automated reconciliation and Excel reporting.",
+    Metrics: "MXN $4M+ in SMB financing in the first month",
+    Project_URL: "https://financiamientointeligente.com/",
+    Image: "/brands/financiamiento-inteligente.svg",
   },
   {
     id: "rubin-lsst",
-    Project_Title: "Rubin/LSST Time Series Classifier",
+    Project_Title: "Astronomical Machine Learning — Rubin/LSST",
     Category: "Machine Learning · Astronomy",
-    Description:
-      "Uncertainty aware astronomical classification and scientific prioritization pipeline built for Rubin/LSST like time series data.",
-    Metrics: "1st Place · 5.1M+ objects · 68.47% balanced accuracy",
-    Project_URL: "https://cudi.edu.mx/noticias/premiacion-hackathon",
+    Description: "Built an uncertainty-aware pipeline for time-series classification, anomaly detection, and scientific prioritization across 5.1M+ astronomical objects. Used feature engineering and evaluation on unseen observing cadences to assess morphology classification without physical ground-truth labels.",
+    Metrics: "5.1M+ objects · Time-series features · Model evaluation",
+    Project_URL: "https://wp.uaslp.mx/noticias/orgullouaslp/estudiante-gana-hackathon-de-datos-astronomicos-con-inteligencia-artificial/",
     Icon: "galaxy",
-    award: "1st Place",
-  },
-  {
-    id: "gaia-ogle",
-    Project_Title: "Gaia / OGLE Variable Star Classifier",
-    Category: "Research · Machine Learning",
-    Description:
-      "Cross survey variable star classification using Gaia light curves, period, Fourier, color and catalog features, validated against OGLE labels.",
-    Metrics: "491K Gaia sources · 11 classes · 0.9847 weighted F1",
-    Icon: "constellation",
   },
   {
     id: "oliver-pos",
     Project_Title: "Oliver POS / ERP",
-    Category: "Product · SaaS",
-    Description:
-      "Mobile POS for small businesses that later expanded into a full web based ERP.",
-    Metrics: "10K+ downloads · 3K active users in 3 months",
+    Category: "Product Engineering · SaaS",
+    Description: "Built and shipped a mobile point-of-sale application for small businesses, then expanded it into a web-based ERP. Owned product development from the initial mobile release through the broader business-management platform.",
+    Metrics: "10,000+ downloads · 3,000 active users in 3 months",
     Image: "/brands/oliver.ico",
   },
 ];

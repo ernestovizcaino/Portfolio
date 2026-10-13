@@ -38,11 +38,7 @@ export const Writing = ({
           {posts.map((post, index) => (
             <m.li
               key={post.id}
-              initial={{
-                opacity: 0,
-                y: reduceMotion ? 0 : 12,
-                filter: reduceMotion ? "none" : "blur(4px)",
-              }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               viewport={{ once: true, amount: 0.4 }}
               transition={{

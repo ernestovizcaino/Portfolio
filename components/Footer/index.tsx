@@ -3,7 +3,6 @@
 import { Location01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { usePathname } from "next/navigation";
-import Link from "next/link";
 import { profile } from "@/data/profile";
 
 export const Footer = () => {
@@ -16,11 +15,6 @@ export const Footer = () => {
 
   return (
     <footer className="column pt-24 pb-32">
-      <p className="mb-6 text-center text-sm text-muted-foreground">
-        <Link href="/writing" hrefLang="en" className="rounded-sm transition-colors hover:text-foreground">
-          {pathname === "/es" ? "Artículos en inglés" : "Writing"}
-        </Link>
-      </p>
       <p className="text-center text-sm text-muted-foreground">
         © {new Date().getFullYear()} {profile.name}
       </p>

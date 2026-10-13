@@ -28,7 +28,6 @@ const ProjectMark = ({ project }: { project: Project }) => (
         alt=""
         width={80}
         height={80}
-        quality={100}
         sizes="40px"
         className="size-10 rounded-[10px] object-contain"
       />
@@ -53,30 +52,33 @@ interface ProjectsProps {
   data: Project[];
   label?: string;
   intro?: string;
+  locale?: string;
 }
 
 const ProjectRow = ({
   project,
   reduceMotion,
+  locale,
 }: {
   project: Project;
   reduceMotion: boolean | null;
+  locale: string;
 }) => {
   const content = (
     <>
       <ProjectMark project={project} />
 
-      <span className="min-w-0 flex-1">
-        <span className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-          <span className="text-base font-medium text-foreground">
+      <div className="min-w-0 flex-1">
+        <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+          <h3 className="text-base font-medium text-foreground">
             {project.Project_Title}
-          </span>
+          </h3>
           {project.award ? (
             <span className="font-mono text-xs text-foreground/70">
               {project.award}
             </span>
           ) : null}
-        </span>
+        </div>
         <span className="mt-0.5 block text-sm text-faint">{project.Category}</span>
         <span className="mt-1.5 block text-sm font-medium text-foreground">
           {project.Metrics}
@@ -84,7 +86,7 @@ const ProjectRow = ({
         <span className="mt-1 block text-pretty text-sm leading-[1.6] text-muted-foreground">
           {project.Description}
         </span>
-      </span>
+      </div>
 
       {project.Project_URL ? (
         <HugeiconsIcon
@@ -103,7 +105,7 @@ const ProjectRow = ({
         href={project.Project_URL}
         target="_blank"
         rel="noreferrer"
-        whileHover={reduceMotion ? undefined : { x: 3 }}
+        whileHover={reduceMotion ? undefined : { x: 1 }}
         whileTap={reduceMotion ? undefined : { scale: 0.99 }}
         transition={{ type: "spring", duration: 0.3, bounce: 0 }}
         onClick={() =>
@@ -112,9 +114,10 @@ const ProjectRow = ({
             project_url: project.Project_URL,
           })
         }
-        className="group/row flex items-start gap-4 rounded-xl px-3 py-3 transition-colors duration-200 hover:bg-surface focus-visible:bg-surface focus-visible:outline-none"
+        className="group/row flex items-start gap-4 rounded-xl px-3 py-3 transition-colors duration-200 hover:bg-surface focus-visible:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
       >
         {content}
+        <span className="sr-only"> ({locale === "es" ? "se abre en una pestaña nueva" : "opens in a new tab"})</span>
       </m.a>
     );
   }
@@ -126,7 +129,7 @@ const ProjectRow = ({
   );
 };
 
-export const Projects = ({ data, label = "Selected work", intro }: ProjectsProps) => {
+export const Projects = ({ data, label = "Selected work", intro, locale = "en" }: ProjectsProps) => {
   const reduceMotion = useReducedMotion();
 
   return (
@@ -139,7 +142,7 @@ export const Projects = ({ data, label = "Selected work", intro }: ProjectsProps
         {data.map((project, index) => (
           <m.li
             key={project.id}
-            initial={{ opacity: 0, y: reduceMotion ? 0 : 14, filter: reduceMotion ? "none" : "blur(4px)" }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: true, amount: 0.35 }}
             transition={{
@@ -149,7 +152,7 @@ export const Projects = ({ data, label = "Selected work", intro }: ProjectsProps
               delay: reduceMotion ? 0 : index * 0.06,
             }}
           >
-            <ProjectRow project={project} reduceMotion={reduceMotion} />
+            <ProjectRow project={project} reduceMotion={reduceMotion} locale={locale} />
           </m.li>
         ))}
       </ul>

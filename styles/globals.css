@@ -123,8 +123,9 @@
   --secondary-foreground: oklch(0.96 0 0);
 
   --muted: oklch(0.225 0 0);
+  --muted-foreground: oklch(0.72 0 0);
   --muted-foreground: oklch(0.655 0 0);
-  --faint: oklch(0.6 0 0);
+  --faint: oklch(0.67 0 0);
 
   --accent: oklch(0.245 0 0);
   --accent-foreground: oklch(0.96 0 0);
@@ -269,18 +270,17 @@
     opacity: 0;
     animation: rise 620ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
     animation-delay: calc(var(--rise-delay, 0) * 70ms);
-    will-change: transform, opacity;
   }
 }
 
-/* Scroll-linked reveal — progressive enhancement, no JS. Content is
- * visible by default; only browsers with view timelines animate it. */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .reveal {
-      animation: rise linear both;
-      animation-timeline: view();
-      animation-range: entry 2% cover 20%;
-    }
+/* Section content remains visible immediately, including without JavaScript. */
+
+/* Honor reduced motion for both native scroll and interactive transitions. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

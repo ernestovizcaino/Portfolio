@@ -22,9 +22,10 @@ export const profile = {
   timeZone: "America/Mexico_City",
   timeZoneLabel: "CST",
 
+  headline: "I build AI-powered products that solve real-world problems.",
   bio: [
     {
-      text: "I've been building software since I was 13. Since then, I've taken products from idea to thousands of users, built revenue generating SaaS and fintech systems, and applied machine learning to millions of astronomical objects.",
+      text: "I've led engineering for fintech startups, shipped software used by thousands, and developed machine learning systems for astronomical research. My work spans full-stack engineering, applied AI, and product development, from early prototypes to production systems.",
     },
   ],
 };
@@ -57,12 +58,10 @@ export const experience = [
   {
     from: "Apr 2026",
     to: "Present",
-    role: "Founder / Product Engineer",
-    company: "PasaEGEL",
-    url: "https://www.pasaegel.com/",
-    logo: "/brands/pasaegel.png",
+    role: "Independent Product Engineer / Founder",
+    company: "Independent",
     summary:
-      "Founded and built an EGEL exam prep platform end to end, including interactive simulations, study modules, payments, analytics and SEO driven acquisition. Grew to 500+ users and 200+ paid orders within a few months, driven primarily by organic search and top five Google rankings for targeted EGEL queries.",
+      "Building and shipping independent software products, from architecture and LLM workflows to backend infrastructure and production deployment. I own API integrations, authentication, payments, SEO, analytics, conversion optimization, and ongoing product iteration and maintenance.",
   },
   {
     from: "Oct 2025",
@@ -71,22 +70,21 @@ export const experience = [
       { from: "Oct 2025", to: "Jan 2026" },
       { from: "Aug 2026", to: "Sep 2026" },
     ],
-    role: "AI Engineer / Founding Team",
-    company: "Financiamiento Inteligente / Xignus",
+    role: "AI Engineer",
+    company: "Xignus AI",
     url: "https://financiamientointeligente.com/",
     logo: "/brands/financiamiento-inteligente.svg",
     summary:
-      "Built a credit pre approval system that supported more than $4M MXN in SMB financing during its first month, alongside production AI agents and financial data products. Rejoined in 2026 to build CONTPAQi integrations and ETL pipelines that transform accounting data into automated Excel reports and reconciliation workflows.",
+      "Built credit preapproval systems that helped SMBs access MXN $4M+ in financing in the first month, plus AI agents and knowledge bases integrating financial, banking, and tax data. Rejoined in August 2026 to build CONTPAQi integrations, accounting ETL pipelines, automated reconciliation, and Excel reporting.",
   },
   {
     from: "Jan 2024",
     to: "Jul 2025",
-    role: "Technical Cofounder",
+    role: "Technical Co-Founder",
     company: "Oliver AI",
-    url: "https://www.tryoliver.ai/en",
     logo: "/brands/oliver.ico",
     summary:
-      "Led engineering across a fintech platform and production AI workflows for loan origination, portfolio analysis, risk review, compliance and financial document processing.",
+      "Led end-to-end engineering of a production fintech application in Next.js. Built AI agents with the Vercel AI SDK for loan origination, risk assessment, compliance, and financial document processing, with AWS services and BigQuery data pipelines serving customers including Abaco Capital.",
   },
   {
     from: "Aug 2021",
@@ -95,7 +93,7 @@ export const experience = [
     company: "Oliver POS / ERP",
     logo: "/brands/oliver.ico",
     summary:
-      "Built and launched a mobile POS that reached 10,000+ downloads and 3,000 active users within three months, then expanded it into a complete web based ERP.",
+      "Built and launched a mobile POS that reached 10,000+ downloads and 3,000 active users within three months, then expanded it into a web-based ERP.",
   },
 ];
 
@@ -107,7 +105,7 @@ export const awards = [
     date: "Aug 2026",
     project: "Rubin/LSST Astronomical Time Series Classification",
     summary:
-      "Won the advanced track after building an uncertainty aware classification and scientific prioritization pipeline for Rubin/LSST like astronomical time series data.",
+      "Won Phase 3 (Advanced Track) with a classification, anomaly-detection, and scientific-prioritization pipeline for Rubin/LSST-like light curves. Evaluated morphology classification on 6,000 light curves from 600 unseen observing cadences; these scores measure morphology classification, not physical ground-truth labels.",
     metrics: [
       "5.1M+ astronomical objects",
       "10 morphologies",
@@ -117,10 +115,10 @@ export const awards = [
       "68.28% macro F1",
     ],
     link: {
-      href: "https://cudi.edu.mx/noticias/premiacion-hackathon",
-      label: "View official announcement",
+      href: "https://wp.uaslp.mx/noticias/orgullouaslp/estudiante-gana-hackathon-de-datos-astronomicos-con-inteligencia-artificial/",
+      label: "View university recognition",
     },
-    note: "Award includes attendance at CARLA 2026 in Córdoba, Argentina 🇦🇷.",
+    note: "The award supported participation in CARLA 2026 in Córdoba, Argentina.",
   },
 ];
 

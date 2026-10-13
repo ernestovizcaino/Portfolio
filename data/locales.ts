@@ -1,6 +1,5 @@
 import { awards, experience, profile, research } from "@/data/profile";
 import type { Project } from "@/data/content";
-import { filterExperience } from "@/data/visibility";
 import { siteConfig } from "@/lib/seo";
 
 export const locales = ["en", "es"] as const;
@@ -15,10 +14,10 @@ const english = {
   research,
   pressRecognition: {
     label: "Press & Recognition",
-    title: "Xólotl Hackathon — Advanced Track Winner",
-    metadata: "Machine Learning · Astronomical Time-Series · 2026",
+    title: "External coverage",
+    metadata: "University recognition · Scientific computing · 2026",
     summary:
-      "First place in Phase 3 for machine-learning classification of astronomical time series, followed by participation in CARLA 2026 in Córdoba, Argentina, and continued work in astroinformatics.",
+      "University recognition and selected coverage of my work in astronomical machine learning.",
     institutional: "Recognition",
     research: "Scientific work",
     press: "Featured in",
@@ -33,12 +32,14 @@ const english = {
     skip: "Skip to content",
     established: "BUILDING SINCE 2016",
     about: "About",
-    experience: "Experience",
+    experience: "Professional experience",
     experienceIntro:
       "I work across engineering and product, taking ideas from prototype to real users and production.",
     at: "at",
     dateTo: "to",
     awards: "Awards",
+    researchAwards: "Research & Awards",
+    allWriting: "All writing",
     projects: "Projects",
     selectedWork: "Selected work",
     projectsIntro: "Selected products, systems and research I've built.",
@@ -47,7 +48,7 @@ const english = {
     writing: "Writing",
     contact: "Contact",
     contactIntro:
-      "I'm open to product engineering opportunities, ambitious startup teams and selected collaborations.",
+      "I'm open to founding, product, and applied AI engineering roles with ambitious teams. Get in touch to discuss what you're building.",
     name: "Name",
     email: "Email",
     message: "Message",
@@ -60,13 +61,14 @@ const english = {
     copyEmailLabel: `Copy ${profile.email} to clipboard`,
     copied: "Copied",
     downloadResume: "Download résumé",
+    viewResume: "Resume",
     toggleTheme: "Toggle color theme",
     muteSounds: "Mute interaction sounds",
     enableSounds: "Enable interaction sounds",
     sections: "Sections",
     newPosts: "New posts are coming soon.",
     language: "Español",
-    languageLabel: "View in Spanish",
+    languageLabel: "Español — View in Spanish",
   },
 };
 
@@ -75,9 +77,9 @@ const spanishExperience = [
     ...experience[0],
     from: "Abr 2026",
     to: "Actualidad",
-    role: "Fundador / Ingeniero de Producto",
+    role: "Ingeniero de Producto Independiente / Fundador",
     summary:
-      "Fundé y construí de principio a fin una plataforma de preparación para el EGEL, con simuladores interactivos, módulos de estudio, pagos, analítica y adquisición mediante SEO. Alcanzó más de 500 usuarios y 200 órdenes pagadas en pocos meses, impulsada principalmente por búsqueda orgánica y posiciones entre los cinco primeros resultados de Google para consultas EGEL específicas.",
+      "Desarrollo y lanzo productos de software independientes: arquitectura, flujos con LLM, infraestructura backend y despliegue en producción. Me encargo de integraciones de API, autenticación, pagos, SEO, analítica, optimización de conversiones, iteración y mantenimiento.",
   },
   {
     ...experience[1],
@@ -87,9 +89,9 @@ const spanishExperience = [
       { from: "Oct 2025", to: "Ene 2026" },
       { from: "Ago 2026", to: "Sep 2026" },
     ],
-    role: "Ingeniero de IA / Equipo Fundador",
+    role: "Ingeniero de IA",
     summary:
-      "Construí un sistema de preaprobación crediticia que respaldó más de $4 M MXN en financiamiento para PyMEs durante su primer mes, además de agentes de IA en producción y productos de datos financieros. Regresé en 2026 para construir integraciones con CONTPAQi y pipelines ETL que transforman datos contables en reportes Excel automatizados y flujos de conciliación.",
+      "Construí un sistema de preaprobación crediticia que respaldó más de $4 M MXN en financiamiento para PyMEs durante su primer mes, además de agentes de IA y bases de conocimiento que integran información financiera, bancaria y fiscal. Regresé en 2026 para construir integraciones con CONTPAQi y pipelines ETL que transforman datos contables en reportes Excel automatizados y flujos de conciliación.",
   },
   {
     ...experience[2],
@@ -97,7 +99,7 @@ const spanishExperience = [
     to: "Jul 2025",
     role: "Cofundador Técnico",
     summary:
-      "Lideré la ingeniería de una plataforma fintech y flujos de IA en producción para originación de crédito, análisis de cartera, revisión de riesgo, cumplimiento y procesamiento de documentos financieros.",
+      "Lideré de principio a fin la ingeniería de una aplicación fintech en producción con Next.js. Construí agentes con Vercel AI SDK para originación de crédito, evaluación de riesgo, cumplimiento y procesamiento de documentos financieros, con servicios en AWS y pipelines de BigQuery para clientes como Abaco Capital.",
   },
   {
     ...experience[3],
@@ -117,7 +119,7 @@ const spanishAwards = [
     date: "Ago 2026",
     project: "Clasificación de Series Temporales Astronómicas Rubin/LSST",
     summary:
-      "Gané el track avanzado tras construir un pipeline de clasificación con incertidumbre y priorización científica para datos de series temporales astronómicas tipo Rubin/LSST.",
+      "Gané la fase 3 (nivel avanzado) con un pipeline de clasificación, detección de anomalías y priorización científica para curvas de luz tipo Rubin/LSST. Evalué la clasificación morfológica en 6,000 curvas de luz de 600 cadencias no vistas; estas métricas corresponden a morfologías, no a etiquetas físicas de referencia.",
     metrics: [
       "5.1M+ objetos astronómicos",
       "10 morfologías",
@@ -127,10 +129,10 @@ const spanishAwards = [
       "68.28% macro F1",
     ],
     link: {
-      href: "https://cudi.edu.mx/noticias/premiacion-hackathon",
-      label: "Ver anuncio oficial",
+      href: "https://wp.uaslp.mx/noticias/orgullouaslp/estudiante-gana-hackathon-de-datos-astronomicos-con-inteligencia-artificial/",
+      label: "Ver reconocimiento universitario",
     },
-    note: "El premio incluye asistencia a CARLA 2026 en Córdoba, Argentina 🇦🇷.",
+    note: "El premio apoyó mi participación en CARLA 2026 en Córdoba, Argentina.",
   },
 ];
 
@@ -149,10 +151,11 @@ const spanish = {
   htmlLang: "es",
   profile: {
     ...profile,
-    role: "Ingeniero de Producto / IA",
+    role: "Ingeniero de IA / Producto",
+    headline: "Construyo productos con IA que resuelven problemas reales.",
     bio: [
       {
-        text: "He estado construyendo software desde los 13 años. Desde entonces, he llevado productos desde la idea hasta miles de usuarios, construido SaaS y sistemas fintech generadores de ingresos, y aplicado aprendizaje automático a millones de objetos astronómicos.",
+        text: "He liderado la ingeniería de startups fintech, lanzado software usado por miles de personas y desarrollado sistemas de aprendizaje automático para investigación astronómica. Mi trabajo abarca ingeniería full-stack, IA aplicada y desarrollo de producto, desde los primeros prototipos hasta sistemas en producción.",
       },
     ],
   },
@@ -161,10 +164,10 @@ const spanish = {
   research: spanishResearch,
   pressRecognition: {
     label: "Prensa y reconocimientos",
-    title: "Hackathon Xólotl — Ganador del track avanzado",
-    metadata: "Aprendizaje automático · Series temporales astronómicas · 2026",
+    title: "Cobertura externa",
+    metadata: "Reconocimiento universitario · Cómputo científico · 2026",
     summary:
-      "Primer lugar en la fase 3 por la clasificación de series temporales astronómicas con aprendizaje automático, seguido de la participación en CARLA 2026 en Córdoba, Argentina, y trabajo continuo en astroinformática.",
+      "Reconocimiento universitario y cobertura seleccionada de mi trabajo en aprendizaje automático aplicado a la astronomía.",
     institutional: "Reconocimientos",
     research: "Trabajo científico",
     press: "En medios",
@@ -174,19 +177,21 @@ const spanish = {
   },
   metadata: {
     description:
-      "Ernesto Vizcaíno Alvarado es ingeniero de producto e IA en San Luis Potosí, México. Desarrolla software y aplica aprendizaje automático a datos astronómicos.",
+      "Ernesto Vizcaíno, ingeniero de IA y producto. Desarrollo full-stack, agentes de IA, fintech en producción y aprendizaje automático para investigación astronómica.",
   },
   ui: {
     ...english.ui,
     skip: "Saltar al contenido",
     established: "CONSTRUYENDO DESDE 2016",
     about: "Acerca de mí",
-    experience: "Experiencia",
+    experience: "Experiencia profesional",
     experienceIntro:
       "Trabajo entre ingeniería y producto, llevando ideas desde prototipo hasta usuarios reales y producción.",
     at: "en",
     dateTo: "a",
     awards: "Premios",
+    researchAwards: "Investigación y premios",
+    allWriting: "Todos los artículos",
     projects: "Proyectos",
     selectedWork: "Trabajo destacado",
     projectsIntro: "Productos, sistemas e investigación que he construido.",
@@ -195,7 +200,7 @@ const spanish = {
     writing: "Artículos",
     contact: "Contacto",
     contactIntro:
-      "Estoy abierto a oportunidades de ingeniería de producto, equipos de startups ambiciosos y colaboraciones seleccionadas.",
+      "Busco oportunidades como ingeniero fundador, de producto o de IA aplicada en equipos ambiciosos. Escríbeme para conversar sobre lo que estás construyendo.",
     name: "Nombre",
     email: "Correo",
     message: "Mensaje",
@@ -208,13 +213,14 @@ const spanish = {
     copyEmailLabel: `Copiar ${profile.email} al portapapeles`,
     copied: "Copiado",
     downloadResume: "Descargar CV",
+    viewResume: "CV",
     toggleTheme: "Cambiar tema de color",
     muteSounds: "Silenciar sonidos de interacción",
     enableSounds: "Activar sonidos de interacción",
     sections: "Secciones",
     newPosts: "Pronto habrá nuevos artículos.",
     language: "English",
-    languageLabel: "View in English",
+    languageLabel: "English — View in English",
   },
 };
 
@@ -225,56 +231,38 @@ export type DictionaryUi = Dictionary["ui"];
 export function getDictionary(locale: Locale = "en") {
   const dictionary = dictionaries[locale] ?? dictionaries.en;
 
-  return {
-    ...dictionary,
-    experience: filterExperience(dictionary.experience),
-  };
+  return dictionary;
 }
 
 export function localizeProjects(projects: Project[], locale: Locale = "en") {
   if (locale !== "es") return projects;
 
-  const descriptions: Partial<Record<Project["id"], string>> = {
-    pasaegel:
-      "Plataforma de preparación para los exámenes EGEL de México, construida de principio a fin con simuladores interactivos, módulos de estudio, pagos, analítica y adquisición orgánica.",
-    "rubin-lsst":
-      "Pipeline de clasificación astronómica con incertidumbre y priorización científica, construido para datos de series temporales tipo Rubin/LSST.",
-    "gaia-ogle":
-      "Clasificación de estrellas variables entre encuestas usando curvas de luz Gaia, periodo, Fourier, color y características de catálogo, validada contra etiquetas OGLE.",
-    "oliver-pos":
-      "Punto de venta móvil para pequeños negocios que posteriormente se expandió a un ERP web completo.",
+  const translations: Record<string, Pick<Project, "Project_Title" | "Category" | "Description" | "Metrics">> = {
+    "oliver-ai": {
+      Project_Title: "Oliver AI — Agentes financieros de IA",
+      Category: "IA aplicada · Fintech",
+      Description: "Lideré el desarrollo de una aplicación fintech en producción para originación de crédito, evaluación de riesgo, cumplimiento y procesamiento de documentos financieros. Construí agentes con Vercel AI SDK, integré datos financieros y desarrollé servicios en AWS y pipelines de BigQuery para clientes como Abaco Capital.",
+      Metrics: "Next.js · Vercel AI SDK · AWS · BigQuery",
+    },
+    "xignus-ai": {
+      Project_Title: "Xignus AI — Automatización financiera",
+      Category: "IA aplicada · Ingeniería de datos",
+      Description: "Construí sistemas de preaprobación crediticia, agentes de IA y bases de conocimiento con datos financieros, bancarios y fiscales. Desarrollé integraciones con CONTPAQi y pipelines ETL contables para conciliación automatizada y reportes en Excel.",
+      Metrics: "MXN $4M+ en financiamiento para PyMEs en el primer mes",
+    },
+    "rubin-lsst": {
+      Project_Title: "Aprendizaje automático astronómico — Rubin/LSST",
+      Category: "Aprendizaje automático · Astronomía",
+      Description: "Construí un pipeline con incertidumbre para clasificación de series temporales, detección de anomalías y priorización científica sobre 5.1M+ objetos astronómicos. Utilicé ingeniería de características y evaluación en cadencias no vistas para medir la clasificación morfológica sin etiquetas físicas de referencia.",
+      Metrics: "5.1M+ objetos · Características temporales · Evaluación de modelos",
+    },
+    "oliver-pos": {
+      Project_Title: "Oliver POS / ERP",
+      Category: "Ingeniería de producto · SaaS",
+      Description: "Construí y lancé una aplicación móvil de punto de venta para pequeños negocios y después la expandí a un ERP web. Me encargué del desarrollo del producto desde la primera versión móvil hasta la plataforma de gestión empresarial.",
+      Metrics: "10,000+ descargas · 3,000 usuarios activos en 3 meses",
+    },
   };
 
-  const categories: Partial<Record<Project["id"], string>> = {
-    pasaegel: "SaaS · Educación",
-    "rubin-lsst": "Aprendizaje Automático · Astronomía",
-    "gaia-ogle": "Investigación · Aprendizaje Automático",
-    "oliver-pos": "Producto · SaaS",
-  };
-
-  const metrics: Partial<Record<Project["id"], string>> = {
-    pasaegel: "500+ usuarios · 200+ órdenes pagadas · Top 5 en Google",
-    "rubin-lsst": "1er Lugar · 5.1M+ objetos · 68.47% exactitud balanceada",
-    "gaia-ogle": "491K fuentes Gaia · 11 clases · 0.9847 weighted F1",
-    "oliver-pos": "10K+ descargas · 3K usuarios activos en 3 meses",
-  };
-
-  const titles: Partial<Record<Project["id"], string>> = {
-    "rubin-lsst": "Clasificador de Series Temporales Rubin/LSST",
-    "gaia-ogle": "Clasificador de Estrellas Variables Gaia / OGLE",
-    "oliver-pos": "Oliver POS / ERP",
-  };
-
-  const awards: Partial<Record<Project["id"], string>> = {
-    "rubin-lsst": "1er Lugar",
-  };
-
-  return projects.map((project) => ({
-    ...project,
-    Project_Title: titles[project.id] ?? project.Project_Title,
-    Category: categories[project.id] ?? project.Category,
-    Description: descriptions[project.id] ?? project.Description,
-    Metrics: metrics[project.id] ?? project.Metrics,
-    award: awards[project.id] ?? project.award,
-  }));
+  return projects.map((project) => ({ ...project, ...translations[project.id] }));
 }

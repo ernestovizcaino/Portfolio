@@ -37,6 +37,8 @@ export const metadata: Metadata = {
     "full stack engineer",
     "AI engineer",
     "product engineer",
+    "founding engineer",
+    "applied AI engineer",
     "fintech developer",
     "SaaS developer",
     "machine learning engineer",
@@ -104,7 +106,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
           <SoundProvider>
             <MotionProvider>
               <SkipLink />
-              <main id="main">{children}</main>
+              <main id="main" tabIndex={-1}>{children}</main>
               <Footer />
               <Dock />
             </MotionProvider>

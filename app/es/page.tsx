@@ -9,7 +9,7 @@ export const revalidate = 3600;
 
 const dictionary = getDictionary("es");
 
-const title = `${profile.fullName} | Ingeniero de Producto / IA`;
+const title = `${profile.fullName} | ${dictionary.profile.role}`;
 
 export const metadata: Metadata = {
   title: { absolute: title },

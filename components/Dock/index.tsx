@@ -4,14 +4,11 @@ import {
   Briefcase01Icon,
   CubeIcon,
   Download04Icon,
-  Layers01Icon,
   Mail01Icon,
-  MicroscopeIcon,
   Moon02Icon,
   PdfIcon,
   Sun03Icon,
   Award01Icon,
-  UserIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { AnimatePresence, m, useReducedMotion } from "framer-motion";
@@ -24,17 +21,15 @@ import { resumes } from "@/data/resumes";
 import { cn } from "@/lib/utils";
 
 const items = [
-  { id: "about", labelKey: "about", icon: UserIcon },
+  { id: "projects", labelKey: "selectedWork", icon: CubeIcon },
   { id: "experience", labelKey: "experience", icon: Briefcase01Icon },
-  { id: "awards", labelKey: "awards", icon: Award01Icon },
-  { id: "projects", labelKey: "projects", icon: CubeIcon },
-  { id: "research", labelKey: "research", icon: MicroscopeIcon },
-  { id: "stack", labelKey: "stack", icon: Layers01Icon },
+  { id: "awards", labelKey: "researchAwards", icon: Award01Icon },
+  { id: "writing", labelKey: "writing", icon: PdfIcon },
   { id: "contact", labelKey: "contact", icon: Mail01Icon },
 ] as const;
 
 const buttonClass =
-  "relative grid size-8 min-[420px]:size-10 place-items-center rounded-xl transition-[color,background-color,scale] duration-200 ease-[cubic-bezier(0.2,0,0,1)] hover:bg-muted active:scale-[0.96] focus-visible:ring-[3px] focus-visible:ring-ring/25 focus-visible:outline-none";
+  "relative grid size-10 min-[420px]:size-11 place-items-center rounded-xl transition-[color,background-color,scale] duration-200 ease-[cubic-bezier(0.2,0,0,1)] hover:bg-muted active:scale-[0.96] focus-visible:ring-[3px] focus-visible:ring-ring/25 focus-visible:outline-none";
 
 const iconClass =
   "absolute inset-0 m-auto transition-[opacity,transform,filter] duration-300 ease-[cubic-bezier(0.2,0,0,1)]";
@@ -129,7 +124,7 @@ export const Dock = () => {
         {items.map((item) => (
           <li key={item.id}>
             <a
-              href={`${isHome ? "" : "/"}#${item.id}`}
+              href={`${isHome ? "" : locale === "es" ? "/es" : "/"}#${item.id}`}
               data-cuelume-hover="tick"
               aria-label={ui[item.labelKey]}
               aria-current={isHome && active === item.id ? "true" : undefined}
@@ -147,7 +142,7 @@ export const Dock = () => {
 
         <li aria-hidden="true" className="mx-1 h-5 w-px bg-border" />
 
-        <li ref={resumeMenuRef} className="relative">
+        {resumes.length > 0 ? <li ref={resumeMenuRef} className="relative">
           <AnimatePresence initial={false}>
             {resumeOpen ? (
               <m.div
@@ -214,7 +209,7 @@ export const Dock = () => {
           <button
             type="button"
             data-cuelume-toggle
-            aria-label={ui.downloadResume}
+            aria-label={`CV — ${ui.downloadResume}`}
             aria-expanded={resumeOpen}
             aria-controls="resume-download-menu"
             onClick={() => setResumeOpen((open) => !open)}
@@ -223,14 +218,14 @@ export const Dock = () => {
               resumeOpen
                 ? "bg-muted text-foreground"
                 : "text-faint hover:text-foreground",
-              "w-auto min-w-8 px-2 min-[420px]:min-w-10 min-[420px]:px-2.5",
+              "px-2",
             )}
           >
             <span className="font-mono text-[11px] font-medium tracking-[0.06em]">
               CV
             </span>
           </button>
-        </li>
+        </li> : null}
 
         <li>
           <button

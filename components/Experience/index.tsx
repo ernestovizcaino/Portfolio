@@ -5,7 +5,7 @@ import { CompanyChip } from "@/components/CompanyChip";
 import { Section } from "@/components/Section";
 import type { ExperienceItem } from "@/data/profile";
 
-type DisplayExperienceItem = ExperienceItem & { icon?: string };
+type DisplayExperienceItem = ExperienceItem;
 
 interface ExperienceProps {
   data: DisplayExperienceItem[];
@@ -50,7 +50,7 @@ export const Experience = ({ data, label, intro, at, dateTo }: ExperienceProps) 
         {data.map((role, index) => (
           <m.li
             key={`${role.company}-${role.from}`}
-            initial={{ opacity: 0, y: reduceMotion ? 0 : 16, filter: reduceMotion ? "none" : "blur(4px)" }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: true, amount: 0.25 }}
             transition={{
@@ -65,8 +65,8 @@ export const Experience = ({ data, label, intro, at, dateTo }: ExperienceProps) 
 
             <div className="min-w-0">
               <h3 className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-base font-medium text-foreground">
-                <span>{role.role} {at}</span>
-                {role.url ? (
+                <span>{role.role}{role.company !== "Independent" ? ` ${at}` : ""}</span>
+                {role.company === "Independent" ? null : role.url ? (
                   <a
                     href={role.url}
                     target="_blank"
@@ -75,7 +75,6 @@ export const Experience = ({ data, label, intro, at, dateTo }: ExperienceProps) 
                   >
                     <CompanyChip
                       company={role.company}
-                      icon={role.icon}
                       logo={role.logo}
                     />
                     <span className="underline decoration-transparent decoration-1 underline-offset-4 transition-colors duration-200 group-hover/company:decoration-foreground">
@@ -86,7 +85,6 @@ export const Experience = ({ data, label, intro, at, dateTo }: ExperienceProps) 
                   <span className="inline-flex items-center gap-1.5">
                     <CompanyChip
                       company={role.company}
-                      icon={role.icon}
                       logo={role.logo}
                     />
                     {role.company}

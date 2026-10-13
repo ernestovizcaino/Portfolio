@@ -20,11 +20,7 @@ export const Research = ({ data, label }: ResearchProps) => {
         {data.map((item, index) => (
           <m.li
             key={item.title}
-            initial={{
-              opacity: 0,
-              y: reduceMotion ? 0 : 16,
-              filter: reduceMotion ? "none" : "blur(4px)",
-            }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: true, amount: 0.25 }}
             transition={{

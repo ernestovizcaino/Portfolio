@@ -1,5 +1,6 @@
 "use client";
 
+import { Menu } from "@base-ui/react/menu";
 import { Tick02Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
@@ -10,11 +11,13 @@ import { play } from "cuelume";
 import { VerifiedBadge } from "@/components/VerifiedBadge";
 import { cn } from "@/lib/utils";
 import type { DictionaryUi } from "@/data/locales";
+import { socials } from "@/data/profile";
 import type { Profile } from "@/data/profile";
+import { resumes } from "@/data/resumes";
 
 type RiseStyle = CSSProperties & { "--rise-delay": number };
 
-export const Intro = ({ profile, ui }: { profile: Profile; ui: DictionaryUi }) => {
+export const Intro = ({ profile, ui, locale = "en" }: { profile: Profile; ui: DictionaryUi; locale?: string }) => {
   const [copied, setCopied] = useState(false);
 
   const copyEmail = useCallback(async () => {
@@ -68,6 +71,7 @@ export const Intro = ({ profile, ui }: { profile: Profile; ui: DictionaryUi }) =
           width={56}
           height={56}
           priority
+          sizes="56px"
           className="image-outline size-14 rounded-2xl object-cover"
         />
         <span
@@ -91,7 +95,14 @@ export const Intro = ({ profile, ui }: { profile: Profile; ui: DictionaryUi }) =
       </p>
 
       <p
-        className="rise mt-6 text-base leading-[1.7] text-muted-foreground"
+        className="rise mt-6 text-pretty text-2xl font-medium leading-snug tracking-tight text-foreground sm:text-[1.75rem]"
+        style={{ "--rise-delay": 2 } as RiseStyle}
+      >
+        {profile.headline}
+      </p>
+
+      <p
+        className="rise mt-4 text-base leading-[1.7] text-muted-foreground"
         style={{ "--rise-delay": 2 } as RiseStyle}
       >
         {profile.bio.map((part, index) =>
@@ -105,6 +116,42 @@ export const Intro = ({ profile, ui }: { profile: Profile; ui: DictionaryUi }) =
         )}
       </p>
 
+      <div className="rise mt-5 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm" style={{ "--rise-delay": 3 } as RiseStyle}>
+        {resumes.length > 0 ? (
+          <Menu.Root modal={false}>
+            <Menu.Trigger className="inline-flex min-h-10 items-center rounded-sm font-medium underline decoration-border underline-offset-4 hover:decoration-foreground">
+              {ui.viewResume}
+            </Menu.Trigger>
+            <Menu.Portal>
+              <Menu.Positioner align="start" sideOffset={6}>
+                <Menu.Popup className="min-w-40 rounded-xl border border-border bg-background p-1.5 shadow-card outline-none">
+                  <Menu.Group>
+                    {resumes.map((resume) => (
+                      <Menu.LinkItem
+                        key={resume.locale}
+                        href={`/resume/${resume.locale}`}
+                        download={resume.filename}
+                        closeOnClick
+                        onClick={() => posthog.capture("resume_download_clicked", { locale: resume.locale, filename: resume.filename })}
+                        className="flex min-h-10 items-center rounded-lg px-3 text-sm text-foreground outline-none data-highlighted:bg-muted"
+                      >
+                        {resume.label}
+                      </Menu.LinkItem>
+                    ))}
+                  </Menu.Group>
+                </Menu.Popup>
+              </Menu.Positioner>
+            </Menu.Portal>
+          </Menu.Root>
+        ) : null}
+        {socials.filter(({ label }) => label === "GitHub" || label === "LinkedIn").map((social) => (
+          <a key={social.label} href={social.href} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-10 items-center rounded-sm text-muted-foreground hover:text-foreground">
+            {social.label}<span className="sr-only"> ({locale === "es" ? "se abre en una pestaña nueva" : "opens in a new tab"})</span>
+          </a>
+        ))}
+        <a href="#contact" className="inline-flex min-h-10 items-center rounded-sm text-muted-foreground hover:text-foreground">{ui.contact}</a>
+      </div>
+
       <p
         className="rise mt-6 flex items-center gap-2 text-base text-muted-foreground"
         style={{ "--rise-delay": 3 } as RiseStyle}
@@ -115,9 +162,9 @@ export const Intro = ({ profile, ui }: { profile: Profile; ui: DictionaryUi }) =
           data-cuelume-press
           data-cuelume-release
           onClick={copyEmail}
-          aria-label={ui.copyEmailLabel}
+          aria-label={`C — ${ui.copyEmailLabel}`}
           className={cn(
-            "relative grid h-[26px] min-w-[26px] place-items-center rounded-md border border-border bg-surface px-1.5 font-mono text-xs text-foreground shadow-[0_1px_0_0_var(--border)]",
+            "relative grid h-[26px] min-w-[26px] place-items-center rounded-md border border-border bg-surface px-1.5 after:absolute after:-inset-2 after:content-[''] font-mono text-xs text-foreground shadow-[0_1px_0_0_var(--border)]",
             "transition-[background-color,scale] duration-150 ease-[cubic-bezier(0.2,0,0,1)] hover:bg-muted active:scale-[0.96]",
           )}
         >

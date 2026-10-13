@@ -46,8 +46,8 @@ export const TopBar = ({ locale = "en" }: { locale?: Locale }) => {
 
   return (
     <div className="column flex items-center justify-between pt-8 pb-12 md:pt-10">
-      <span className="meta">{dictionary.ui.established}</span>
-      <span className="flex items-center gap-3">
+      <span className="meta text-[10px] sm:text-xs">{dictionary.ui.established}</span>
+      <span className="flex items-center gap-2 sm:gap-3">
         <button
           type="button"
           aria-label={
@@ -88,12 +88,12 @@ export const TopBar = ({ locale = "en" }: { locale?: Locale }) => {
           aria-label={dictionary.ui.languageLabel}
           data-cuelume-toggle
           onClick={selectLanguage}
-          className="meta rounded-md transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/25"
+          className="meta inline-flex min-h-10 items-center rounded-md transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/25"
         >
           {dictionary.ui.language}
         </Link>
-        <span aria-hidden="true" className="h-3 w-px bg-border" />
-        <span className="meta flex items-center gap-1.5">
+        <span aria-hidden="true" className="hidden h-3 w-px bg-border min-[420px]:block" />
+        <span className="meta hidden items-center gap-1.5 min-[420px]:flex">
           <HugeiconsIcon icon={Clock01Icon} size={13} strokeWidth={2} />
           {/* tabular-nums (set on body) keeps the width fixed as digits change. */}
           <time suppressHydrationWarning>

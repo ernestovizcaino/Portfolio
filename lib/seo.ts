@@ -4,7 +4,7 @@ export const siteConfig = {
   name: profile.name,
   title: `${profile.fullName} | AI / Product Engineer`,
   description:
-    "Ernesto Vizcaíno Alvarado is an AI and product engineer in San Luis Potosí, Mexico, building software and applying machine learning to astronomical data.",
+    "Ernesto Vizcaíno, AI / Product Engineer. Full-stack products, production fintech, AI agents, and machine learning for astronomical research.",
   url: "https://ernestovizcaino.com",
   locale: "en_US",
   twitter: "@erne_vizcaino",
