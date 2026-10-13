@@ -18,17 +18,17 @@ export const resumes = [
     locale: "en",
     label: "English",
     filename: "Ernesto-Vizcaino-Resume.pdf",
-    url: "https://cdwur3ntl2.ufs.sh/f/5Hfm73e8pLaZxQAXBsCwAeoFnx2ROadGtNEvflDrSLcHiz8q",
-    size: 118804,
-    updatedAt: "2026-08-31T21:20:58.000Z",
+    url: "https://cdwur3ntl2.ufs.sh/f/5Hfm73e8pLaZWFWYbVpzVFDhWIS5wGsxgEC37cR09Kj4vBr2",
+    size: 119655,
+    updatedAt: "2026-10-13T02:16:30.000Z",
   },
   {
     locale: "es",
     label: "Español",
     filename: "Ernesto-Vizcaino-CV-ES.pdf",
-    url: "https://cdwur3ntl2.ufs.sh/f/5Hfm73e8pLaZqfjY2Tz4AdZf7YtJBjN2USpx54yl6s0CEkLO",
-    size: 117772,
-    updatedAt: "2026-08-31T21:20:58.000Z",
+    url: "https://cdwur3ntl2.ufs.sh/f/5Hfm73e8pLaZ9ux127svzYOD7GqNXkLtFSdTjw8WCyu6iKpE",
+    size: 120666,
+    updatedAt: "2026-10-13T02:16:30.000Z",
   },
 ];
 
