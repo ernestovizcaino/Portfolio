@@ -1,5 +1,7 @@
 export interface RecognitionSource {
   publication: string;
+  // Compact label for the homepage "Featured in" row.
+  shortName?: string;
   title: string;
   url: string;
   type: "press" | "institutional" | "research";
@@ -13,6 +15,7 @@ export interface RecognitionSource {
 export const recognitionSources: RecognitionSource[] = [
   {
     publication: "Universidad Autónoma de San Luis Potosí",
+    shortName: "UASLP",
     publishedAt: "2026-09-30",
     title: "Estudiante gana hackathon de datos astronómicos con inteligencia artificial",
     url: "https://wp.uaslp.mx/noticias/orgullouaslp/estudiante-gana-hackathon-de-datos-astronomicos-con-inteligencia-artificial/",

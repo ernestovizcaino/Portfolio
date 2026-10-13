@@ -14,16 +14,13 @@ export const Footer = () => {
   }
 
   return (
-    <footer className="column pt-24 pb-32">
-      <p className="text-center text-sm text-muted-foreground">
-        © {new Date().getFullYear()} {profile.name}
-      </p>
-      <div className="mt-14 flex items-center justify-between">
+    <footer className="column pt-20 pb-32">
+      <div className="flex items-center justify-between">
         <p className="meta flex items-center gap-1.5 uppercase">
           <HugeiconsIcon icon={Location01Icon} size={13} strokeWidth={2} />
           {profile.location}
         </p>
-        <p className="meta uppercase">{profile.name}</p>
+        <p className="meta uppercase">© {new Date().getFullYear()} {profile.name}</p>
       </div>
     </footer>
   );

@@ -95,16 +95,10 @@ export const Intro = ({ profile, ui, locale = "en" }: { profile: Profile; ui: Di
       </p>
 
       <p
-        className="rise mt-6 text-pretty text-2xl font-medium leading-snug tracking-tight text-foreground sm:text-[1.75rem]"
+        className="rise mt-6 text-pretty text-base leading-[1.7] text-muted-foreground"
         style={{ "--rise-delay": 2 } as RiseStyle}
       >
-        {profile.headline}
-      </p>
-
-      <p
-        className="rise mt-4 text-base leading-[1.7] text-muted-foreground"
-        style={{ "--rise-delay": 2 } as RiseStyle}
-      >
+        <span className="font-medium text-foreground">{profile.headline}</span>{" "}
         {profile.bio.map((part, index) =>
           "strong" in part && part.strong ? (
             <strong key={index} className="font-medium text-foreground">
@@ -116,72 +110,72 @@ export const Intro = ({ profile, ui, locale = "en" }: { profile: Profile; ui: Di
         )}
       </p>
 
-      <div className="rise mt-5 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm" style={{ "--rise-delay": 3 } as RiseStyle}>
-        {resumes.length > 0 ? (
-          <Menu.Root modal={false}>
-            <Menu.Trigger className="inline-flex min-h-10 items-center rounded-sm font-medium underline decoration-border underline-offset-4 hover:decoration-foreground">
-              {ui.viewResume}
-            </Menu.Trigger>
-            <Menu.Portal>
-              <Menu.Positioner align="start" sideOffset={6}>
-                <Menu.Popup className="min-w-40 rounded-xl border border-border bg-background p-1.5 shadow-card outline-none">
-                  <Menu.Group>
-                    {resumes.map((resume) => (
-                      <Menu.LinkItem
-                        key={resume.locale}
-                        href={`/resume/${resume.locale}`}
-                        download={resume.filename}
-                        closeOnClick
-                        onClick={() => posthog.capture("resume_download_clicked", { locale: resume.locale, filename: resume.filename })}
-                        className="flex min-h-10 items-center rounded-lg px-3 text-sm text-foreground outline-none data-highlighted:bg-muted"
-                      >
-                        {resume.label}
-                      </Menu.LinkItem>
-                    ))}
-                  </Menu.Group>
-                </Menu.Popup>
-              </Menu.Positioner>
-            </Menu.Portal>
-          </Menu.Root>
-        ) : null}
-        {socials.filter(({ label }) => label === "GitHub" || label === "LinkedIn").map((social) => (
-          <a key={social.label} href={social.href} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-10 items-center rounded-sm text-muted-foreground hover:text-foreground">
-            {social.label}<span className="sr-only"> ({locale === "es" ? "se abre en una pestaña nueva" : "opens in a new tab"})</span>
-          </a>
-        ))}
-        <a href="#contact" className="inline-flex min-h-10 items-center rounded-sm text-muted-foreground hover:text-foreground">{ui.contact}</a>
-      </div>
-
-      <p
-        className="rise mt-6 flex items-center gap-2 text-base text-muted-foreground"
+      <div
+        className="rise mt-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-1"
         style={{ "--rise-delay": 3 } as RiseStyle}
       >
-        <span>{ui.press}</span>
-        <button
-          type="button"
-          data-cuelume-press
-          data-cuelume-release
-          onClick={copyEmail}
-          aria-label={`C — ${ui.copyEmailLabel}`}
-          className={cn(
-            "relative grid h-[26px] min-w-[26px] place-items-center rounded-md border border-border bg-surface px-1.5 after:absolute after:-inset-2 after:content-[''] font-mono text-xs text-foreground shadow-[0_1px_0_0_var(--border)]",
-            "transition-[background-color,scale] duration-150 ease-[cubic-bezier(0.2,0,0,1)] hover:bg-muted active:scale-[0.96]",
-          )}
-        >
-          C
-        </button>
-        <span>{ui.copyEmail}</span>
-        <span
-          aria-live="polite"
-          className={cn(
-            "flex items-center gap-1 text-sm text-emerald-600 transition-[opacity,transform,filter] duration-300 ease-[cubic-bezier(0.2,0,0,1)] dark:text-emerald-500",
-            copied ? "opacity-100" : "scale-25 opacity-0 blur-[4px]",
-          )}
-        >
-          <HugeiconsIcon icon={Tick02Icon} size={15} strokeWidth={2.5} />
-          {ui.copied}
-        </span>
-      </p>
+        <p className="flex items-center gap-2 text-base text-muted-foreground">
+          <span>{ui.press}</span>
+          <button
+            type="button"
+            data-cuelume-press
+            data-cuelume-release
+            onClick={copyEmail}
+            aria-label={`C — ${ui.copyEmailLabel}`}
+            className={cn(
+              "relative grid h-[26px] min-w-[26px] place-items-center rounded-md border border-border bg-surface px-1.5 after:absolute after:-inset-2 after:content-[''] font-mono text-xs text-foreground shadow-[0_1px_0_0_var(--border)]",
+              "transition-[background-color,scale] duration-150 ease-[cubic-bezier(0.2,0,0,1)] hover:bg-muted active:scale-[0.96]",
+            )}
+          >
+            C
+          </button>
+          <span>{ui.copyEmail}</span>
+          <span
+            aria-live="polite"
+            className={cn(
+              "flex items-center gap-1 text-sm text-emerald-600 transition-[opacity,transform,filter] duration-300 ease-[cubic-bezier(0.2,0,0,1)] dark:text-emerald-500",
+              copied ? "opacity-100" : "scale-25 opacity-0 blur-[4px]",
+            )}
+          >
+            <HugeiconsIcon icon={Tick02Icon} size={15} strokeWidth={2.5} />
+            {ui.copied}
+          </span>
+        </p>
+        <div className="flex items-center gap-x-5 text-sm">
+          {resumes.length > 0 ? (
+            <Menu.Root modal={false}>
+              <Menu.Trigger className="inline-flex min-h-10 items-center rounded-sm font-medium underline decoration-border underline-offset-4 hover:decoration-foreground">
+                {ui.viewResume}
+              </Menu.Trigger>
+              <Menu.Portal>
+                <Menu.Positioner align="start" sideOffset={6}>
+                  <Menu.Popup className="min-w-40 rounded-xl border border-border bg-background p-1.5 shadow-card outline-none">
+                    <Menu.Group>
+                      {resumes.map((resume) => (
+                        <Menu.LinkItem
+                          key={resume.locale}
+                          href={`/resume/${resume.locale}`}
+                          download={resume.filename}
+                          closeOnClick
+                          onClick={() => posthog.capture("resume_download_clicked", { locale: resume.locale, filename: resume.filename })}
+                          className="flex min-h-10 items-center rounded-lg px-3 text-sm text-foreground outline-none data-highlighted:bg-muted"
+                        >
+                          {resume.label}
+                        </Menu.LinkItem>
+                      ))}
+                    </Menu.Group>
+                  </Menu.Popup>
+                </Menu.Positioner>
+              </Menu.Portal>
+            </Menu.Root>
+          ) : null}
+          {socials.filter(({ label }) => label === "GitHub" || label === "LinkedIn").map((social) => (
+            <a key={social.label} href={social.href} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-10 items-center rounded-sm text-muted-foreground hover:text-foreground">
+              {social.label}<span className="sr-only"> ({locale === "es" ? "se abre en una pestaña nueva" : "opens in a new tab"})</span>
+            </a>
+          ))}
+        </div>
+      </div>
     </section>
   );
 };

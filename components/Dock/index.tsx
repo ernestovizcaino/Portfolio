@@ -23,9 +23,9 @@ import { cn } from "@/lib/utils";
 
 const items = [
   { id: "projects", labelKey: "selectedWork", icon: CubeIcon },
-  { id: "experience", labelKey: "experience", icon: Briefcase01Icon },
-  { id: "awards", labelKey: "researchAwards", icon: Award01Icon },
   { id: "writing", labelKey: "writing", icon: BookOpen01Icon },
+  { id: "experience", labelKey: "experience", icon: Briefcase01Icon },
+  { id: "research", labelKey: "research", icon: Award01Icon },
   { id: "contact", labelKey: "contact", icon: Mail01Icon },
 ] as const;
 

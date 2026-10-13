@@ -10,7 +10,6 @@ type DisplayExperienceItem = ExperienceItem;
 interface ExperienceProps {
   data: DisplayExperienceItem[];
   label: string;
-  intro: string;
   at: string;
   dateTo: string;
 }
@@ -35,18 +34,14 @@ const ExperienceDates = ({
   );
 };
 
-export const Experience = ({ data, label, intro, at, dateTo }: ExperienceProps) => {
+export const Experience = ({ data, label, at, dateTo }: ExperienceProps) => {
   const reduceMotion = useReducedMotion();
 
   if (!data.length) return null;
 
   return (
-    <Section
-      id="experience"
-      label={label}
-      intro={intro}
-    >
-      <ul className="mt-10 flex flex-col gap-8">
+    <Section id="experience" label={label}>
+      <ul className="mt-8 flex flex-col gap-5">
         {data.map((role, index) => (
           <m.li
             key={`${role.company}-${role.from}`}
@@ -63,39 +58,33 @@ export const Experience = ({ data, label, intro, at, dateTo }: ExperienceProps) 
           >
             <ExperienceDates role={role} dateTo={dateTo} />
 
-            <div className="min-w-0">
-              <h3 className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-base font-medium text-foreground">
-                <span>{role.role}{role.company !== "Independent" ? ` ${at}` : ""}</span>
-                {role.company === "Independent" ? null : role.url ? (
-                  <a
-                    href={role.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="group/company inline-flex items-center gap-1.5 rounded-md transition-opacity duration-200 hover:opacity-70 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/25"
-                  >
-                    <CompanyChip
-                      company={role.company}
-                      logo={role.logo}
-                    />
-                    <span className="underline decoration-transparent decoration-1 underline-offset-4 transition-colors duration-200 group-hover/company:decoration-foreground">
-                      {role.company}
-                    </span>
-                  </a>
-                ) : (
-                  <span className="inline-flex items-center gap-1.5">
-                    <CompanyChip
-                      company={role.company}
-                      logo={role.logo}
-                    />
+            <h3 className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-base font-medium text-foreground">
+              <span>{role.role}{role.company !== "Independent" ? ` ${at}` : ""}</span>
+              {role.company === "Independent" ? null : role.url ? (
+                <a
+                  href={role.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group/company inline-flex items-center gap-1.5 rounded-md transition-opacity duration-200 hover:opacity-70 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/25"
+                >
+                  <CompanyChip
+                    company={role.company}
+                    logo={role.logo}
+                  />
+                  <span className="underline decoration-transparent decoration-1 underline-offset-4 transition-colors duration-200 group-hover/company:decoration-foreground">
                     {role.company}
                   </span>
-                )}
-              </h3>
-
-              <p className="mt-1.5 text-base leading-[1.7] text-muted-foreground">
-                {role.summary}
-              </p>
-            </div>
+                </a>
+              ) : (
+                <span className="inline-flex items-center gap-1.5">
+                  <CompanyChip
+                    company={role.company}
+                    logo={role.logo}
+                  />
+                  {role.company}
+                </span>
+              )}
+            </h3>
           </m.li>
         ))}
       </ul>

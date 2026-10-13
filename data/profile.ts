@@ -22,10 +22,18 @@ export const profile = {
   timeZone: "America/Mexico_City",
   timeZoneLabel: "CST",
 
-  headline: "I build software from scratch and get it into people's hands.",
+  headline: "I write the code, ship it, and go find the users.",
   bio: [
     {
-      text: "I've built and launched software for small businesses, led engineering on fintech and AI products, and worked on machine learning for astronomical data. I care about the whole process: writing the code, shipping it, talking to users, and figuring out what to build next.",
+      text: "I started programming at 13. At 18 I launched a point-of-sale app that reached ",
+    },
+    { text: "3,000 active users", strong: true },
+    {
+      text: " in three months. Since then I co-founded Oliver AI, built a credit model that got small businesses ",
+    },
+    { text: "MXN $4M+ in financing", strong: true },
+    {
+      text: " in its first month, and won the Xólotl astronomy hackathon.",
     },
   ],
 };
@@ -60,8 +68,6 @@ export const experience = [
     to: "Present",
     role: "Independent Product Engineer / Founder",
     company: "Independent",
-    summary:
-      "Building and operating independent software products. I handle the engineering, deployment, integrations, payments, and the less glamorous work of finding users, measuring what happens, and improving the product after launch.",
   },
   {
     from: "Oct 2025",
@@ -74,8 +80,6 @@ export const experience = [
     company: "Xignus AI",
     url: "https://financiamientointeligente.com/",
     logo: "/brands/financiamiento-inteligente.svg",
-    summary:
-      "Built a credit preapproval model that helped SMBs access over MXN $4M in financing in its first month. Also built AI workflows using financial, banking, and tax data. Returned in 2026 to integrate CONTPAQi and automate accounting data pipelines and Excel reporting.",
   },
   {
     from: "Jan 2024",
@@ -83,8 +87,6 @@ export const experience = [
     role: "Technical Co-Founder",
     company: "Oliver AI",
     logo: "/brands/oliver.ico",
-    summary:
-      "Co-founded Oliver AI and led engineering of its fintech platform, from onboarding to lending workflows. Built AI agents with the Vercel AI SDK and AWS/BigQuery data pipelines for financial analysis, serving customers including Abaco Capital.",
   },
   {
     from: "Aug 2021",
@@ -92,43 +94,27 @@ export const experience = [
     role: "Founder / Engineer",
     company: "Oliver POS / ERP",
     logo: "/brands/oliver.ico",
-    summary:
-      "Built and launched a mobile point-of-sale app that reached 10,000+ downloads and 3,000 active users in three months. Later expanded it into a web-based ERP.",
-  },
-];
-
-export const awards = [
-  {
-    title: "1st Place, Xólotl Hackathon",
-    track: "Phase 3, Advanced Track",
-    org: "CUDI / LAMOD UNAM",
-    date: "Aug 2026",
-    project: "Rubin/LSST Astronomical Time Series Classification",
-    summary:
-      "Won first place in the advanced track by building a pipeline to classify Rubin/LSST-like light curves and flag anomalies. Tested on 6,000 simulated curves from 600 observing cadences not seen during training. These results describe morphology classes, not physical star types.",
-    metrics: [
-      "5.1M+ astronomical objects",
-      "10 morphologies",
-      "6,000 evaluation light curves",
-      "600 completely unseen observing cadences",
-      "68.47% balanced accuracy",
-      "68.28% macro F1",
-    ],
-    link: {
-      href: "https://wp.uaslp.mx/noticias/orgullouaslp/estudiante-gana-hackathon-de-datos-astronomicos-con-inteligencia-artificial/",
-      label: "View university recognition",
-    },
-    note: "The award supported participation in CARLA 2026 in Córdoba, Argentina.",
   },
 ];
 
 export const research = [
   {
+    title: "Rubin/LSST Light Curve Classification",
+    year: "2026",
+    institution: "1st place, Xólotl Hackathon · CUDI / LAMOD UNAM",
+    summary:
+      "Built a pipeline that classifies Rubin/LSST-style light curves, flags anomalies, and reports how confident it is. Trained on data from 5.1M+ objects and tested on 6,000 simulated curves from 600 observing cadences it never saw. The prize funded my trip to CARLA 2026 in Córdoba, Argentina.",
+    link: {
+      href: "https://wp.uaslp.mx/noticias/orgullouaslp/estudiante-gana-hackathon-de-datos-astronomicos-con-inteligencia-artificial/",
+      label: "University announcement",
+    },
+  },
+  {
     title: "Gaia / OGLE Variable Star Classification",
     year: "2026",
     institution: "Universidad Autónoma de San Luis Potosí",
     summary:
-      "Built a classifier for periodic variable stars using 491,073 Gaia sources and 91 engineered time-series, Fourier, color, and catalog features. Class-weighted XGBoost reached 0.9495 macro F1 on a held-out split; a separate comparison against mapped OGLE labels reached 0.9847 weighted F1.",
+      "Built a classifier for periodic variable stars from 491,073 Gaia sources and 91 features (time-series, Fourier, color, and catalog). Class-weighted XGBoost reached 0.9495 macro F1 on a held-out split. Checked separately against mapped OGLE labels, it reached 0.9847 weighted F1.",
   },
 ];
 
@@ -138,11 +124,15 @@ export type ExperienceItem = {
   to: string;
   role: string;
   company: string;
-  summary: string;
   url?: string;
   logo?: string;
   periods?: { from: string; to: string }[];
 };
-export type AwardItem = (typeof awards)[number];
-export type ResearchItem = (typeof research)[number];
+export type ResearchItem = {
+  title: string;
+  year: string;
+  institution: string;
+  summary: string;
+  link?: { href: string; label: string };
+};
 export type SocialIcon = (typeof socials)[number]["icon"];
