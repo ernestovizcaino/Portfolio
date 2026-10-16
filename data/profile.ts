@@ -103,13 +103,6 @@ export const research = [
       label: "University announcement",
     },
   },
-  {
-    title: "Gaia / OGLE Variable Star Classification",
-    year: "2026",
-    institution: "Universidad Autónoma de San Luis Potosí",
-    summary:
-      "Built a classifier for periodic variable stars from 491,073 Gaia sources and 91 features (time-series, Fourier, color, and catalog). Class-weighted XGBoost reached 0.9495 macro F1 on a held-out split. Checked separately against mapped OGLE labels, it reached 0.9847 weighted F1.",
-  },
 ];
 
 export type Profile = typeof profile;

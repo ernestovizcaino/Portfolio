@@ -94,12 +94,6 @@ const spanishResearch = [
       label: "Anuncio de la universidad",
     },
   },
-  {
-    ...research[1],
-    title: "Clasificación de estrellas variables Gaia / OGLE",
-    summary:
-      "Desarrollé un clasificador de estrellas variables periódicas con 491,073 fuentes de Gaia y 91 variables (series de tiempo, Fourier, color y catálogo). Un modelo XGBoost con pesos por clase alcanzó un F1 macro de 0.9495 en un conjunto de prueba reservado. En una evaluación aparte contra etiquetas de OGLE, alcanzó un F1 ponderado de 0.9847.",
-  },
 ];
 
 const spanish = {
