@@ -22,18 +22,12 @@ export const profile = {
   timeZone: "America/Mexico_City",
   timeZoneLabel: "CST",
 
-  headline: "I write the code, ship it, and go find the users.",
+  headline: "At 16 I started my first startup.",
   bio: [
+    { text: "It was " },
+    { text: "Traver", href: "https://traverapp.vercel.app/" },
     {
-      text: "I started programming at 13. At 18 I launched a point-of-sale app that reached ",
-    },
-    { text: "3,000 active users", strong: true },
-    {
-      text: " in three months. Since then I co-founded Oliver AI, built a credit model that got small businesses ",
-    },
-    { text: "MXN $4M+ in financing", strong: true },
-    {
-      text: " in its first month, and won the Xólotl astronomy hackathon.",
+      text: ", a social network where every city had its own feed of posts, restaurants, services, and shops. I built it myself, then went business by business in San Luis Potosí getting them to join. I lost the domain, but it's still alive on Vercel. I've done the same thing a few times since: build something, then go sell it. I joined Oliver as a founding engineer and ended up as a co-founder. Then I was part of the founding team at Xignus, and now I run a few products of my own.",
     },
   ],
 };

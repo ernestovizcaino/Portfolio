@@ -109,18 +109,12 @@ const spanish = {
   profile: {
     ...profile,
     role: "Ingeniero de Software y Fundador",
-    headline: "Escribo el código, lanzo el producto y salgo a buscar usuarios.",
+    headline: "A los 16 empecé mi primera startup.",
     bio: [
+      { text: "Se llamaba " },
+      { text: "Traver", href: "https://traverapp.vercel.app/" },
       {
-        text: "Empecé a programar a los 13 años. A los 18 lancé una app de punto de venta que llegó a ",
-      },
-      { text: "3,000 usuarios activos", strong: true },
-      {
-        text: " en tres meses. Después cofundé Oliver AI, desarrollé un modelo de crédito que consiguió ",
-      },
-      { text: "más de 4 millones de pesos", strong: true },
-      {
-        text: " en financiamiento para PyMEs en su primer mes y gané el hackathon de astronomía Xólotl.",
+        text: ": una red social donde cada ciudad tenía su propio feed de posts, restaurantes, servicios y tiendas. La programé yo y después fui negocio por negocio en San Luis Potosí convenciéndolos de entrar. Perdí el dominio, pero sigue viva en Vercel. Desde entonces he hecho lo mismo varias veces: construir algo y salir a venderlo. Entré a Oliver como ingeniero fundador y terminé como cofundador. Después fui parte del equipo fundador de Xignus, y hoy tengo varios productos propios.",
       },
     ],
   },

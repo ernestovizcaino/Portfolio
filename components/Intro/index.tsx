@@ -100,7 +100,17 @@ export const Intro = ({ profile, ui, locale = "en" }: { profile: Profile; ui: Di
       >
         <span className="font-medium text-foreground">{profile.headline}</span>{" "}
         {profile.bio.map((part, index) =>
-          "strong" in part && part.strong ? (
+          "href" in part && part.href ? (
+            <a
+              key={index}
+              href={part.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-foreground underline decoration-border underline-offset-4 hover:decoration-foreground"
+            >
+              {part.text}
+            </a>
+          ) : "strong" in part && part.strong ? (
             <strong key={index} className="font-medium text-foreground">
               {part.text}
             </strong>
