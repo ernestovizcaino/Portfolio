@@ -216,21 +216,11 @@ export const posts = archivedPosts.filter(
 
 export const projects: Project[] = [
   {
-    id: "pasaegel",
-    Project_Title: "PasaEGEL",
-    Category: "SaaS · Education",
-    Description:
-      "Exam prep platform for Mexico's EGEL exams, built end to end with interactive simulations, study modules, payments, analytics and organic acquisition.",
-    Metrics: "500+ users · 200+ paid orders · Top 5 Google rankings",
-    Project_URL: "https://www.pasaegel.com/",
-    Image: "/brands/pasaegel.png",
-  },
-  {
     id: "rubin-lsst",
     Project_Title: "Rubin/LSST Time Series Classifier",
     Category: "Machine Learning · Astronomy",
     Description:
-      "Uncertainty aware astronomical classification and scientific prioritization pipeline built for Rubin/LSST like time series data.",
+      "Uncertainty-aware astronomical classification and scientific prioritization pipeline built for Rubin/LSST-like time series data.",
     Metrics: "1st Place · 5.1M+ objects · 68.47% balanced accuracy",
     Project_URL: "https://cudi.edu.mx/noticias/premiacion-hackathon",
     Icon: "galaxy",
@@ -241,7 +231,7 @@ export const projects: Project[] = [
     Project_Title: "Gaia / OGLE Variable Star Classifier",
     Category: "Research · Machine Learning",
     Description:
-      "Cross survey variable star classification using Gaia light curves, period, Fourier, color and catalog features, validated against OGLE labels.",
+      "Cross-survey variable star classification using Gaia light curves, period, Fourier, color and catalog features, validated against OGLE labels.",
     Metrics: "491K Gaia sources · 11 classes · 0.9847 weighted F1",
     Icon: "constellation",
   },
@@ -250,7 +240,7 @@ export const projects: Project[] = [
     Project_Title: "Oliver POS / ERP",
     Category: "Product · SaaS",
     Description:
-      "Mobile POS for small businesses that later expanded into a full web based ERP.",
+      "Mobile POS for small businesses that later expanded into a full web-based ERP.",
     Metrics: "10K+ downloads · 3K active users in 3 months",
     Image: "/brands/oliver.ico",
   },

@@ -6,7 +6,7 @@
 
 export const profile = {
   name: "Ernesto Vizcaíno",
-  role: "AI / Product Engineer",
+  role: "AI & Full-Stack Engineer",
   avatar: "/profile.jpg",
   email: "vizcaino.erne@gmail.com",
   verified: true,
@@ -22,7 +22,7 @@ export const profile = {
 
   bio: [
     {
-      text: "I've been building software since I was 13. Since then, I've taken products from idea to thousands of users, built revenue generating SaaS and fintech systems, and applied machine learning to millions of astronomical objects.",
+      text: "I've been building software since I was 13. Since then, I've taken products from idea to thousands of users, built revenue-generating SaaS and fintech systems, and applied machine learning to millions of astronomical objects.",
     },
   ],
 };
@@ -44,29 +44,25 @@ export const stack = [
   "reactnative",
   "expo",
   "nodedotjs",
+  "convex",
   "postgresql",
   "mysql",
+  "pytorch",
+  "scikitlearn",
+  "anthropic",
+  "openrouter",
   "amazonwebservices",
+  "googlebigquery",
   "vercel",
   "posthog",
 ];
 
 export const experience = [
   {
-    from: "Apr 2026",
-    to: "Present",
-    role: "Founder / Product Engineer",
-    company: "PasaEGEL",
-    url: "https://www.pasaegel.com/",
-    logo: "/brands/pasaegel.png",
-    summary:
-      "Founded and built an EGEL exam prep platform end to end, including interactive simulations, study modules, payments, analytics and SEO driven acquisition. Grew to 500+ users and 200+ paid orders within a few months, driven primarily by organic search and top five Google rankings for targeted EGEL queries.",
-  },
-  {
     from: "Oct 2025",
     to: "Sep 2026",
     periods: [
-      { from: "Oct 2025", to: "Jan 2026" },
+      { from: "Oct 2025", to: "Feb 2026" },
       { from: "Aug 2026", to: "Sep 2026" },
     ],
     role: "AI Engineer / Founding Team",
@@ -74,26 +70,17 @@ export const experience = [
     url: "https://financiamientointeligente.com/",
     logo: "/brands/financiamiento-inteligente.svg",
     summary:
-      "Built a credit pre approval system that supported more than $4M MXN in SMB financing during its first month, alongside production AI agents and financial data products. Rejoined in 2026 to build CONTPAQi integrations and ETL pipelines that transform accounting data into automated Excel reports and reconciliation workflows.",
+      "Designed the credit pre-approval model behind more than $4M MXN in SMB financing during its first month, alongside production AI agents and knowledge bases that bring tax, banking and financial data into credit workflows. Rejoined in 2026 to build CONTPAQi integrations and ETL pipelines that turn accounting data into automated Excel reports for reconciliation.",
   },
   {
-    from: "Jan 2024",
+    from: "Aug 2021",
     to: "Jul 2025",
     role: "Technical Cofounder",
     company: "Oliver AI",
     url: "https://www.tryoliver.ai/en",
     logo: "/brands/oliver.ico",
     summary:
-      "Led engineering across a fintech platform and production AI workflows for loan origination, portfolio analysis, risk review, compliance and financial document processing.",
-  },
-  {
-    from: "Aug 2021",
-    to: "Dec 2023",
-    role: "Founder / Engineer",
-    company: "Oliver POS / ERP",
-    logo: "/brands/oliver.ico",
-    summary:
-      "Built and launched a mobile POS that reached 10,000+ downloads and 3,000 active users within three months, then expanded it into a complete web based ERP.",
+      "Started as a mobile POS for small businesses that reached 10,000+ downloads and 3,000 active users within three months, then grew into a web-based ERP. After customer discovery, I led the pivot to B2B fintech. I built a lending platform for financial institutions with production AI workflows for loan origination, risk review, compliance and document processing, plus AWS and BigQuery data pipelines for clients including Abaco Capital.",
   },
 ];
 
@@ -105,7 +92,7 @@ export const awards = [
     date: "Aug 2026",
     project: "Rubin/LSST Astronomical Time Series Classification",
     summary:
-      "Won the advanced track after building an uncertainty aware classification and scientific prioritization pipeline for Rubin/LSST like astronomical time series data.",
+      "Won the advanced track after building an uncertainty-aware classification and scientific prioritization pipeline for Rubin/LSST-like astronomical time series data.",
     metrics: [
       "5.1M+ astronomical objects",
       "10 morphologies",
@@ -128,7 +115,7 @@ export const research = [
     year: "2026",
     institution: "Universidad Autónoma de San Luis Potosí",
     summary:
-      "Built a machine learning pipeline for periodic variable star classification, processing 491,073 Gaia sources and engineering 91 time series, Fourier, color and catalog features. A class weighted XGBoost model reached 0.9495 macro F1 on held out data and 0.9847 weighted F1 against mapped OGLE labels.",
+      "Built a machine learning pipeline for periodic variable star classification, processing 491,073 Gaia sources and engineering 91 time series, Fourier, color and catalog features. A class-weighted XGBoost model reached 0.9495 macro F1 on held-out data and 0.9847 weighted F1 against mapped OGLE labels.",
   },
 ];
 

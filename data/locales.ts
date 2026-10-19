@@ -14,7 +14,7 @@ const english = {
   research,
   metadata: {
     description:
-      "AI and product engineer building and launching products from zero to production, with fintech, SaaS and machine learning experience.",
+      "AI and full-stack engineer building and launching products from zero to production, with fintech, SaaS and machine learning experience.",
   },
   ui: {
     skip: "Skip to content",
@@ -34,7 +34,7 @@ const english = {
     writing: "Writing",
     contact: "Contact",
     contactIntro:
-      "I'm open to product engineering opportunities, ambitious startup teams and selected collaborations.",
+      "I'm open to AI and full-stack engineering roles, ambitious startup teams and select collaborations.",
     name: "Name",
     email: "Email",
     message: "Message",
@@ -60,39 +60,23 @@ const english = {
 const spanishExperience = [
   {
     ...experience[0],
-    from: "Abr 2026",
-    to: "Actualidad",
-    role: "Fundador / Ingeniero de Producto",
-    summary:
-      "Fundé y construí de principio a fin una plataforma de preparación para el EGEL, con simuladores interactivos, módulos de estudio, pagos, analítica y adquisición mediante SEO. Alcanzó más de 500 usuarios y 200 órdenes pagadas en pocos meses, impulsada principalmente por búsqueda orgánica y posiciones entre los cinco primeros resultados de Google para consultas EGEL específicas.",
-  },
-  {
-    ...experience[1],
     from: "Oct 2025",
     to: "Sep 2026",
     periods: [
-      { from: "Oct 2025", to: "Ene 2026" },
+      { from: "Oct 2025", to: "Feb 2026" },
       { from: "Ago 2026", to: "Sep 2026" },
     ],
     role: "Ingeniero de IA / Equipo Fundador",
     summary:
-      "Construí un sistema de preaprobación crediticia que respaldó más de $4 M MXN en financiamiento para PyMEs durante su primer mes, además de agentes de IA en producción y productos de datos financieros. Regresé en 2026 para construir integraciones con CONTPAQi y pipelines ETL que transforman datos contables en reportes Excel automatizados y flujos de conciliación.",
+      "Diseñé el modelo de preaprobación crediticia detrás de más de $4 M MXN en financiamiento para PyMEs durante su primer mes, además de agentes de IA en producción y bases de conocimiento que integran datos fiscales, bancarios y financieros en flujos de crédito. Regresé en 2026 para construir integraciones con CONTPAQi y pipelines ETL que transforman datos contables en reportes Excel automatizados para conciliación.",
   },
   {
-    ...experience[2],
-    from: "Ene 2024",
+    ...experience[1],
+    from: "Ago 2021",
     to: "Jul 2025",
     role: "Cofundador Técnico",
     summary:
-      "Lideré la ingeniería de una plataforma fintech y flujos de IA en producción para originación de crédito, análisis de cartera, revisión de riesgo, cumplimiento y procesamiento de documentos financieros.",
-  },
-  {
-    ...experience[3],
-    from: "Ago 2021",
-    to: "Dic 2023",
-    role: "Fundador / Ingeniero",
-    summary:
-      "Construí y lancé un punto de venta móvil que alcanzó más de 10,000 descargas y 3,000 usuarios activos en tres meses, y posteriormente lo expandí hasta convertirlo en un ERP web completo.",
+      "Comenzó como un punto de venta móvil para pequeños negocios que alcanzó más de 10,000 descargas y 3,000 usuarios activos en tres meses, y creció hasta convertirse en un ERP web. A partir de entrevistas con clientes, lideré el pivote a fintech B2B. Construí una plataforma de crédito para instituciones financieras con flujos de IA en producción para originación de crédito, revisión de riesgo, cumplimiento y procesamiento de documentos, además de pipelines de datos en AWS y BigQuery para clientes como Abaco Capital.",
   },
 ];
 
@@ -126,7 +110,7 @@ const spanishResearch = [
     ...research[0],
     title: "Clasificación de Estrellas Variables Gaia / OGLE",
     summary:
-      "Construí un pipeline de aprendizaje automático para clasificación de estrellas variables periódicas, procesando 491,073 fuentes Gaia e ingeniería de 91 características de series temporales, Fourier, color y catálogo. Un modelo XGBoost con pesos por clase alcanzó 0.9495 macro F1 en datos reservados y 0.9847 weighted F1 frente a etiquetas OGLE mapeadas.",
+      "Construí un pipeline de aprendizaje automático para clasificación de estrellas variables periódicas, procesando 491,073 fuentes Gaia y diseñando 91 características de series temporales, Fourier, color y catálogo. Un modelo XGBoost con pesos por clase alcanzó 0.9495 macro F1 en datos reservados y 0.9847 weighted F1 frente a etiquetas OGLE mapeadas.",
   },
 ];
 
@@ -136,7 +120,7 @@ const spanish = {
   htmlLang: "es",
   profile: {
     ...profile,
-    role: "Ingeniero de Producto / IA",
+    role: "Ingeniero de IA y Full-Stack",
     bio: [
       {
         text: "He estado construyendo software desde los 13 años. Desde entonces, he llevado productos desde la idea hasta miles de usuarios, construido SaaS y sistemas fintech generadores de ingresos, y aplicado aprendizaje automático a millones de objetos astronómicos.",
@@ -148,7 +132,7 @@ const spanish = {
   research: spanishResearch,
   metadata: {
     description:
-      "Ingeniero de producto e IA que construye y lanza productos desde cero hasta producción, con experiencia en fintech, SaaS y aprendizaje automático.",
+      "Ingeniero de IA y full-stack que construye y lanza productos desde cero hasta producción, con experiencia en fintech, SaaS y aprendizaje automático.",
   },
   ui: {
     ...english.ui,
@@ -169,7 +153,7 @@ const spanish = {
     writing: "Artículos",
     contact: "Contacto",
     contactIntro:
-      "Estoy abierto a oportunidades de ingeniería de producto, equipos de startups ambiciosos y colaboraciones seleccionadas.",
+      "Estoy abierto a roles de ingeniería de IA y full-stack, equipos de startups ambiciosos y colaboraciones seleccionadas.",
     name: "Nombre",
     email: "Correo",
     message: "Mensaje",
@@ -209,8 +193,6 @@ export function localizeProjects(projects: Project[], locale: Locale = "en") {
   if (locale !== "es") return projects;
 
   const descriptions: Partial<Record<Project["id"], string>> = {
-    pasaegel:
-      "Plataforma de preparación para los exámenes EGEL de México, construida de principio a fin con simuladores interactivos, módulos de estudio, pagos, analítica y adquisición orgánica.",
     "rubin-lsst":
       "Pipeline de clasificación astronómica con incertidumbre y priorización científica, construido para datos de series temporales tipo Rubin/LSST.",
     "gaia-ogle":
@@ -220,14 +202,12 @@ export function localizeProjects(projects: Project[], locale: Locale = "en") {
   };
 
   const categories: Partial<Record<Project["id"], string>> = {
-    pasaegel: "SaaS · Educación",
     "rubin-lsst": "Aprendizaje Automático · Astronomía",
     "gaia-ogle": "Investigación · Aprendizaje Automático",
     "oliver-pos": "Producto · SaaS",
   };
 
   const metrics: Partial<Record<Project["id"], string>> = {
-    pasaegel: "500+ usuarios · 200+ órdenes pagadas · Top 5 en Google",
     "rubin-lsst": "1er Lugar · 5.1M+ objetos · 68.47% exactitud balanceada",
     "gaia-ogle": "491K fuentes Gaia · 11 clases · 0.9847 weighted F1",
     "oliver-pos": "10K+ descargas · 3K usuarios activos en 3 meses",
