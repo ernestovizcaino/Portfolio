@@ -2,9 +2,9 @@ import { profile } from "@/data/profile";
 
 export const siteConfig = {
   name: profile.name,
-  title: `${profile.fullName} | AI / Product Engineer`,
+  title: `${profile.fullName} | AI & Full-Stack Engineer`,
   description:
-    "Ernesto Vizcaíno, AI / Product Engineer. Full-stack products, production fintech, AI agents, and machine learning for astronomical research.",
+    "Ernesto Vizcaíno, AI & Full-Stack Engineer. Full-stack products, production fintech, AI agents, and machine learning for astronomical research.",
   url: "https://ernestovizcaino.com",
   locale: "en_US",
   twitter: "@erne_vizcaino",

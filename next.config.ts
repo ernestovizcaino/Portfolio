@@ -32,6 +32,12 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // The English and Spanish resumes were merged into one.
+      {
+        source: "/resume/:locale(en|es)",
+        destination: "/resume",
+        permanent: true,
+      },
       {
         source: "/article/i-built-a-complete-saas-and-learned-that-nobody-was-waiting-for-it",
         destination: "/article/i-shipped-kashi-getting-people-to-use-it-was-harder",

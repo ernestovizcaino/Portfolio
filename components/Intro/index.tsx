@@ -1,6 +1,5 @@
 "use client";
 
-import { Menu } from "@base-ui/react/menu";
 import { Tick02Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import Image from "next/image";
@@ -13,7 +12,7 @@ import { cn } from "@/lib/utils";
 import type { DictionaryUi } from "@/data/locales";
 import { socials } from "@/data/profile";
 import type { Profile } from "@/data/profile";
-import { resumes } from "@/data/resumes";
+import { resume } from "@/data/resumes";
 
 type RiseStyle = CSSProperties & { "--rise-delay": number };
 
@@ -152,33 +151,14 @@ export const Intro = ({ profile, ui, locale = "en" }: { profile: Profile; ui: Di
           </span>
         </p>
         <div className="flex items-center gap-x-5 text-sm">
-          {resumes.length > 0 ? (
-            <Menu.Root modal={false}>
-              <Menu.Trigger className="inline-flex min-h-10 items-center rounded-sm font-medium underline decoration-border underline-offset-4 hover:decoration-foreground">
-                {ui.viewResume}
-              </Menu.Trigger>
-              <Menu.Portal>
-                <Menu.Positioner align="start" sideOffset={6}>
-                  <Menu.Popup className="min-w-40 rounded-xl border border-border bg-background p-1.5 shadow-card outline-none">
-                    <Menu.Group>
-                      {resumes.map((resume) => (
-                        <Menu.LinkItem
-                          key={resume.locale}
-                          href={`/resume/${resume.locale}`}
-                          download={resume.filename}
-                          closeOnClick
-                          onClick={() => posthog.capture("resume_download_clicked", { locale: resume.locale, filename: resume.filename })}
-                          className="flex min-h-10 items-center rounded-lg px-3 text-sm text-foreground outline-none data-highlighted:bg-muted"
-                        >
-                          {resume.label}
-                        </Menu.LinkItem>
-                      ))}
-                    </Menu.Group>
-                  </Menu.Popup>
-                </Menu.Positioner>
-              </Menu.Portal>
-            </Menu.Root>
-          ) : null}
+          <a
+            href="/resume"
+            download={resume.filename}
+            onClick={() => posthog.capture("resume_download_clicked", { filename: resume.filename })}
+            className="inline-flex min-h-10 items-center rounded-sm font-medium underline decoration-border underline-offset-4 hover:decoration-foreground"
+          >
+            {ui.viewResume}
+          </a>
           {socials.filter(({ label }) => label === "GitHub" || label === "LinkedIn").map((social) => (
             <a key={social.label} href={social.href} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-10 items-center rounded-sm text-muted-foreground hover:text-foreground">
               {social.label}<span className="sr-only"> ({locale === "es" ? "se abre en una pestaña nueva" : "opens in a new tab"})</span>

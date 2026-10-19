@@ -1,31 +1,11 @@
-import { findResume, resumes } from "../../../data/resumes";
-import { getPostHogClient } from "../../../lib/posthog-server";
-import type { NextRequest } from "next/server";
+import { resume } from "../../data/resumes";
+import { getPostHogClient } from "../../lib/posthog-server";
 
 // Cached at the edge for a day; the upstream file is immutable per upload.
 const CACHE_CONTROL =
   "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800";
 
-export async function generateStaticParams() {
-  return resumes.map((resume) => ({ locale: resume.locale }));
-}
-
-export async function GET(
-  _request: NextRequest,
-  { params }: { params: Promise<{ locale: string }> },
-) {
-  const { locale } = await params;
-  // Looked up from our own allowlist. The upstream URL is never taken from
-  // the request, so this cannot be turned into an open proxy.
-  const resume = findResume(locale);
-
-  if (!resume) {
-    return new Response("Not found", {
-      status: 404,
-      headers: { "Content-Type": "text/plain" },
-    });
-  }
-
+export async function GET() {
   let upstream: Response;
   try {
     upstream = await fetch(resume.url, {
@@ -63,10 +43,7 @@ export async function GET(
     posthog.capture({
       distinctId: "anonymous",
       event: "resume_served",
-      properties: {
-        locale: resume.locale,
-        filename: resume.filename,
-      },
+      properties: { filename: resume.filename },
     });
     await posthog.flush();
   }

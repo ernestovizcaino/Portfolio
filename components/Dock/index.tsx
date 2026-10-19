@@ -3,21 +3,18 @@
 import {
   Briefcase01Icon,
   CubeIcon,
-  Download04Icon,
   Mail01Icon,
   Moon02Icon,
-  PdfIcon,
   Sun03Icon,
   Award01Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import posthog from "posthog-js";
 import { getDictionary } from "@/data/locales";
-import { resumes } from "@/data/resumes";
+import { resume } from "@/data/resumes";
 import { cn } from "@/lib/utils";
 
 const items = [
@@ -41,9 +38,6 @@ export const Dock = () => {
   const { ui } = getDictionary(locale);
   const { setTheme, resolvedTheme } = useTheme();
   const [active, setActive] = useState<string | null>(null);
-  const [resumeOpen, setResumeOpen] = useState(false);
-  const resumeMenuRef = useRef<HTMLLIElement>(null);
-  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     if (!isHome) return;
@@ -88,26 +82,6 @@ export const Dock = () => {
     };
   }, [isHome]);
 
-  useEffect(() => {
-    if (!resumeOpen) return;
-
-    const closeOnOutsideClick = (event: PointerEvent) => {
-      if (!resumeMenuRef.current?.contains(event.target as Node)) {
-        setResumeOpen(false);
-      }
-    };
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setResumeOpen(false);
-    };
-
-    document.addEventListener("pointerdown", closeOnOutsideClick);
-    document.addEventListener("keydown", closeOnEscape);
-    return () => {
-      document.removeEventListener("pointerdown", closeOnOutsideClick);
-      document.removeEventListener("keydown", closeOnEscape);
-    };
-  }, [resumeOpen]);
-
   // Keep the portfolio dock off private family routes.
   if (pathname?.startsWith("/f/")) {
     return null;
@@ -141,90 +115,24 @@ export const Dock = () => {
 
         <li aria-hidden="true" className="mx-1 h-5 w-px bg-border" />
 
-        {resumes.length > 0 ? <li ref={resumeMenuRef} className="relative">
-          <AnimatePresence initial={false}>
-            {resumeOpen ? (
-              <m.div
-                id="resume-download-menu"
-                initial={{
-                  opacity: 0,
-                  y: reduceMotion ? 0 : 8,
-                  scale: reduceMotion ? 1 : 0.96,
-                  filter: reduceMotion ? "none" : "blur(4px)",
-                }}
-                animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-                exit={{
-                  opacity: 0,
-                  y: reduceMotion ? 0 : 4,
-                  scale: reduceMotion ? 1 : 0.98,
-                  filter: reduceMotion ? "none" : "blur(3px)",
-                }}
-                transition={{ type: "spring", duration: 0.3, bounce: 0 }}
-                className="absolute right-0 bottom-[calc(100%+0.75rem)] w-56 origin-bottom-right rounded-2xl border border-border bg-background/95 p-1.5 shadow-card backdrop-blur-xl"
-              >
-                <p className="label px-3 pt-2 pb-1.5">{ui.downloadResume}</p>
-                {resumes.map((resume, index) => (
-                  <m.a
-                    key={resume.locale}
-                    href={`/resume/${resume.locale}`}
-                    data-cuelume-hover="tick"
-                    download={resume.filename}
-                    initial={{ opacity: 0, x: reduceMotion ? 0 : -5 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{
-                      type: "spring",
-                      duration: 0.3,
-                      bounce: 0,
-                      delay: reduceMotion ? 0 : index * 0.05,
-                    }}
-                    onClick={() => {
-                      posthog.capture("resume_download_clicked", {
-                        locale: resume.locale,
-                        filename: resume.filename,
-                      });
-                      setResumeOpen(false);
-                    }}
-                    className="group/resume flex min-h-10 items-center gap-3 rounded-xl px-3 py-2 text-sm text-foreground transition-colors duration-200 hover:bg-muted focus-visible:bg-muted focus-visible:outline-none"
-                  >
-                    <HugeiconsIcon
-                      icon={PdfIcon}
-                      size={17}
-                      strokeWidth={2}
-                      className="text-faint transition-colors duration-200 group-hover/resume:text-foreground"
-                    />
-                    <span className="flex-1">{resume.label}</span>
-                    <HugeiconsIcon
-                      icon={Download04Icon}
-                      size={15}
-                      strokeWidth={2}
-                      className="text-faint transition-[color,transform] duration-200 group-hover/resume:translate-y-px group-hover/resume:text-foreground"
-                    />
-                  </m.a>
-                ))}
-              </m.div>
-            ) : null}
-          </AnimatePresence>
-
-          <button
-            type="button"
-            data-cuelume-toggle
+        <li>
+          <a
+            href="/resume"
+            download={resume.filename}
+            data-cuelume-hover="tick"
             aria-label={`CV — ${ui.downloadResume}`}
-            aria-expanded={resumeOpen}
-            aria-controls="resume-download-menu"
-            onClick={() => setResumeOpen((open) => !open)}
-            className={cn(
-              buttonClass,
-              resumeOpen
-                ? "bg-muted text-foreground"
-                : "text-faint hover:text-foreground",
-              "px-2",
-            )}
+            onClick={() =>
+              posthog.capture("resume_download_clicked", {
+                filename: resume.filename,
+              })
+            }
+            className={cn(buttonClass, "text-faint hover:text-foreground", "px-2")}
           >
             <span className="font-mono text-[11px] font-medium tracking-[0.06em]">
               CV
             </span>
-          </button>
-        </li> : null}
+          </a>
+        </li>
 
         <li>
           <button

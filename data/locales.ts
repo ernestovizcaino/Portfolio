@@ -63,22 +63,16 @@ const spanishExperience = [
     from: "Oct 2025",
     to: "Sep 2026",
     periods: [
-      { from: "Oct 2025", to: "Ene 2026" },
+      { from: "Oct 2025", to: "Feb 2026" },
       { from: "Ago 2026", to: "Sep 2026" },
     ],
     role: "Ingeniero de IA",
   },
   {
     ...experience[2],
-    from: "Ene 2024",
+    from: "Ago 2021",
     to: "Jul 2025",
     role: "Cofundador técnico",
-  },
-  {
-    ...experience[3],
-    from: "Ago 2021",
-    to: "Dic 2023",
-    role: "Fundador / Ingeniero",
   },
 ];
 
@@ -102,7 +96,7 @@ const spanish = {
   htmlLang: "es",
   profile: {
     ...profile,
-    role: "Ingeniero de Software y Fundador",
+    role: "Ingeniero de IA y Full-Stack",
     headline: "A los 16 empecé mi primera startup.",
     bio: [
       { text: "Se llamaba " },
@@ -120,7 +114,7 @@ const spanish = {
   },
   metadata: {
     description:
-      "Ernesto Vizcaíno es ingeniero de software y fundador. Ha construido productos fintech, sistemas de IA y herramientas de aprendizaje automático para investigación astronómica.",
+      "Ernesto Vizcaíno es ingeniero de IA y full-stack. Ha construido productos fintech, sistemas de IA y herramientas de aprendizaje automático para investigación astronómica.",
   },
   ui: {
     ...english.ui,
