@@ -14,9 +14,9 @@ export const resumes = [
     locale: "en",
     label: "English",
     filename: "Ernesto-Vizcaino-Resume.pdf",
-    url: "https://cdwur3ntl2.ufs.sh/f/5Hfm73e8pLaZxQAXBsCwAeoFnx2ROadGtNEvflDrSLcHiz8q",
-    size: 118804,
-    updatedAt: "2026-08-31T21:20:58.000Z",
+    url: "https://cdwur3ntl2.ufs.sh/f/5Hfm73e8pLaZifZ2QZGAQjFRyVPGYcLDsJZOhC4xe0En32Mp",
+    size: 154057,
+    updatedAt: "2026-11-14T23:32:00.000Z",
   },
   {
     locale: "es",

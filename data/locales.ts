@@ -85,7 +85,7 @@ const spanishAwards = [
     ...awards[0],
     title: "1er Lugar, Hackathon Xólotl",
     track: "Fase 3, Track Avanzado",
-    date: "Ago 2026",
+    date: "Sep 2026",
     project: "Clasificación de Series Temporales Astronómicas Rubin/LSST",
     summary:
       "Gané el track avanzado tras construir un pipeline de clasificación con incertidumbre y priorización científica para datos de series temporales astronómicas tipo Rubin/LSST.",
@@ -108,6 +108,12 @@ const spanishAwards = [
 const spanishResearch = [
   {
     ...research[0],
+    title: "Clasificación Multiclase Escalable de Estrellas Variables Periódicas para Rubin/LSST",
+    summary:
+      "Presenté un póster sobre clasificación de estrellas variables periódicas en preparación para Rubin LSST. En el preprint compañero sobre ELAsTiCC, las características elevaron la exactitud balanceada de 0.67 a 0.92 en las primeras 50 observaciones en banda r, y las seis bandas llegan a 0.995–0.998, igualando al transformer ORACLE a un costo mucho menor.",
+  },
+  {
+    ...research[1],
     title: "Clasificación de Estrellas Variables Gaia / OGLE",
     summary:
       "Construí un pipeline de aprendizaje automático para clasificación de estrellas variables periódicas, procesando 491,073 fuentes Gaia y diseñando 91 características de series temporales, Fourier, color y catálogo. Un modelo XGBoost con pesos por clase alcanzó 0.9495 macro F1 en datos reservados y 0.9847 weighted F1 frente a etiquetas OGLE mapeadas.",
@@ -199,18 +205,22 @@ export function localizeProjects(projects: Project[], locale: Locale = "en") {
       "Clasificación de estrellas variables entre encuestas usando curvas de luz Gaia, periodo, Fourier, color y características de catálogo, validada contra etiquetas OGLE.",
     "oliver-pos":
       "Punto de venta móvil para pequeños negocios que posteriormente se expandió a un ERP web completo.",
+    "kashi":
+      "App de ventas e inventario para pequeños negocios: ventas sin conexión, variantes de producto, inventario multi-sucursal y cotizaciones.",
   };
 
   const categories: Partial<Record<Project["id"], string>> = {
     "rubin-lsst": "Aprendizaje Automático · Astronomía",
     "gaia-ogle": "Investigación · Aprendizaje Automático",
     "oliver-pos": "Producto · SaaS",
+    "kashi": "Producto · SaaS",
   };
 
   const metrics: Partial<Record<Project["id"], string>> = {
     "rubin-lsst": "1er Lugar · 5.1M+ objetos · 68.47% exactitud balanceada",
     "gaia-ogle": "491K fuentes Gaia · 11 clases · 0.9847 weighted F1",
     "oliver-pos": "10K+ descargas · 3K usuarios activos en 3 meses",
+    "kashi": "1,000+ descargas · Usuarios en México, EE. UU., Panamá, Colombia, España, Cuba y más",
   };
 
   const titles: Partial<Record<Project["id"], string>> = {

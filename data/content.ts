@@ -244,4 +244,14 @@ export const projects: Project[] = [
     Metrics: "10K+ downloads · 3K active users in 3 months",
     Image: "/brands/oliver.ico",
   },
+  {
+    id: "kashi",
+    Project_Title: "Kashi",
+    Category: "Product · SaaS",
+    Description:
+      "Sales & inventory app for small shops: offline sales, product variants, multi-location inventory and quotes.",
+    Metrics: "1,000+ downloads · Users in Mexico, USA, Panama, Colombia, Spain, Cuba & more",
+    Project_URL: "https://www.getkashi.com/",
+    Monogram: "K",
+  },
 ];

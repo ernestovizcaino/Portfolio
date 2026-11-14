@@ -89,7 +89,7 @@ export const awards = [
     title: "1st Place, Xólotl Hackathon",
     track: "Phase 3, Advanced Track",
     org: "CUDI / LAMOD UNAM",
-    date: "Aug 2026",
+    date: "Sep 2026",
     project: "Rubin/LSST Astronomical Time Series Classification",
     summary:
       "Won the advanced track after building an uncertainty-aware classification and scientific prioritization pipeline for Rubin/LSST-like astronomical time series data.",
@@ -110,6 +110,13 @@ export const awards = [
 ];
 
 export const research = [
+  {
+    title: "Scalable Multiclass Classification of Periodic Variable Stars for Rubin/LSST",
+    year: "2026",
+    institution: "3rd LSST@LATAM Meeting, IFT-UNESP, São Paulo",
+    summary:
+      "Presented a poster on periodic variable star classification in preparation for Rubin LSST. In the companion ELAsTiCC preprint, features lifted balanced accuracy from 0.67 to 0.92 on the first 50 r-band observations, and all six bands reach 0.995–0.998, matching the ORACLE transformer at far lower cost.",
+  },
   {
     title: "Gaia / OGLE Variable Star Classification",
     year: "2026",
