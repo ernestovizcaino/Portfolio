@@ -138,5 +138,11 @@ export type ExperienceItem = {
   periods?: { from: string; to: string }[];
 };
 export type AwardItem = (typeof awards)[number];
-export type ResearchItem = (typeof research)[number];
+export type ResearchItem = {
+  title: string;
+  year: string;
+  institution: string;
+  summary: string;
+  poster?: { src: string; alt: string };
+};
 export type SocialIcon = (typeof socials)[number]["icon"];

@@ -12,6 +12,16 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "**.r2.dev",
       },
+      // Kashi logo, hotlinked from its own site.
+      {
+        protocol: "https",
+        hostname: "www.getkashi.com",
+      },
+      // UploadThing file host (poster images and other uploads).
+      {
+        protocol: "https",
+        hostname: "**.ufs.sh",
+      },
     ],
   },
   async rewrites() {

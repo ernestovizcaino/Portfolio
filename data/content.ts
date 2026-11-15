@@ -252,6 +252,7 @@ export const projects: Project[] = [
       "Sales & inventory app for small shops: offline sales, product variants, multi-location inventory and quotes.",
     Metrics: "1,000+ downloads · Users in Mexico, USA, Panama, Colombia, Spain, Cuba & more",
     Project_URL: "https://www.getkashi.com/",
+    Image: "https://www.getkashi.com/images/kashi-logo.png",
     Monogram: "K",
   },
 ];

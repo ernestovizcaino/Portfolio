@@ -1,6 +1,7 @@
 "use client";
 
 import { m, useReducedMotion } from "framer-motion";
+import Image from "next/image";
 import { Section } from "@/components/Section";
 import type { ResearchItem } from "@/data/profile";
 
@@ -49,6 +50,23 @@ export const Research = ({ data, label }: ResearchProps) => {
               <p className="mt-2 text-base leading-[1.7] text-muted-foreground">
                 {item.summary}
               </p>
+              {item.poster ? (
+                <a
+                  href={item.poster.src}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-4 block w-fit transition-opacity hover:opacity-90"
+                >
+                  <Image
+                    src={item.poster.src}
+                    alt={item.poster.alt}
+                    width={480}
+                    height={678}
+                    sizes="(max-width: 640px) 70vw, 240px"
+                    className="w-60 rounded-lg object-cover"
+                  />
+                </a>
+              ) : null}
             </div>
           </m.li>
         ))}
